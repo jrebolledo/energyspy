@@ -19,26 +19,198 @@ AutoLib = {
 	Context: {
 		deviceTree:{},
 		currentLevel: undefined,
-		serverPoll : {}
+		serverPoll : {},
+		actions_available : ['chartviewer','lighting','hvac','report']
 	},
-	renderActionsMenu : function (target,action_available) {
-
-            var de = action_available;
+    renderLocalizationMenu : function () {
+        var connected;
+        //return a nav menu to show sensors below a certain localization path AutoLib.chartviewer.locationPath
+        var html='<div class="localizationmenu-title">Localización de Sensores</div><ul class="building">';
+        // building
+        for (var b in AutoLib.Context.deviceTree) {
+            if (AutoLib.Context.deviceTree.hasOwnProperty(b)) {
+                if (b === 'meta') {
+                    continue;
+                }
+                html = html + '<li building pk="'+AutoLib.Context.deviceTree[b].meta.id+'"><a bt default_sensor="'+AutoLib.Context.deviceTree[b].meta.main_sensor+'" default_signals="'+AutoLib.Context.deviceTree[b].meta.registers.default_signals.join('-')+'" path="'+b+'" href="javascript:void(0)">' + AutoLib.Context.deviceTree[b].meta.name + '</a><ul class="section" style="display:none;">'; 
+                //section (tower)
+                for (var s in AutoLib.Context.deviceTree[b]) {
+                    if (AutoLib.Context.deviceTree[b].hasOwnProperty(s)) {
+                        if (s === 'meta') {
+                            continue;
+                        }
+                        connected = {'offline':'block','online':'none'}[AutoLib.Context.deviceTree[b][s].meta.coordinator_status];
+                        html = html + '<li section><span style="display:'+connected+';float:left;font-size:10px;padding:2px 2px 2px 4px;" class="ligth"><span class="ui-icon ui-icon-alert" style="float:left; margin:0;"></span></span><a i st default_sensor="'+AutoLib.Context.deviceTree[b][s].meta.main_sensor+'" default_signals="'+AutoLib.Context.deviceTree[b][s].meta.registers.default_signals.join('-')+'" href="javascript:void(0)" pk="'+AutoLib.Context.deviceTree[b][s].meta.id+'" path="'+b+'-'+s+'">'+AutoLib.Context.deviceTree[b][s].meta.name+'</a><ul class="subsection dontopen" style="display:none;">';
+                        // subsection (floor)
+                        for (var ss in AutoLib.Context.deviceTree[b][s]) {
+                            if (AutoLib.Context.deviceTree[b][s].hasOwnProperty(ss)) {
+                                if (ss === 'meta') {
+                                    continue;
+                                }
+                                html = html + '<li subsection><a sst default_sensor="'+AutoLib.Context.deviceTree[b][s][ss].meta.main_sensor+'" default_signals="'+AutoLib.Context.deviceTree[b][s][ss].meta.registers.default_signals.join('-')+'" href="javascript:void(0)" path="'+b+'-'+s+'-'+ss+'" pk="'+AutoLib.Context.deviceTree[b][s][ss].meta.id+'">'+AutoLib.Context.deviceTree[b][s][ss].meta.name+'</a><ul class="subsubsection dontopen" style="display:none;">';
+                                // subsubsection (zones)
+                                for (var sss in AutoLib.Context.deviceTree[b][s][ss]) {
+                                    if (AutoLib.Context.deviceTree[b][s][ss].hasOwnProperty(sss)) {
+                                        if (sss === 'meta') {
+                                            continue;
+                                        }
+                                        html = html + '<li subsubsection><a ssst default_sensor="'+AutoLib.Context.deviceTree[b][s][ss][sss].meta.main_sensor+'" default_signals="'+AutoLib.Context.deviceTree[b][s][ss][sss].meta.registers.default_signals.join('-')+'" href="javascript:void(0)" path="'+b+'-'+s+'-'+ss+'-'+sss+'" pk="'+AutoLib.Context.deviceTree[b][s][ss][sss].meta.id+'">'+AutoLib.Context.deviceTree[b][s][ss][sss].meta.name+'</a><ul class="devices" style="display:none;">';
+    
+                                        // devices
+                                        for (var dev in AutoLib.Context.deviceTree[b][s][ss][sss]) {
+                                            if (AutoLib.Context.deviceTree[b][s][ss][sss].hasOwnProperty(dev)) {
+                                                if (dev === 'meta') {
+                                                    continue;
+                                                }
+                                                
+                                                html = html + '<li><a href="javascript:void(0)" pk="'+AutoLib.Context.deviceTree[b][s][ss][sss].meta.id+'">'+AutoLib.Context.deviceTree[b][s][ss][sss][dev].name+ '</a></li>';
+                                            }
+                                        }
+                                        html = html + '</ul>';
+                                        
+                                    }
+                                }
+                                html = html + '</ul>';
+                                
+                            }
+                        }
+                        html = html + '</ul>';
+                        
+                    }
+                }
+                html = html + '</ul>';
+            }
+        }
+        html = html + '</ul>';
+        $('#left-menu').html(html);
+        AutoLib.sortUnorderedList($('#left-menu ul.building'),false,'bybuilding');
+        AutoLib.sortUnorderedList($('#left-menu ul.section'),false,'bysection');
+        // mark selected section if it's available
+        
+    
+        // open building id
+        
+        // open open section selected
+        // trigger click
+    },
+    changeContainerTitle: function () {
+            
+        var title = '';
+        var g = $('#left-menu a.selected').length-1;
+        $('#left-menu a.selected').each(function (ind,val) {
+            if (ind===g) {
+                title = title + $(this).text();
+            }
+            else {
+                title = title + $(this).text() + ' - ';
+            }
+        });
+        $(arguments[0].target).html(arguments[0].prefix+' : ' +title);
+    },
+	renderActionsMenu : function () {
+        if ($('#container_menu_top_nav').length == 0) {
+	        var de = AutoLib.Context.actions_available;
             var html='<div class="container_menu_top_nav">';
             html += '<div style="color:#f2f2f2;font-weight:bold; margin-right: 5px; padding-top: 3px;">Menu Principal</div>';
             var actionsmeta = {
                     chartviewer:{title:'Graficos',submenus:[]},
                     hvac:{title:'Control de Aire Acondicionado',submenus:[]},
                     lighting:{title:'Control de Iluminación',submenus:[]},
-                    report:{title:'Reportes',submenus:[{title:'Energía mensual de este sensor',link:''},{title:'Comparar con otros sensores',link:''}]}
+                    report:{title:'Reportes',submenus:[]}
                     };
             for (var y=0;y<de.length;y++) {
                 html +='<div class="item_menu_top_nav" title="'+actionsmeta[de[y]].title+'"><a main_buttons href="javascript:void(0)" class="'+de[y]+'"><img width="40px" src="/media/images/lv/'+de[y]+'icon.jpeg"></a></div>';
             }
             html += '</div>';
             
-            $(target).prepend(html);
+            $('#left-menu').prepend(html);
             
+            //attach events
+             
+
+            /*
+
+            
+            // chartviewer
+            $('div.container_menu_top_nav a').click(function () {
+                var linkto = $(this).attr('class');
+                var method='';
+                
+                if (linkto === 'hvac') {
+                    linkto  = 'Control';  
+                    method  = 'hvac';    
+                }
+                else {
+                    if (linkto === 'lighting') {
+                        linkto  = 'Control';  
+                        method  = 'lighting';
+                    }
+                }
+                
+                if (linkto !== AutoLib.INTERFACE_HANDLER.Context.current_interface) {
+                    var level = {1:'building',2:'section',3:'subsection',4:'subsubsection'}[AutoLib.chartviewer.Context.locationPathToGetHere.split('-').length];
+                    var params = {building_id:AutoLib.buildingSelection.Context.selected_building,level:level, locationPath:AutoLib.chartviewer.Context.locationPathToGetHere, method:method};
+                    AutoLib.INTERFACE_HANDLER.run(linkto,params);
+                }
+                
+            });*/
+            
+            //control 
+            $('div.container_menu_top_nav a').click(function () {
+                var linkto = $(this).attr('class');
+                var method='';
+                var jump_into_control = false;
+                if (linkto === 'hvac') {
+                    linkto  = 'Control';  
+                    method  = 'hvac';    
+                }
+                else {
+                    if (linkto === 'lighting') {
+                        linkto  = 'Control';  
+                        method  = 'lighting';
+                    }
+                }
+                if (linkto == 'Control' & AutoLib.INTERFACE_HANDLER.Context.current_interface == 'Control') {
+                    if (method != AutoLib.Control.Context.typeofcontrol) {
+                        // jump from hvac <-> lighting
+                        jump_into_control = true;    
+                    }       
+                }
+                
+                if (jump_into_control | (linkto !== AutoLib.INTERFACE_HANDLER.Context.current_interface)) {
+                    var level = {1:'building',2:'section',3:'subsection',4:'subsubsection'}[AutoLib[AutoLib.INTERFACE_HANDLER.Context.current_interface].Context.locationPathToGetHere.split('-').length];
+                    var params = {building_id:AutoLib.buildingSelection.Context.selected_building,level:level, locationPath:AutoLib[AutoLib.INTERFACE_HANDLER.Context.current_interface].Context.locationPathToGetHere, method:method};
+                    AutoLib.INTERFACE_HANDLER.run(linkto,params);
+                }
+                
+            });
+            /*
+            // report 
+            $('div.container_menu_top_nav a').click(function () {
+                var linkto = $(this).attr('class');
+                var method='';
+                var jump_into_control = false;
+                if (linkto === 'hvac') {
+                    linkto  = 'Control';  
+                    method  = 'hvac';    
+                }
+                else {
+                    if (linkto === 'lighting') {
+                        linkto  = 'Control';  
+                        method  = 'lighting';
+                    }
+                }
+               
+                if ((linkto !== AutoLib.INTERFACE_HANDLER.Context.current_interface)) {
+                    var level = {1:'building',2:'section',3:'subsection',4:'subsubsection'}[AutoLib.report.Context.locationPathToGetHere.split('-').length];
+                    var params = {building_id:AutoLib.buildingSelection.Context.selected_building,level:level, locationPath:AutoLib.report.Context.locationPathToGetHere, method:method};
+                    AutoLib.INTERFACE_HANDLER.run(linkto,params);
+                }
+                
+            });
+            
+             */
+        }
     },
 	notify : function (opt) {
 		var options = {
@@ -772,7 +944,7 @@ AutoLib = {
 AutoLib.buildingSelection = {
 		Context  : {
 			// id, Name, Photo, Power, Energy, Total devices, Devices Online
-			actions_available : ['chartviewer','lighting','hvac','report']
+			actions_available : AutoLib.Context.actions_available
 
 		},
 		start : function () {
@@ -838,7 +1010,7 @@ AutoLib.buildingSelection = {
 		renderActionsMenu : function () {
 			$('#main-content-interior').append('<div id="menu_actions"><ul></ul></div>');
 			var html='';
-			var de = AutoLib.buildingSelection.Context.actions_available;
+			var de = AutoLib.Context.actions_available;
 			for (var y=0;y<de.length;y++) {
 			    if (de[y] === 'hvac') {
 			         html = html + '<li><a href="javascript:void(0)" method="hvac" class="Control"><img src="/media/images/lv/'+de[y]+'icon.jpeg"></a></li>';
@@ -875,43 +1047,37 @@ AutoLib.buildingSelection = {
 					
 					var elem,ak,icon,cla;
 					elem = $('#menu_actions ul');
-					var io = AutoLib.Context.deviceTree[selected_pk].meta.registers.actions_available;
 					
-					for (var key in AutoLib.buildingSelection.Context.actions_available) {
-						if (AutoLib.buildingSelection.Context.actions_available.hasOwnProperty(key)) {
-							cla = AutoLib.buildingSelection.Context.actions_available[key];
-							ak= elem.find('.'+cla+' img');
-							if (ak.length === 0) {
-							     ak= elem.find('a[method='+cla+'] img');
-							}
-							ak.css({ opacity: 0.3});
-							ak.parent().removeClass('active');
-							for (var k in io) {
-								if (io[k] === cla) {
-									//opacity 1
-									ak.css({ opacity: 1});
-									ak.parent().addClass('active');
-								}
-							}
+					var io = AutoLib.Context.actions_available;
+					
+					for (var key in io) {
+						
+						cla = AutoLib.Context.actions_available[key];
+						ak= elem.find('.'+cla+' img');
+						if (ak.length === 0) {
+						     ak= elem.find('a[method='+cla+'] img');
 						}
+						ak.css({ opacity: 1});
+						ak.parent().addClass('active');
+						
 					}
 				}
 				else {
 					//get into 
 				}
 			});
-			// menu event handler 
+
 			$('#menu_actions a').live('click',function () {
-				var selected = $(this);
-				if (selected.hasClass('active')) {
-					var classes = selected.attr('class');
-					var method  = selected.attr('method');
-					var linkto = classes.split(' active')[0];
-					var params = {building_id:AutoLib.buildingSelection.Context.selected_building,level:'building', locationPath:''+AutoLib.buildingSelection.Context.selected_building, method:method};
-					AutoLib.INTERFACE_HANDLER.run(linkto,params);
-				}
-			});
-			
+                var selected = $(this);
+                if (selected.hasClass('active')) {
+                    var classes = selected.attr('class');
+                    var method  = selected.attr('method');
+                    var linkto = classes.split(' active')[0];
+                    var params = {building_id:AutoLib.buildingSelection.Context.selected_building,level:'building', locationPath:''+AutoLib.buildingSelection.Context.selected_building, method:method};
+                    AutoLib.INTERFACE_HANDLER.run(linkto,params);
+                }
+            });
+            
 			$('#building_slider').ContentSlider({
 				leftBtn: '/media/images/lv/cs_leftImg.jpg',
 				rightBtn: '/media/images/lv/cs_rightImg.jpg',
@@ -945,7 +1111,6 @@ AutoLib.buildingSelection = {
 AutoLib.chartviewer =  {
 		Context: {
 			chart : undefined,
-			actions_available : ['chartviewer','lighting','hvac','report'],
 			sensor_active:undefined,
 			datestart: undefined,
 			timerange: 'd', // d: daily, w:weekly, m:monthly, y:yearly
@@ -1191,9 +1356,9 @@ AutoLib.chartviewer =  {
 		draw_interface : function () {
 			AutoLib.chartviewer.updateTitle('Visualizador');
 			AutoLib.chartviewer.renderLayout();
-			AutoLib.chartviewer.renderLocalizationMenu();
+			AutoLib.renderLocalizationMenu();
 			AutoLib.chartviewer.renderChartOptions();
-			AutoLib.renderActionsMenu('#left-menu',AutoLib.chartviewer.Context.actions_available);
+			AutoLib.renderActionsMenu();
 			AutoLib.chartviewer.createEventHandlers();
 			AutoLib.chartviewer.renderMainSensor();
 			AutoLib.updateBreadcrum();
@@ -1246,77 +1411,7 @@ AutoLib.chartviewer =  {
 			}
 			AutoLib.chartviewer.Context.chart = new Highcharts.Chart(AutoLib.chartviewer.Context.chartoption);
 		},
-		renderLocalizationMenu : function () {
-			var connected;
-			//return a nav menu to show sensors below a certain localization path AutoLib.chartviewer.locationPath
-			var html='<div class="localizationmenu-title">Localización de Sensores</div><ul class="building">';
-			// building
-			for (var b in AutoLib.Context.deviceTree) {
-				if (AutoLib.Context.deviceTree.hasOwnProperty(b)) {
-					if (b === 'meta') {
-						continue;
-					}
-					html = html + '<li building pk="'+AutoLib.Context.deviceTree[b].meta.id+'"><a bt default_sensor="'+AutoLib.Context.deviceTree[b].meta.main_sensor+'" default_signals="'+AutoLib.Context.deviceTree[b].meta.registers.default_signals.join('-')+'" path="'+b+'" href="javascript:void(0)">' + AutoLib.Context.deviceTree[b].meta.name + '</a><ul class="section" style="display:none;">'; 
-					//section (tower)
-					for (var s in AutoLib.Context.deviceTree[b]) {
-						if (AutoLib.Context.deviceTree[b].hasOwnProperty(s)) {
-							if (s === 'meta') {
-								continue;
-							}
-							connected = {'offline':'block','online':'none'}[AutoLib.Context.deviceTree[b][s].meta.coordinator_status];
-							html = html + '<li section><span style="display:'+connected+';float:left;font-size:10px;padding:2px 2px 2px 4px;" class="ligth"><span class="ui-icon ui-icon-alert" style="float:left; margin:0;"></span></span><a i st default_sensor="'+AutoLib.Context.deviceTree[b][s].meta.main_sensor+'" default_signals="'+AutoLib.Context.deviceTree[b][s].meta.registers.default_signals.join('-')+'" href="javascript:void(0)" pk="'+AutoLib.Context.deviceTree[b][s].meta.id+'" path="'+b+'-'+s+'">'+AutoLib.Context.deviceTree[b][s].meta.name+'</a><ul class="subsection dontopen" style="display:none;">';
-							// subsection (floor)
-							for (var ss in AutoLib.Context.deviceTree[b][s]) {
-								if (AutoLib.Context.deviceTree[b][s].hasOwnProperty(ss)) {
-									if (ss === 'meta') {
-										continue;
-									}
-									html = html + '<li subsection><a sst default_sensor="'+AutoLib.Context.deviceTree[b][s][ss].meta.main_sensor+'" default_signals="'+AutoLib.Context.deviceTree[b][s][ss].meta.registers.default_signals.join('-')+'" href="javascript:void(0)" path="'+b+'-'+s+'-'+ss+'" pk="'+AutoLib.Context.deviceTree[b][s][ss].meta.id+'">'+AutoLib.Context.deviceTree[b][s][ss].meta.name+'</a><ul class="subsubsection dontopen" style="display:none;">';
-									// subsubsection (zones)
-									for (var sss in AutoLib.Context.deviceTree[b][s][ss]) {
-										if (AutoLib.Context.deviceTree[b][s][ss].hasOwnProperty(sss)) {
-											if (sss === 'meta') {
-												continue;
-											}
-											html = html + '<li subsubsection><a ssst default_sensor="'+AutoLib.Context.deviceTree[b][s][ss][sss].meta.main_sensor+'" default_signals="'+AutoLib.Context.deviceTree[b][s][ss][sss].meta.registers.default_signals.join('-')+'" href="javascript:void(0)" path="'+b+'-'+s+'-'+ss+'-'+sss+'" pk="'+AutoLib.Context.deviceTree[b][s][ss][sss].meta.id+'">'+AutoLib.Context.deviceTree[b][s][ss][sss].meta.name+'</a><ul class="devices" style="display:none;">';
 
-											// devices
-											for (var dev in AutoLib.Context.deviceTree[b][s][ss][sss]) {
-												if (AutoLib.Context.deviceTree[b][s][ss][sss].hasOwnProperty(dev)) {
-													if (dev === 'meta') {
-														continue;
-													}
-													
-													html = html + '<li><a href="javascript:void(0)" pk="'+AutoLib.Context.deviceTree[b][s][ss][sss].meta.id+'">'+AutoLib.Context.deviceTree[b][s][ss][sss][dev].name+ '</a></li>';
-												}
-											}
-											html = html + '</ul>';
-											
-										}
-									}
-									html = html + '</ul>';
-									
-								}
-							}
-							html = html + '</ul>';
-							
-						}
-					}
-					html = html + '</ul>';
-				}
-			}
-			html = html + '</ul>';
-			$('#left-menu').html(html);
-			AutoLib.sortUnorderedList($('#left-menu ul.building'),false,'bybuilding');
-			AutoLib.sortUnorderedList($('#left-menu ul.section'),false,'bysection');
-			// mark selected section if it's available
-			
-
-			// open building id
-			
-			// open open section selected
-			// trigger click
-		},
 		renderChartOptions : function () {
 			// render all chart options and devices tree
 			var modal,s_num,ss_num,sss_num,dev_num,ref,dev_keys,path;
@@ -1993,52 +2088,8 @@ AutoLib.chartviewer =  {
 				AutoLib.INTERFACE_HANDLER.run('buildingSelection');
 			});
 			
-			/*$('#bottom-menu a[main_buttons]').click(function () {
-                var selected = $(this);
-                var method;
-                var linkto = selected.attr('class');
-                
-                
-                if (linkto === 'hvac') {
-                    linkto  = 'Control';  
-                    method  = 'hvac';    
-                }
-                else {
-                    if (linkto === 'lighting') {
-                        linkto  = 'Control';  
-                        method  = 'lighting';
-                    }
-                }
-                
-                if (linkto !== AutoLib.INTERFACE_HANDLER.Context.current_interface) {
-                    var params = {building_id:AutoLib.buildingSelection.Context.selected_building,level:AutoLib.chartviewer.Context.currentLevel, locationPath:AutoLib.chartviewer.Context.locationPathToGetHere, method:method};
-                    AutoLib.INTERFACE_HANDLER.run(linkto,params);
-                }
-                
-                
-            });*/
-            $('div.container_menu_top_nav a').click(function () {
-                var linkto = $(this).attr('class');
-                var method='';
-                
-                if (linkto === 'hvac') {
-                    linkto  = 'Control';  
-                    method  = 'hvac';    
-                }
-                else {
-                    if (linkto === 'lighting') {
-                        linkto  = 'Control';  
-                        method  = 'lighting';
-                    }
-                }
-                
-                if (linkto !== AutoLib.INTERFACE_HANDLER.Context.current_interface) {
-                    var level = {1:'building',2:'section',3:'subsection',4:'subsubsection'}[AutoLib.chartviewer.Context.locationPathToGetHere.split('-').length];
-                    var params = {building_id:AutoLib.buildingSelection.Context.selected_building,level:level, locationPath:AutoLib.chartviewer.Context.locationPathToGetHere, method:method};
-                    AutoLib.INTERFACE_HANDLER.run(linkto,params);
-                }
-                
-            });
+
+            
 		},
 		renderSignals : function () {
 			var row_obj = arguments[0];
@@ -2140,7 +2191,7 @@ AutoLib.chartviewer =  {
 									$("#Date").datepicker("setDate",fd);
 									AutoLib.chartviewer.Context.datestart = datajson[b].first_date;
 								}
-								if (AutoLib.chartviewer.Context.datestart == undefined) {
+								if (AutoLib.chartviewer.Context.datestart == undefined | AutoLib.chartviewer.Context.datestart == false) {
 									AutoLib.chartviewer.Context.datestart = datajson[b].last_date;
 								}
 								$("#Date").datepicker("option","minDate",datajson[b].first_date);
@@ -2357,7 +2408,8 @@ AutoLib.chartviewer =  {
 			AutoLib.chartviewer.Context.chart.xAxis[0].setExtremes(inf,sup);
 			
 			// update chart title
-			$('#chart-title-content').html(AutoLib.chartviewer.Context.datafrom[AutoLib.chartviewer.Context.sensor_active].meta.name);
+			AutoLib.changeContainerTitle({target:'#chart-title-content',prefix:AutoLib.chartviewer.Context.datafrom[AutoLib.chartviewer.Context.sensor_active].meta.name});
+			
 			
 		},
 		downloadChartData : function () {
@@ -2455,7 +2507,6 @@ AutoLib.chartviewer =  {
  */
 AutoLib.Control = {
 		Context : {
-		  actions_available : ['chartviewer','lighting','hvac','report'],
 		  selected_building : undefined,
 		  selectmenu:undefined,
 		  locationPathToGetHere : undefined,
@@ -2512,7 +2563,7 @@ AutoLib.Control = {
         draw_interface : function () {
         	var lookup = {lighting:'Iluminación', hvac:'Aire Acondicionado'};
             AutoLib.Control.updateTitle('Control de '+ lookup[AutoLib.Control.Context.typeofcontrol]);
-            AutoLib.Control.renderLocalizationMenu();
+            AutoLib.renderLocalizationMenu();
             AutoLib.Control.renderLayout({start:true}); // render section layout or event list table dependendig of params.level 
             AutoLib.Control.createEventHandlers();
             AutoLib.updateBreadcrum();
@@ -2562,90 +2613,7 @@ AutoLib.Control = {
                 AutoLib.Control[cb]();
             }
 		},
-        renderLocalizationMenu : function () {
-            //return a nav menu to show sensors below a certain localization path AutoLib.chartviewer.locationPath
-            var connected;
-            var html='<div class="localizationmenu-title">Localización de Sensores</div><ul class="building">';
-            // building
-            for (var b in AutoLib.Context.deviceTree) {
-                if (AutoLib.Context.deviceTree.hasOwnProperty(b)) {
-                    if (b === 'meta') {
-                        continue;
-                    }
-                    html = html + '<li building pk="'+AutoLib.Context.deviceTree[b].meta.id+'"><a bt default_sensor="'+AutoLib.Context.deviceTree[b].meta.main_sensor+'" default_signals="'+AutoLib.Context.deviceTree[b].meta.registers.default_signals.join('-')+'" path="'+b+'" href="javascript:void(0)">' + AutoLib.Context.deviceTree[b].meta.name + '</a><ul class="section" style="display:none;">'; 
-                    //section (tower)
-                    for (var s in AutoLib.Context.deviceTree[b]) {
-                        if (AutoLib.Context.deviceTree[b].hasOwnProperty(s)) {
-                            if (s === 'meta') {
-                                continue;
-                            }
-                            connected = {'offline':'block','online':'none'}[AutoLib.Context.deviceTree[b][s].meta.coordinator_status];
-                            html = html + '<li section><span style="display:'+connected+';float:left;font-size:10px;padding:2px 2px 2px 4px;" class="ligth"><span class="ui-icon ui-icon-alert" style="float:left; margin:0;"></span></span><a i st default_sensor="'+AutoLib.Context.deviceTree[b][s].meta.main_sensor+'" default_signals="'+AutoLib.Context.deviceTree[b][s].meta.registers.default_signals.join('-')+'" href="javascript:void(0)" pk="'+AutoLib.Context.deviceTree[b][s].meta.id+'" path="'+b+'-'+s+'">'+AutoLib.Context.deviceTree[b][s].meta.name+'</a><ul class="subsection dontopen" style="display:none;">';
-                            // subsection (floor)
-                            for (var ss in AutoLib.Context.deviceTree[b][s]) {
-                                if (AutoLib.Context.deviceTree[b][s].hasOwnProperty(ss)) {
-                                    if (ss === 'meta') {
-                                        continue;
-                                    }
-                                    html = html + '<li subsection><a sst default_sensor="'+AutoLib.Context.deviceTree[b][s][ss].meta.main_sensor+'" default_signals="'+AutoLib.Context.deviceTree[b][s][ss].meta.registers.default_signals.join('-')+'" href="javascript:void(0)" path="'+b+'-'+s+'-'+ss+'" pk="'+AutoLib.Context.deviceTree[b][s][ss].meta.id+'">'+AutoLib.Context.deviceTree[b][s][ss].meta.name+'</a><ul class="subsubsection dontopen" style="display:none;">';
-                                    // subsubsection (zones)
-                                    for (var sss in AutoLib.Context.deviceTree[b][s][ss]) {
-                                        if (AutoLib.Context.deviceTree[b][s][ss].hasOwnProperty(sss)) {
-                                            if (sss === 'meta') {
-                                                continue;
-                                            }
-                                            html = html + '<li subsubsection><a ssst default_sensor="'+AutoLib.Context.deviceTree[b][s][ss][sss].meta.main_sensor+'" default_signals="'+AutoLib.Context.deviceTree[b][s][ss][sss].meta.registers.default_signals.join('-')+'" href="javascript:void(0)" path="'+b+'-'+s+'-'+ss+'-'+sss+'" pk="'+AutoLib.Context.deviceTree[b][s][ss][sss].meta.id+'">'+AutoLib.Context.deviceTree[b][s][ss][sss].meta.name+'</a><ul class="devices" style="display:none;">';
 
-                                            // devices
-                                            for (var dev in AutoLib.Context.deviceTree[b][s][ss][sss]) {
-                                                if (AutoLib.Context.deviceTree[b][s][ss][sss].hasOwnProperty(dev)) {
-                                                    if (dev === 'meta') {
-                                                        continue;
-                                                    }
-                                                    
-                                                    html = html + '<li><a href="javascript:void(0)" pk="'+AutoLib.Context.deviceTree[b][s][ss][sss].meta.id+'">'+AutoLib.Context.deviceTree[b][s][ss][sss][dev].name+ '</a></li>';
-                                                }
-                                            }
-                                            html = html + '</ul>';
-                                            
-                                        }
-                                    }
-                                    html = html + '</ul>';
-                                    
-                                }
-                            }
-                            html = html + '</ul>';
-                            
-                        }
-                    }
-                    html = html + '</ul>';
-                }
-            }
-            html = html + '</ul>';
-            $('#left-menu').html(html);
-            AutoLib.sortUnorderedList($('#left-menu ul.building'),false,'bybuilding');
-            AutoLib.sortUnorderedList($('#left-menu ul.section'),false,'bysection');
-        },
-		renderActionsMenu : function (target) {
-            // main menu
-           
-            
-            var html='<div class="container_menu_top_nav">';
-            html += '<div style="color:#f2f2f2;font-weight:bold; margin-right: 5px; padding-top: 3px;">Menu Principal</div>';
-            var de = AutoLib.Control.Context.actions_available;
-            var actionsmeta = {
-                    chartviewer:{title:'Graficos',submenus:[]},
-                    hvac:{title:'Control de Aire Acondicionado',submenus:[]},
-                    lighting:{title:'Control de Iluminación',submenus:[]},
-                    report:{title:'Reportes',submenus:[{title:'Energía mensual de este sensor',link:''},{title:'Comparar con otros sensores',link:''}]}
-                    };
-            for (var y=0;y<de.length;y++) {
-                html +='<div class="item_menu_top_nav" title="'+actionsmeta[de[y]].title+'"><a main_buttons href="javascript:void(0)" class="'+de[y]+'"><img width="40px" src="/media/images/lv/'+de[y]+'icon.jpeg"></a></div>';
-            }
-            html += '</div>';
-            
-            $(target).prepend(html);
-        },
         createEventHandlers : function () {
             
             $('#left-menu ul a').live('click',function () {
@@ -2687,34 +2655,7 @@ AutoLib.Control = {
             });
             
                 
-            $('div.container_menu_top_nav a').click(function () {
-                var linkto = $(this).attr('class');
-                var method='';
-                var jump_into_control = false;
-                if (linkto === 'hvac') {
-                    linkto  = 'Control';  
-                    method  = 'hvac';    
-                }
-                else {
-                    if (linkto === 'lighting') {
-                        linkto  = 'Control';  
-                        method  = 'lighting';
-                    }
-                }
-                if (linkto == 'Control' & AutoLib.INTERFACE_HANDLER.Context.current_interface == 'Control') {
-                    if (method != AutoLib.Control.Context.typeofcontrol) {
-                        // jump from hvac <-> lighting
-                        jump_into_control = true;    
-                    }     	
-                }
-                
-                if (jump_into_control | (linkto !== AutoLib.INTERFACE_HANDLER.Context.current_interface)) {
-                    var level = {1:'building',2:'section',3:'subsection',4:'subsubsection'}[AutoLib.Control.Context.locationPathToGetHere.split('-').length];
-                    var params = {building_id:AutoLib.buildingSelection.Context.selected_building,level:level, locationPath:AutoLib.Control.Context.locationPathToGetHere, method:method};
-                    AutoLib.INTERFACE_HANDLER.run(linkto,params);
-                }
-                
-            });
+            
 
         },
         renderLayout : function () {
@@ -2722,7 +2663,8 @@ AutoLib.Control = {
             if (options.start) {
                   var html = '<div id="breadcrum"></div>';
                   $('#main-content-interior').append($(html));
-                  AutoLib.renderActionsMenu('#left-menu',AutoLib.Control.Context.actions_available);
+                  AutoLib.renderActionsMenu();
+                  
             }
             else {
                 // if the current level is building then clean datatable and insert section floor-plan
@@ -2740,12 +2682,9 @@ AutoLib.Control = {
                 $('#control-container').remove();
             }
             var html2 = '<div id="control-container" class="ligth"><div id="control-title-container"><div id="control-title-content"></div></div><div id="control-main"></div>';
-                  
             $('#breadcrum').after($(html2));
-            
             // tag location menu to highlight current level
             AutoLib.HighLightLocationMenuToCurrentLevel();
-            
             // depending of locationPathToGetHere render the events table or the control flor plan interface
             switch (AutoLib.Control.Context.currentLevel) {
                 case 'building':
@@ -2755,25 +2694,6 @@ AutoLib.Control = {
                     AutoLib.Control.renderControlFloorPlan();
                     break;
                 }
-            
-            
-            
-                
-            
-        },
-        changeTitle: function () {
-            
-            var title = '';
-            var g = $('#left-menu a.selected').length-1;
-            $('#left-menu a.selected').each(function (ind,val) {
-                if (ind===g) {
-                    title = title + $(this).text();
-                }
-                else {
-                    title = title + $(this).text() + ' - ';
-                }
-            });
-            $('#control-title-content').html(arguments[0].prefix+' : ' +title);
         },
         editRules : {
         	Context : {
@@ -2794,7 +2714,7 @@ AutoLib.Control = {
                 var target;
                 var t_id; 
                 // change title
-                AutoLib.Control.changeTitle({prefix:'Reglas de Control'});
+                AutoLib.changeContainerTitle({target:'#control-title-content',prefix:'Reglas de Control'});
                 html = '<div id="cont" class="ligth" style="margin:0 -10px;"><h3>Regla de Control<span id="numrules"></span></h3><table id="table_control" class="eventstable"></table><h3 style="margin-top:15px;">Operaciones Manuales <span id="numopmanual"></span></h3><table id="table_manual" class="eventstable"></table><div id="manual_toolbar"></div></div>';
 				target = '#tab-edit-rule';
                 
@@ -4216,7 +4136,7 @@ AutoLib.Control = {
             var target;
             var t_id; 
             // change title
-            AutoLib.Control.changeTitle({prefix:'Ultimos Eventos'});
+            AutoLib.changeContainerTitle({target:'#control-title-content',prefix:'Ultimos Eventos'});
             // lighting
             if (AutoLib.Control.Context.typeofcontrol === 'lighting' || AutoLib.Control.Context.typeofcontrol === 'hvac') {
               var level = AutoLib.Control.Context.locationPathToGetHere.split('-');
@@ -4291,6 +4211,7 @@ AutoLib.Control = {
         },
         renderControlFloorPlan : function () {
             // render UI for floor control based on tabs tab-Floor, tab-Control, tab-Logs
+            
             var buildFloorPLane = function() {
             	var htmlIOSelect = ''; 
             	var ty, gr, sh, ki; // temp
@@ -4304,7 +4225,7 @@ AutoLib.Control = {
             	var pathToGetHere;
             	
             	var typeofcontrol = {lighting:'Control Luces',hvac:'Control HVAC'};
-                AutoLib.Control.changeTitle({prefix:'Plano de Planta'});
+                AutoLib.changeContainerTitle({target:'#control-title-content',prefix:'Plano de Planta'});
                 var html = '<div id="control-main-tabs"><ul><li><a href="#tab-floor-plan">Principal</a></li><li><a href="#tab-new-rule">Nueva Regla</a></li><li><a href="#tab-edit-rule">Editar Regla</a></li><li><a href="#tab-logs">Eventos</a></li></ul><div id="tab-floor-plan" style="margin: 0 -10px;min-height: 480px;"><div id="plane"></div><div class="panel-sidebar ui-widget ui-widget-content ui-selectmenu-menu-popup ui-corner-all"></div></div><div id="tab-new-rule">Nueva Regla</div><div id="tab-edit-rule">Editar Regla</div><div id="tab-logs"></div></div>';
                 $('#control-main').append($(html));
                 // load floor plan image
@@ -5057,7 +4978,6 @@ AutoLib.Control = {
 AutoLib.report =  {
         Context: {
             chart : undefined,
-            actions_available : ['chartviewer','lighting','hvac','report'],
             sensor_active:undefined,
             selected_building : undefined,
             locationPathToGetHere : undefined,
@@ -5071,15 +4991,12 @@ AutoLib.report =  {
             AutoLib.report.getResources('draw_interface');
         },
         draw_interface : function () {
-            AutoLib.report.updateTitle('Generador Reportes');
-            AutoLib.report.renderLayout();
-            AutoLib.report.renderLocalizationMenu();
-            AutoLib.report.renderChartOptions();
-            AutoLib.renderActionsMenu('#left-menu',AutoLib.report.Context.actions_available);
+            AutoLib.renderLocalizationMenu();
+            AutoLib.report.updateTitle('Generador de Reportes');
+            AutoLib.report.renderLayout({start:true}); // render section layout or event list table dependendig of params.level 
             AutoLib.report.createEventHandlers();
-            AutoLib.report.renderMainSensor();
             AutoLib.updateBreadcrum();
-            AutoLib.HighLightLocationMenuToCurrentLevel();
+           
         },
         getResources : function () {
             var cb = arguments[0];
@@ -5118,82 +5035,113 @@ AutoLib.report =  {
             $('#title-content').html('<h2>'+title+'</h2>');
         },
         renderLayout : function () {
-            //chartviewer layout
-            var html = '<div id="breadcrum">Here es the breadcrum</div><div id="chart-title-container"><div id="chart-title-content">Titulo</div></div><div id="chart-buttons" class="ligth"><button class="show-chart-options">Mostrar Opciones de Gráfico</button></div><div id="chartcontainer"></div><div id="menu_actions"></div>';
-            $('#main-content-interior').html(html);
-            //create chart object and insert it in layout
+            //report layout
+            
+            
+            var options = arguments[0];
+            
+            if (options.start) {
+                  var html = '<div id="breadcrum"></div>';
+                  $('#main-content-interior').append($(html));
+                  AutoLib.renderActionsMenu();
+            }
+            else {
+                // clean DOM zone
+                $('#report-container').remove();
+            }
+            
+            var html = '<div id="breadcrum"></div>';
+            html += '<div id="report-container" class="ligth">';
+            html +=     '<div id="report-title-container">';
+            html +=         '<div id="report-title-content"></div>';
+            html +=     '</div>';
+            html +=     '<div id="report-main"></div>';
+            html += '</div>';
+            
+                  
+            $('#breadcrum').after($(html));
+            
+            // tag location menu to highlight current level
+            AutoLib.HighLightLocationMenuToCurrentLevel();
+            
+            // depending of locationPathToGetHere render the events table or the control flor plan interface
+            switch (AutoLib.report.Context.currentLevel) {
+                case 'building':
+                    AutoLib.changeContainerTitle({target:'#report-title-content',prefix:'Análisis de Grupo'});
+                    AutoLib.report.renderBenchGenerator();
+                    break;
+                case 'section':
+                    AutoLib.changeContainerTitle({target:'#report-title-content',prefix:'Reportes por Local'});
+                    AutoLib.report.renderReportGenerator();
+                    break;
+            }
+        },
+        renderBenchGenerator : function () {
         
         },
-        renderLocalizationMenu : function () {
-            var connected;
-            //return a nav menu to show sensors below a certain localization path AutoLib.chartviewer.locationPath
-            var html='<div class="localizationmenu-title">Localización de Sensores</div><ul class="building">';
-            // building
-            for (var b in AutoLib.Context.deviceTree) {
-                if (AutoLib.Context.deviceTree.hasOwnProperty(b)) {
-                    if (b === 'meta') {
-                        continue;
-                    }
-                    html = html + '<li building pk="'+AutoLib.Context.deviceTree[b].meta.id+'"><a bt default_sensor="'+AutoLib.Context.deviceTree[b].meta.main_sensor+'" default_signals="'+AutoLib.Context.deviceTree[b].meta.registers.default_signals.join('-')+'" path="'+b+'" href="javascript:void(0)">' + AutoLib.Context.deviceTree[b].meta.name + '</a><ul class="section" style="display:none;">'; 
-                    //section (tower)
-                    for (var s in AutoLib.Context.deviceTree[b]) {
-                        if (AutoLib.Context.deviceTree[b].hasOwnProperty(s)) {
-                            if (s === 'meta') {
-                                continue;
-                            }
-                            connected = {'offline':'block','online':'none'}[AutoLib.Context.deviceTree[b][s].meta.coordinator_status];
-                            html = html + '<li section><span style="display:'+connected+';float:left;font-size:10px;padding:2px 2px 2px 4px;" class="ligth"><span class="ui-icon ui-icon-alert" style="float:left; margin:0;"></span></span><a i st default_sensor="'+AutoLib.Context.deviceTree[b][s].meta.main_sensor+'" default_signals="'+AutoLib.Context.deviceTree[b][s].meta.registers.default_signals.join('-')+'" href="javascript:void(0)" pk="'+AutoLib.Context.deviceTree[b][s].meta.id+'" path="'+b+'-'+s+'">'+AutoLib.Context.deviceTree[b][s].meta.name+'</a><ul class="subsection dontopen" style="display:none;">';
-                            // subsection (floor)
-                            for (var ss in AutoLib.Context.deviceTree[b][s]) {
-                                if (AutoLib.Context.deviceTree[b][s].hasOwnProperty(ss)) {
-                                    if (ss === 'meta') {
-                                        continue;
-                                    }
-                                    html = html + '<li subsection><a sst default_sensor="'+AutoLib.Context.deviceTree[b][s][ss].meta.main_sensor+'" default_signals="'+AutoLib.Context.deviceTree[b][s][ss].meta.registers.default_signals.join('-')+'" href="javascript:void(0)" path="'+b+'-'+s+'-'+ss+'" pk="'+AutoLib.Context.deviceTree[b][s][ss].meta.id+'">'+AutoLib.Context.deviceTree[b][s][ss].meta.name+'</a><ul class="subsubsection dontopen" style="display:none;">';
-                                    // subsubsection (zones)
-                                    for (var sss in AutoLib.Context.deviceTree[b][s][ss]) {
-                                        if (AutoLib.Context.deviceTree[b][s][ss].hasOwnProperty(sss)) {
-                                            if (sss === 'meta') {
-                                                continue;
-                                            }
-                                            html = html + '<li subsubsection><a ssst default_sensor="'+AutoLib.Context.deviceTree[b][s][ss][sss].meta.main_sensor+'" default_signals="'+AutoLib.Context.deviceTree[b][s][ss][sss].meta.registers.default_signals.join('-')+'" href="javascript:void(0)" path="'+b+'-'+s+'-'+ss+'-'+sss+'" pk="'+AutoLib.Context.deviceTree[b][s][ss][sss].meta.id+'">'+AutoLib.Context.deviceTree[b][s][ss][sss].meta.name+'</a><ul class="devices" style="display:none;">';
-
-                                            // devices
-                                            for (var dev in AutoLib.Context.deviceTree[b][s][ss][sss]) {
-                                                if (AutoLib.Context.deviceTree[b][s][ss][sss].hasOwnProperty(dev)) {
-                                                    if (dev === 'meta') {
-                                                        continue;
-                                                    }
-                                                    
-                                                    html = html + '<li><a href="javascript:void(0)" pk="'+AutoLib.Context.deviceTree[b][s][ss][sss].meta.id+'">'+AutoLib.Context.deviceTree[b][s][ss][sss][dev].name+ '</a></li>';
-                                                }
-                                            }
-                                            html = html + '</ul>';
-                                            
-                                        }
-                                    }
-                                    html = html + '</ul>';
-                                    
-                                }
-                            }
-                            html = html + '</ul>';
-                            
+        renderReportGenerator : function () {
+            var html ='<div id="report-main-tabs">';
+            html +=         '<ul>';
+            html +=             '<li>';
+            html +=                 '<a href="#tab-energy">Uso de Energía</a>';
+            html +=             '</li>';
+            html +=             '<li>';
+            html +=                 '<a href="#tab-power">Analisis de Potencia</a>';
+            html +=             '</li>';
+            html +=             '<li>';
+            html +=                 '<a href="#tab-ratios">Ratios de Desempeño</a>';
+            html +=             '</li>';
+            html +=         '</ul>';
+            html +=     '<div id="tab-energy">';
+            html +=         '<div id="report-charts" class="span-14">Uso de Energía</div>';
+            html +=         '<div class="span-6 last panel-sidebar ui-widget ui-widget-content ui-selectmenu-menu-popup ui-corner-all"></div>';
+            html +=     '</div>';
+            html +=     '<div id="tab-power">Analisis de Potencia</div>';
+            html +=     '<div id="tab-ratios">Ratios de Desempeño</div>';
+            html +=  '</div>';
+            $('#report-main').append($(html));
+            
+            $('#report-main-tabs').tabs({
+                select: function(event, ui) {
+                    if (AutoLib.report.Context.currentLevel == 'section') {
+                        switch (AutoLib.report.Context.activeTab) {
+                           case 0:
+                               break;
+                           case 1:
+                               break;
+                           case 2:
+                               break;
+                           default:
+                               break;  
                         }
-                    }
-                    html = html + '</ul>';
-                }
-            }
-            html = html + '</ul>';
-            $('#left-menu').html(html);
-            AutoLib.sortUnorderedList($('#left-menu ul.building'),false,'bybuilding');
-            AutoLib.sortUnorderedList($('#left-menu ul.section'),false,'bysection');
-            // mark selected section if it's available
-            
+                            
 
-            // open building id
+                        switch (ui.index) {
+                            case 0:
+                                
+                                break;
+                            case 1:
+                               
+                               break;
+                            case 2:
+                              
+                               break;
+                        }
+                        
+                        AutoLib.report.Context.activeTab = ui.index;
+                        
+                    }
+                },
+                show: function(event, ui) {
+                }
+            });
             
-            // open open section selected
-            // trigger click
+            // creación de panel derecho para selección de sensor, fases (default todas) y periodo de tiempo
+            
+            // creación de grafico de energía
+            
+            
+            
         },
         renderChartOptions : function () {
             // render all chart options and devices tree
@@ -5205,11 +5153,11 @@ AutoLib.report =  {
         },
         createEventHandlers : function () {
             // menu location events
-            
+                
             $('#left-menu ul a').live('click',function () {
-                //update signal sensor table depending of selected level
+                    //update signal sensor table depending of selected level
                 if (AutoLib.report.Context.locationPathToGetHere === $(this).attr('path')) {
-                    //return;
+                    return;
                 }
                 
                 $(this).parent().parent().find('a[bt]').css({'background-color':'#8e8e8e','color':'#FFFFFF'}).removeClass('selected');
@@ -5221,52 +5169,33 @@ AutoLib.report =  {
                 else {
                     AutoLib.report.Context.currentLevel = 'section';
                 }
+         
+                if (AutoLib.report.Context.selectmenu !== undefined) {
+                    // clean previous menu select created from DOM
+                    AutoLib.report.Context.selectmenu.selectmenu('destroy');
+                    $('.combosignal').remove(); 
+                }
+                
                 
                 AutoLib.report.Context.locationPathToGetHere = $(this).attr('path');
                 
-                AutoLib.HighLightLocationMenuToCurrentLevel();
+                // clean DOM with a fresh control estructure
+                AutoLib.report.renderLayout({start:false});
                 
-                AutoLib.report.renderChartOptions({option:'render_sensor_again'});
-
-                // update datelimits
-                AutoLib.report.getSensorDateLimits($(this).attr('default_sensor'));
-                
-                //update chartoption signal table with default signals
-                AutoLib.report.updateSensorSignalSelectedwithDefault({path:$(this).attr('path'),default_sensor:$(this).attr('default_sensor'),default_signals:$(this).attr('default_signals')});
                 
                 // update breadcrum
                 AutoLib.updateBreadcrum();
                 
-                // redraw chart with default signals
-                //// download all signals selected
-                AutoLib.report.downloadAllSignalsSelected();
+                // preselect main tab
                 
-                //// render all series again
-                AutoLib.report.renderAllSeries();
+                $('#report-main-tabs').tabs("select",0);
+                
             });
             
-            $('div.container_menu_top_nav a').click(function () {
-                var linkto = $(this).attr('class');
-                var method='';
                 
-                if (linkto === 'hvac') {
-                    linkto  = 'Control';  
-                    method  = 'hvac';    
-                }
-                else {
-                    if (linkto === 'lighting') {
-                        linkto  = 'Control';  
-                        method  = 'lighting';
-                    }
-                }
-                
-                if (linkto !== AutoLib.INTERFACE_HANDLER.Context.current_interface) {
-                    var level = {1:'building',2:'section',3:'subsection',4:'subsubsection'}[AutoLib.chartviewer.Context.locationPathToGetHere.split('-').length];
-                    var params = {building_id:AutoLib.buildingSelection.Context.selected_building,level:level, locationPath:AutoLib.chartviewer.Context.locationPathToGetHere, method:method};
-                    AutoLib.INTERFACE_HANDLER.run(linkto,params);
-                }
-                
-            });
+            
+            
+           
                         
             
         },

@@ -48,8 +48,18 @@ def formatExceptionInfo(maxTBlevel=5):
 
 def logout_view(request):
     logout(request)
-    return render_to_response('blueprint1/logout.html',context_instance      =   RequestContext(request))
+    return render_to_response('lv/login.html',{'closed':True},context_instance=RequestContext(request))
 
+def secure_required(view_func):
+    """Decorator makes sure URL is accessed over https."""
+    def _wrapped_view_func(request, *args, **kwargs):
+        if not request.is_secure():
+            if getattr(settings, 'HTTPS_SUPPORT', True):
+                
+                secure_url = 'https://salcobrand.energyspy.cl/auth/login'
+                return HttpResponseRedirect(secure_url)
+        return view_func(request, *args, **kwargs)
+    return _wrapped_view_func
 
 """VARIABLES GLOBALES"""
 
@@ -57,67 +67,21 @@ def logout_view(request):
         
 STATUS_CHOICES = {'0':'OFFLINE','1':'ONLINE','2':'FAILURE'}
 
-
+#@secure_required
 def auth(request):
     """ PAGINA DE LOGIN """
-    return render_to_response('Simpla/login.html',\
+    return render_to_response('lv/login.html',\
                               context_instance      =   RequestContext(request))
-    
-def auth_remote(request):
-    from Crypto.Cipher import AES
-    import base64
-    import os
-    import datetime
-    
-    try:
-        print '1'
-        init = 'interface'
-        #decode data from url
-        encoded_aut_data    =   request.GET.get('values')
-        
-        BLOCK_SIZE = 32
-        PADDING = '{'
-        pad = lambda s: s + (BLOCK_SIZE - len(s) % BLOCK_SIZE) * PADDING
-        DecodeAES = lambda c, e: c.decrypt(base64.b64decode(e)).rstrip(PADDING)
-        now_str = datetime.datetime.now().strftime('%Y%m%d%H%M')
-        secret = now_str + '-&_#qa@-b*^_rcuy)_&t'
-        cipher = AES.new(secret)
-        decoded_aut_data = DecodeAES(cipher, encoded_aut_data)
-        
-        print decoded_aut_data
-        
-        username    =   decoded_aut_data.split('[&]')[0]
-        password    =   decoded_aut_data.split('[&]')[1]
-        
-        user = authenticate(username=username, password=password)
-        
-        if user is not None:
-            if user.is_active:
-                login(request, user)
-                return render_to_response('lv/%s.html'%init,\
-                                  context_instance      =   RequestContext(request))
-    
-    
-        return HttpResponseRedirect('http://www.energyspy.cl/inicio_sesion')
-    except:
-        return HttpResponseRedirect('http://www.energyspy.cl/inicio_sesion')
-    
     
 def init(request):
     if request.user.is_authenticated():
-        
         return HttpResponseRedirect('/interface')
     else:    
-        return HttpResponseRedirect('http://www.energyspy.cl/inicio_sesion')
+        return HttpResponseRedirect('http://salcobrand.energyspy.cl/auth')
 
 #nuevos graficos
 
-
-
-    
-
 def chartviewer(request):
-            
     if request.user.is_authenticated():
         date_current    =   datetime.datetime.today()
         return render_to_response('Simpla/chartviewer.html',\
@@ -148,12 +112,11 @@ def automation(request):
     else:
         return HttpResponseRedirect('/auth')
 
-#@login_required
+@login_required
 def interface(request):
-    
     return render_to_response('lv/interface.html',{},context_instance=RequestContext(request))
 
-#@login_required
+@login_required
 def f(request):
     """ Return Building data to render the interface 
     (id, Name, Photo, Power, Energy, Total devices, Devices Online) 

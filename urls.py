@@ -22,11 +22,10 @@ urlpatterns = patterns('',
     
     #LOGIN
     
-    (r'^auth_remote/$', 'energyspy.viewer.views.auth_remote'),
     (r'^$', 'energyspy.viewer.views.auth'),
     (r'^logout/$', 'energyspy.viewer.views.logout_view'),
     (r'^auth$', 'energyspy.viewer.views.auth'),
-    (r'^auth/login$', 'django.contrib.auth.views.login',{'template_name': 'Simpla/login.html'}),
+    (r'^auth/login$', 'django.contrib.auth.views.login',{'template_name': 'lv/login.html'}),
     
     #WIZARD DE CONFIGURACION
     (r'^init$', 'energyspy.viewer.views.init'), #REVISA SI ES UN USUARIO NUEVO (SOLICITA WIZARD DE CONFIGURACION)
