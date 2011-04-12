@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<meta content="Boks - 0.1.5b" name="generator"/>
+<title>EnergySpy</title>
+<!-- Framework CSS -->
+<link rel="stylesheet" href="/media/css/lv/screen.css" type="text/css" media="screen, projection">
+<link rel="stylesheet" href="/media/css/lv/print.css" type="text/css" media="print">
+<link rel="stylesheet" href="/media/css/lv/platform.css" type="text/css" media="screen">
+<!--[if IE]><link rel="stylesheet" href="/media/css/lv/css/ie.css" type="text/css" media="screen, projection"><![endif]-->
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+
+{% block scripts %}{%endblock%}
+</head>
+<body>
+	
+<div class="container">
+	<div class="span-24 last">
+	    <div class="span-6">
+	    	<div class="logo_int"></div>
+			<div id="left-col">
+				<div id="left-menu">
+					{% block left-menu %} {%endblock%}
+				</div>
+				<div id="left-col-info"> {% block left-col-info %} {%endblock%} </div>
+			</div>
+		</div>
+	    <div class="span-18 last white_bg">
+	    	<div class="span-8">
+	    		 <div id="title-content">
+	    		 {%block main-content-title%}{%endblock%}
+			     </div>
+		    </div>
+			<div class="span-10 last">
+				<div id="top-links-content">            
+                    <ul>
+                        <li><a href="/contact">Contacto</a></li>
+                        <li><a href="" class="sep"></a></li>
+                        <li><a href="/logout">Cerrar Sesión</a></li>
+                    </ul>
+                </div>
+			</div>
+			<div class="span-18 last">
+				<div id="main-content-interior">
+					{%block main-content-interior%}{%endblock%}
+				</div>
+			</div>	
+		</div>
+	</div>
+  
+</div>
+  <div class="" id="footer">
+    <div class="copyright-content">Copyright 2010. Todos los Derechos Reservados</div>
+    <div class="demo-icon"></div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?><anychart>
+      <settings>
+        <locale>
+          <date_time_format>
+            <format>%yyyy-%MM-%dd %HH:%mm:%ss</format>
+          </date_time_format>
+        </locale>
+        <animation enabled="true"/></settings>
+
+  <charts>
+    <chart plot_type="CategorizedVertical">
+    
+    
+    
+      <styles><bar_style name="previous" parent="parent">
+	<fill color="blue" opacity="0.2"/>
+	<states>
+		<hover>
+			<fill color="yellow"/></hover></states></bar_style>
+      	<bar_style name="parent">
+      		<fill color="blue" opacity="1" type="solid"/>
+      		<states>
+      			<hover>
+      				<fill color="yellow"/></hover></states></bar_style></styles><data_plot_settings default_series_type="Bar">
+        <bar_series>
+          <tooltip_settings enabled="true">
+<format>
+Valor: {%YValue}{numDecimals:0}Kwh</format>
+          </tooltip_settings>
+          
+          <marker_settings>
+          	<marker size="3"/></marker_settings></bar_series></data_plot_settings>
+
+      <chart_settings>
+    <chart_background>
+        	<border color="blue" enabled="false"/>
+        	<inside_margin all="0"/>
+        	<fill color="red" enabled="false" type="solid"/></chart_background><data_plot_background>
+		<border enabled="false"/><fill color="white" enabled="true" opacity="0.5" type="solid"/>
+		</data_plot_background>
+      			
+
+      
+	  	<title><text>Energia consumida durante cada dia</text>
+	  		<font color="Blue">
+							<effects enabled="true">
+								<drop_shadow distance="1" enabled="False" opacity="1"/>
+							</effects>
+						</font></title>
+        <axes>
+		  <y_axis enabled="True">
+		  	<title><text>Kwh</text><font color="#003399"/></title>
+			<scale maximum="70.157318832" minimum="0" type="Linear"/>
+            <labels>
+				<format>{%Value}{numDecimals:0}</format>
+			
+
+						<font color="Gray">
+							<effects>
+								<drop_shadow distance="1" enabled="False" opacity="1"/>
+							</effects>
+						</font>
+</labels>
+            
+            <line color="Gray" opacity="1"/>
+            <major_tickmark color="Gray"/>
+            <minor_tickmark color="Gray"/>
+            <minor_grid enabled="false"/>
+           <major_grid interlaced="True">
+						<line color="Gray" opacity="0.7"/>
+					</major_grid></y_axis>		  
+          <extra>
+          	<y_axis enabled="False" name="y2">
+          		 <major_tickmark color="White"/>
+            <minor_tickmark color="White"/>
+          		 <line color="Gray" opacity="1"/>
+          		<title rotation="180">
+          			<text>m3/hr AguaHora</text>
+          			
+          			<font color="#ff0099"/></title>
+          			
+          	<labels>
+          				<format>{%Value}{numDecimals:0}</format>
+          				
+          			
+						<font color="Gray">
+							<effects>
+								<drop_shadow distance="1" enabled="false" opacity="1"/>
+							</effects>
+						</font>
+          				
+          				
+          				</labels>		
+          			
+          		<scale maximum="1" minimum="1"/></y_axis>
+          	<y_axis enabled="False" name="y3">
+          	<major_tickmark color="Gray"/>
+            <minor_tickmark color="Gray"/>
+          		 <line color="Black" opacity="1"/>
+          		<labels>
+          				<format>{%Value}{numDecimals:0}</format>
+          				
+          			
+						<font color="Gray">
+							<effects>
+								<drop_shadow distance="1" enabled="false" opacity="1"/>
+							</effects>
+						</font>
+          				
+          				
+          				</labels>
+          		<title rotation="180">
+          			<text>m3/hr Gas</text>
+          			<font color="#00cccc"/>
+          		</title>
+          		<scale maximum="1" minimum="1"/></y_axis></extra><x_axis>
+			<scale major_interval="1" major_interval_unit="Day" maximum="2010-06-06 23:59:59" minimum="2010-05-24 00:00:00" minor_interval="1" minor_interval_unit="Hour" type="DateTime"/>
+			<major_tickmark color="Gray"/>
+					<minor_tickmark color="Gray"/>
+            <labels display_mode="Stager">
+				<format>{%Value}{dateTimeFormat: %dd-%MM}</format>
+				<font color="Gray">
+							<effects enabled="False">
+								<drop_shadow distance="1" enabled="true" opacity="1"/>
+							</effects>
+						</font>
+            </labels>
+            <title enabled="true">
+              <text/>
+            </title>
+            <minor_grid enabled="false">
+            	</minor_grid><major_grid enabled="true">
+            	<line color="Gray" opacity="0.4"/></major_grid>
+	<line color="gray" enabled="true" opacity="0.5"/></x_axis>
+          </axes>
+        </chart_settings>
+      <data>
+      <series name="Series 1" style="parent"><point name="2010-05-24 00:00:00" y="53.19934302" style="previous"/><point name="2010-05-25 00:00:00" y="53.89928742" style="previous"/><point name="2010-05-26 00:00:00" y="51.12913746" style="previous"/><point name="2010-05-27 00:00:00" y="55.89361194" style="previous"/><point name="2010-05-28 00:00:00" y="54.61413696" style="previous"/><point name="2010-05-29 00:00:00" y="15.0178131" style="previous"/><point name="2010-05-30 00:00:00" y="14.38477716" style="previous"/><point name="2010-05-31 00:00:00" y="50.17123602" style="current"/><point name="2010-06-01 00:00:00" y="55.78775442" style="current"/><point name="2010-06-02 00:00:00" y="58.46443236" style="current"/><point name="2010-06-03 00:00:00" y="0.26480856" style="current"/><point name="2010-06-04 00:00:00" y="0" style="current"/><point name="2010-06-05 00:00:00" y="0" style="current"/><point name="2010-06-06 00:00:00" y="0" style="current"/></series></data>
+      </chart>
+  </charts>
+</anychart>

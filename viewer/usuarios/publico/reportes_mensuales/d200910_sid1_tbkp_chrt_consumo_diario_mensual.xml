@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?><anychart>
+      <settings>
+        <locale>
+          <date_time_format>
+            <format>%yyyy-%MM-%dd %HH:%mm:%ss</format>
+          </date_time_format>
+        </locale>
+        <animation enabled="true"/></settings>
+
+  <charts>
+    <chart plot_type="CategorizedVertical">
+    
+    
+    
+      <styles><bar_style name="previous" parent="parent">
+	<fill color="blue" opacity="0.2"/>
+	<states>
+		<hover>
+			<fill color="yellow"/></hover></states></bar_style>
+      	<bar_style name="parent">
+      		<fill color="blue" opacity="1" type="solid"/>
+      		<states>
+      			<hover>
+      				<fill color="yellow"/></hover></states></bar_style></styles><data_plot_settings default_series_type="Bar">
+        <bar_series>
+          <tooltip_settings enabled="true">
+<format>
+Valor: {%YValue}{numDecimals:0}Kwh</format>
+          </tooltip_settings>
+          
+          <marker_settings>
+          	<marker size="3"/></marker_settings></bar_series></data_plot_settings>
+
+      <chart_settings>
+    <chart_background>
+        	<border color="blue" enabled="false"/>
+        	<inside_margin all="0"/>
+        	<fill color="red" enabled="false" type="solid"/></chart_background><data_plot_background>
+		<border enabled="false"/><fill color="white" enabled="true" opacity="0.5" type="solid"/>
+		</data_plot_background>
+      			
+
+      
+	  	<title><text>Energia consumida durante cada dia del mes</text>
+	  		<font color="Blue">
+							<effects enabled="true">
+								<drop_shadow distance="1" enabled="False" opacity="1"/>
+							</effects>
+						</font></title>
+        <axes>
+		  <y_axis enabled="True">
+		  	<title><text>Kwh</text><font color="#003399"/></title>
+			<scale maximum="68.857350408" minimum="0.0" type="Linear"/>
+            <labels>
+				<format>{%Value}{numDecimals:0}</format>
+			
+
+						<font color="Gray">
+							<effects>
+								<drop_shadow distance="1" enabled="False" opacity="1"/>
+							</effects>
+						</font>
+</labels>
+            
+            <line color="Gray" opacity="1"/>
+            <major_tickmark color="Gray"/>
+            <minor_tickmark color="Gray"/>
+            <minor_grid enabled="false"/>
+           <major_grid interlaced="True">
+						<line color="Gray" opacity="0.7"/>
+					</major_grid></y_axis>		  
+          <extra>
+          	<y_axis enabled="False" name="y2">
+          		 <major_tickmark color="White"/>
+            <minor_tickmark color="White"/>
+          		 <line color="Gray" opacity="1"/>
+          		<title rotation="180">
+          			<text>m3/hr AguaHora</text>
+          			
+          			<font color="#ff0099"/></title>
+          			
+          	<labels>
+          				<format>{%Value}{numDecimals:0}</format>
+          				
+          			
+						<font color="Gray">
+							<effects>
+								<drop_shadow distance="1" enabled="false" opacity="1"/>
+							</effects>
+						</font>
+          				
+          				
+          				</labels>		
+          			
+          		<scale maximum="1" minimum="1"/></y_axis>
+          	<y_axis enabled="False" name="y3">
+          	<major_tickmark color="Gray"/>
+            <minor_tickmark color="Gray"/>
+          		 <line color="Black" opacity="1"/>
+          		<labels>
+          				<format>{%Value}{numDecimals:0}</format>
+          				
+          			
+						<font color="Gray">
+							<effects>
+								<drop_shadow distance="1" enabled="false" opacity="1"/>
+							</effects>
+						</font>
+          				
+          				
+          				</labels>
+          		<title rotation="180">
+          			<text>m3/hr Gas</text>
+          			<font color="#00cccc"/>
+          		</title>
+          		<scale maximum="1" minimum="1"/></y_axis></extra><x_axis>
+			<scale major_interval="1" major_interval_unit="Day" maximum="2009-10-31 00:00:00" minimum="2009-10-01 00:00:00" minor_interval="1" minor_interval_unit="Hour" type="DateTime"/>
+			<major_tickmark color="Gray"/>
+					<minor_tickmark color="Gray"/>
+            <labels display_mode="Stager">
+				<format>{%Value}{dateTimeFormat: %dd}</format>
+				<font color="Gray">
+							<effects enabled="False">
+								<drop_shadow distance="1" enabled="true" opacity="1"/>
+							</effects>
+						</font>
+            </labels>
+            <title enabled="true">
+              <text/>
+            </title>
+            <minor_grid enabled="false">
+            	</minor_grid><major_grid enabled="true">
+            	<line color="Gray" opacity="0.4"/></major_grid>
+	<line color="gray" enabled="true" opacity="0.5"/></x_axis>
+          </axes>
+        </chart_settings>
+      <data>
+      <series name="Series 1" style="parent"><point name="2009-10-01 00:00:00" y="54.42613146" style="current"/><point name="2009-10-02 00:00:00" y="55.81895352" style="current"/><point name="2009-10-03 00:00:00" y="14.18186064" style="current"/><point name="2009-10-04 00:00:00" y="13.951671" style="current"/><point name="2009-10-05 00:00:00" y="57.38112534" style="current"/><point name="2009-10-06 00:00:00" y="56.09551452" style="current"/><point name="2009-10-07 00:00:00" y="56.66698404" style="current"/><point name="2009-10-08 00:00:00" y="51.1182699" style="current"/><point name="2009-10-09 00:00:00" y="53.95106766" style="current"/><point name="2009-10-10 00:00:00" y="13.64573694" style="current"/><point name="2009-10-11 00:00:00" y="14.39537508" style="current"/><point name="2009-10-12 00:00:00" y="56.54736492" style="current"/><point name="2009-10-13 00:00:00" y="54.10321842" style="current"/><point name="2009-10-14 00:00:00" y="55.28930994" style="current"/><point name="2009-10-15 00:00:00" y="53.02480926" style="current"/><point name="2009-10-16 00:00:00" y="50.27919078" style="current"/><point name="2009-10-17 00:00:00" y="14.13407442" style="current"/><point name="2009-10-18 00:00:00" y="13.08306354" style="current"/><point name="2009-10-19 00:00:00" y="56.15173974" style="current"/><point name="2009-10-20 00:00:00" y="53.0103651" style="current"/><point name="2009-10-21 00:00:00" y="49.67723274" style="current"/><point name="2009-10-22 00:00:00" y="50.25297906" style="current"/><point name="2009-10-23 00:00:00" y="52.41546792" style="current"/><point name="2009-10-24 00:00:00" y="14.7097737" style="current"/><point name="2009-10-25 00:00:00" y="14.627142" style="current"/><point name="2009-10-26 00:00:00" y="52.3474578" style="current"/><point name="2009-10-27 00:00:00" y="55.13817366" style="current"/><point name="2009-10-28 00:00:00" y="53.89391322" style="current"/><point name="2009-10-29 00:00:00" y="54.63864138" style="current"/><point name="2009-10-30 00:00:00" y="54.99551238" style="current"/><point name="2009-10-31 00:00:00" y="13.79590602" style="current"/></series></data>
+      </chart>
+  </charts>
+</anychart>

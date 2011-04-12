@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?><anychart>
+
+  <settings>
+        <locale>
+          <date_time_format>
+            <format>%yyyy-%MM-%dd %HH:%mm:%ss</format>
+          </date_time_format>
+        </locale>
+        <animation enabled="true"/></settings><charts>
+    <chart plot_type="Scatter">
+    
+    <styles><line_style name="parent">
+          	<fill type="Gradient">
+          		<gradient angle="90">
+          			<key color="%Color" opacity="1" position="0"/><key color="DarkColor(%Color)" opacity="1" position="1"/></gradient></fill><line color="%Color" enabled="true"/>
+          	<states>
+          		<hover color="yellow"/></states></line_style><line_style name="previous" parent="parent">
+	<fill color="LightColor(%Color)" opacity="0.2"/>
+	<states>
+		<hover>
+			<fill color="yellow"/></hover></states>
+	<line color="LightColor(%Color)">
+		</line>
+	<marker size="1"/></line_style></styles>
+    
+      <data_plot_settings default_series_type="Spline">
+        <line_series>
+          <tooltip_settings enabled="true">
+<format>
+Valor: {%YValue}{numDecimals:2} 
+{%XValue}{dateTimeFormat:%HH:%mm 
+%dd-%MM-%yyyy}</format>
+          </tooltip_settings>
+          
+          <marker_settings enabled="true">
+          	<marker size="0"/>
+          	<states>
+          		<hover color="%Color" size="3"/></states></marker_settings></line_series></data_plot_settings>
+
+      <chart_settings>
+      
+      <chart_background>
+        	<border color="blue" enabled="false"/>
+        	<inside_margin all="0"/>
+        	<fill color="red" enabled="false" type="solid"/></chart_background>
+    <data_plot_background>
+		<fill color="White" opacity="0"/>
+	</data_plot_background>
+      			
+
+      
+	  	<title><text>Voltaje Fase A</text>
+	  		<font color="White">
+							<effects enabled="true">
+								<drop_shadow distance="1" enabled="False" opacity="1"/>
+							</effects>
+						</font></title>
+        <axes>
+		  <y_axis enabled="True">
+		  	<title><text>VARMS [V]</text><font color="#003399"/></title>
+			<scale maximum="270.362680358" minimum="0.0" type="Linear"/>
+            <labels>
+				<format>{%Value}{numDecimals:0}</format>
+			
+
+						<font color="Gray">
+							<effects>
+								<drop_shadow distance="1" enabled="False" opacity="1"/>
+							</effects>
+						</font>
+</labels>
+            
+            <line color="Gray" opacity="1"/>
+            <major_tickmark color="Gray"/>
+            <minor_tickmark color="Gray"/>
+            <minor_grid enabled="false"/>
+           <major_grid interlaced="True">
+						<line color="Gray" opacity="0.7"/>
+						<interlaced_fills>
+							<even><fill color="White" opacity="0.1"/></even>
+							<odd><fill color="White" opacity="0"/></odd>
+						</interlaced_fills>
+					</major_grid></y_axis>		  
+          <extra>
+          	<y_axis enabled="False" name="y2">
+          		 <major_tickmark color="White"/>
+            <minor_tickmark color="White"/>
+          		 <line color="Gray" opacity="1"/>
+          		<title rotation="180">
+          			<text>Hora</text>
+          			
+          			<font color="#ff0099"/></title>
+          			
+          	<labels>
+          				<format>{%Value}{numDecimals:0}</format>
+          				
+          			
+						<font color="White">
+							<effects>
+								<drop_shadow distance="1" enabled="true" opacity="1"/>
+							</effects>
+						</font>
+          				
+          				
+          				</labels>		
+          			
+          		<scale maximum="1" minimum="1"/></y_axis>
+          	<y_axis enabled="False" name="y3">
+          	<major_tickmark color="White"/>
+            <minor_tickmark color="White"/>
+          		 <line color="Gray" opacity="1"/>
+          		<labels>
+          				<format>{%Value}{numDecimals:0}</format>
+          				
+          			
+						<font color="White">
+							<effects>
+								<drop_shadow distance="1" enabled="true" opacity="1"/>
+							</effects>
+						</font>
+          				
+          				
+          				</labels>
+          		<title rotation="180">
+          			<text>m3/hr Gas</text>
+          			<font color="#00cccc"/>
+          		</title>
+          		<scale maximum="1" minimum="1"/></y_axis></extra><x_axis>
+			<scale major_interval="6" major_interval_unit="Hour" maximum="2010-05-20 23:59:59" minimum="2010-05-19 00:00:00" minor_interval="30" minor_interval_unit="Minute" type="DateTime"/>
+			<major_tickmark color="Gray"/>
+					<minor_tickmark color="Gray"/>
+            <labels>
+				<format>{%Value}{dateTimeFormat:%HH:%mm 
+%dd-%MM}</format>
+				<font color="Gray">
+							<effects enabled="False">
+								<drop_shadow distance="1" enabled="true" opacity="1"/>
+							</effects>
+						</font>
+            </labels>
+            <title enabled="true">
+              <text/>
+            </title>
+            <minor_grid enabled="false">
+            	</minor_grid><major_grid enabled="true">
+            	<line color="Gray" opacity="0.4"/></major_grid>
+	<line color="Gray" opacity="1"/></x_axis>
+          </axes>
+      </chart_settings>
+      <data>
+      <series name="Series 1" style="parent" type="Line"><point x="2010-05-19 00:00:00" y="224.861311248" style="previous"/><point x="2010-05-19 00:20:00" y="224.697428592" style="previous"/><point x="2010-05-19 00:40:00" y="221.803685768" style="previous"/><point x="2010-05-19 01:00:00" y="223.448148504" style="previous"/><point x="2010-05-19 01:20:00" y="221.8485584" style="previous"/><point x="2010-05-19 01:40:00" y="224.306581464" style="previous"/><point x="2010-05-19 02:00:00" y="222.818414224" style="previous"/><point x="2010-05-19 02:20:00" y="221.288625992" style="previous"/><point x="2010-05-19 02:40:00" y="223.450099488" style="previous"/><point x="2010-05-19 03:00:00" y="223.472427416" style="previous"/><point x="2010-05-19 03:20:00" y="223.282748416" style="previous"/><point x="2010-05-19 03:40:00" y="222.822532968" style="previous"/><point x="2010-05-19 04:00:00" y="222.294900184" style="previous"/><point x="2010-05-19 04:20:00" y="223.921153736" style="previous"/><point x="2010-05-19 04:40:00" y="223.2738606" style="previous"/><point x="2010-05-19 05:00:00" y="224.413235256" style="previous"/><point x="2010-05-19 05:20:00" y="224.453989144" style="previous"/><point x="2010-05-19 05:40:00" y="222.900572328" style="previous"/><point x="2010-05-19 06:00:00" y="223.14487888" style="previous"/><point x="2010-05-19 06:20:00" y="221.182839304" style="previous"/><point x="2010-05-19 06:40:00" y="223.32697072" style="previous"/><point x="2010-05-19 07:00:00" y="222.833371768" style="previous"/><point x="2010-05-19 07:20:00" y="221.930282952" style="previous"/><point x="2010-05-19 07:40:00" y="223.955187568" style="previous"/><point x="2010-05-19 08:00:00" y="223.802143712" style="previous"/><point x="2010-05-19 08:20:00" y="221.340869008" style="previous"/><point x="2010-05-19 08:40:00" y="221.452508648" style="previous"/><point x="2010-05-19 09:00:00" y="221.357994312" style="previous"/><point x="2010-05-19 09:20:00" y="224.373565248" style="previous"/><point x="2010-05-19 09:40:00" y="223.28036388" style="previous"/><point x="2010-05-19 10:00:00" y="224.147901432" style="previous"/><point x="2010-05-19 10:20:00" y="222.563702424" style="previous"/><point x="2010-05-19 10:40:00" y="221.423243888" style="previous"/><point x="2010-05-19 11:00:00" y="223.944131992" style="previous"/><point x="2010-05-19 11:20:00" y="221.799567024" style="previous"/><point x="2010-05-19 11:40:00" y="223.345179904" style="previous"/><point x="2010-05-19 12:00:00" y="223.838995632" style="previous"/><point x="2010-05-19 12:20:00" y="221.28819244" style="previous"/><point x="2010-05-19 12:40:00" y="224.321755784" style="previous"/><point x="2010-05-19 13:00:00" y="222.074438992" style="previous"/><point x="2010-05-19 13:20:00" y="221.665165904" style="previous"/><point x="2010-05-19 13:40:00" y="224.604431688" style="previous"/><point x="2010-05-19 14:00:00" y="222.273005808" style="previous"/><point x="2010-05-19 14:20:00" y="221.437984656" style="previous"/><point x="2010-05-19 14:40:00" y="223.243078408" style="previous"/><point x="2010-05-19 15:00:00" y="223.504293488" style="previous"/><point x="2010-05-19 15:20:00" y="223.269308304" style="previous"/><point x="2010-05-19 15:40:00" y="222.421063816" style="previous"/><point x="2010-05-19 16:00:00" y="221.282122712" style="previous"/><point x="2010-05-19 16:20:00" y="224.150285968" style="previous"/><point x="2010-05-19 16:40:00" y="223.579948312" style="previous"/><point x="2010-05-19 17:00:00" y="224.179117176" style="previous"/><point x="2010-05-19 17:20:00" y="221.883892888" style="previous"/><point x="2010-05-19 17:40:00" y="221.720227008" style="previous"/><point x="2010-05-19 18:00:00" y="222.532703456" style="previous"/><point x="2010-05-19 18:20:00" y="221.074234528" style="previous"/><point x="2010-05-19 18:40:00" y="221.871536656" style="previous"/><point x="2010-05-19 19:00:00" y="221.276703312" style="previous"/><point x="2010-05-19 19:20:00" y="224.975985752" style="previous"/><point x="2010-05-19 19:40:00" y="225.302233632" style="previous"/><point x="2010-05-19 20:00:00" y="225.127512176" style="previous"/><point x="2010-05-19 20:20:00" y="222.86415396" style="previous"/><point x="2010-05-19 20:40:00" y="221.88432644" style="previous"/><point x="2010-05-19 21:00:00" y="223.107159856" style="previous"/><point x="2010-05-19 21:20:00" y="221.233131336" style="previous"/><point x="2010-05-19 21:40:00" y="225.151357536" style="previous"/><point x="2010-05-19 22:00:00" y="225.169349944" style="previous"/><point x="2010-05-19 22:20:00" y="223.89600772" style="previous"/><point x="2010-05-19 22:40:00" y="222.229433832" style="previous"/><point x="2010-05-19 23:00:00" y="222.259999248" style="previous"/><point x="2010-05-19 23:20:00" y="223.797808192" style="previous"/><point x="2010-05-19 23:40:00" y="224.756174888" style="previous"/><point x="2010-05-20 00:00:00" y="221.152057112" style="current"/></series></data>
+    </chart>
+  </charts>
+</anychart>

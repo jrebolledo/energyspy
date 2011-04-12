@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?><anychart>
+
+  <settings>
+        <locale>
+          <date_time_format>
+            <format>%yyyy-%MM-%dd %HH:%mm:%ss</format>
+          </date_time_format>
+        </locale>
+        <animation enabled="true"/></settings><charts>
+    <chart plot_type="Scatter">
+    
+    <styles><line_style name="parent">
+          	<fill type="Gradient">
+          		<gradient angle="90">
+          			<key color="%Color" opacity="1" position="0"/><key color="DarkColor(%Color)" opacity="1" position="1"/></gradient></fill><line color="%Color" enabled="true"/>
+          	<states>
+          		<hover color="yellow"/></states></line_style><line_style name="previous" parent="parent">
+	<fill color="LightColor(%Color)" opacity="0.2"/>
+	<states>
+		<hover>
+			<fill color="yellow"/></hover></states>
+	<line color="LightColor(%Color)">
+		</line>
+	<marker size="1"/></line_style></styles>
+    
+      <data_plot_settings default_series_type="Spline">
+        <line_series>
+          <tooltip_settings enabled="true">
+<format>
+Valor: {%YValue}{numDecimals:2} 
+{%XValue}{dateTimeFormat:%HH:%mm 
+%dd-%MM-%yyyy}</format>
+          </tooltip_settings>
+          
+          <marker_settings enabled="true">
+          	<marker size="0"/>
+          	<states>
+          		<hover color="%Color" size="3"/></states></marker_settings></line_series></data_plot_settings>
+
+      <chart_settings>
+      
+      <chart_background>
+        	<border color="blue" enabled="false"/>
+        	<inside_margin all="0"/>
+        	<fill color="red" enabled="false" type="solid"/></chart_background>
+    <data_plot_background>
+		<fill color="White" opacity="0"/>
+	</data_plot_background>
+      			
+
+      
+	  	<title><text>Voltaje Fase A</text>
+	  		<font color="White">
+							<effects enabled="true">
+								<drop_shadow distance="1" enabled="False" opacity="1"/>
+							</effects>
+						</font></title>
+        <axes>
+		  <y_axis enabled="True">
+		  	<title><text>VARMS [V]</text><font color="#003399"/></title>
+			<scale maximum="270.405341875" minimum="0.0" type="Linear"/>
+            <labels>
+				<format>{%Value}{numDecimals:0}</format>
+			
+
+						<font color="Gray">
+							<effects>
+								<drop_shadow distance="1" enabled="False" opacity="1"/>
+							</effects>
+						</font>
+</labels>
+            
+            <line color="Gray" opacity="1"/>
+            <major_tickmark color="Gray"/>
+            <minor_tickmark color="Gray"/>
+            <minor_grid enabled="false"/>
+           <major_grid interlaced="True">
+						<line color="Gray" opacity="0.7"/>
+						<interlaced_fills>
+							<even><fill color="White" opacity="0.1"/></even>
+							<odd><fill color="White" opacity="0"/></odd>
+						</interlaced_fills>
+					</major_grid></y_axis>		  
+          <extra>
+          	<y_axis enabled="False" name="y2">
+          		 <major_tickmark color="White"/>
+            <minor_tickmark color="White"/>
+          		 <line color="Gray" opacity="1"/>
+          		<title rotation="180">
+          			<text>Hora</text>
+          			
+          			<font color="#ff0099"/></title>
+          			
+          	<labels>
+          				<format>{%Value}{numDecimals:0}</format>
+          				
+          			
+						<font color="White">
+							<effects>
+								<drop_shadow distance="1" enabled="true" opacity="1"/>
+							</effects>
+						</font>
+          				
+          				
+          				</labels>		
+          			
+          		<scale maximum="1" minimum="1"/></y_axis>
+          	<y_axis enabled="False" name="y3">
+          	<major_tickmark color="White"/>
+            <minor_tickmark color="White"/>
+          		 <line color="Gray" opacity="1"/>
+          		<labels>
+          				<format>{%Value}{numDecimals:0}</format>
+          				
+          			
+						<font color="White">
+							<effects>
+								<drop_shadow distance="1" enabled="true" opacity="1"/>
+							</effects>
+						</font>
+          				
+          				
+          				</labels>
+          		<title rotation="180">
+          			<text>m3/hr Gas</text>
+          			<font color="#00cccc"/>
+          		</title>
+          		<scale maximum="1" minimum="1"/></y_axis></extra><x_axis>
+			<scale major_interval="6" major_interval_unit="Hour" maximum="2009-05-06 23:59:59" minimum="2009-05-05 00:00:00" minor_interval="30" minor_interval_unit="Minute" type="DateTime"/>
+			<major_tickmark color="Gray"/>
+					<minor_tickmark color="Gray"/>
+            <labels>
+				<format>{%Value}{dateTimeFormat:%HH:%mm 
+%dd-%MM}</format>
+				<font color="Gray">
+							<effects enabled="False">
+								<drop_shadow distance="1" enabled="true" opacity="1"/>
+							</effects>
+						</font>
+            </labels>
+            <title enabled="true">
+              <text/>
+            </title>
+            <minor_grid enabled="false">
+            	</minor_grid><major_grid enabled="true">
+            	<line color="Gray" opacity="0.4"/></major_grid>
+	<line color="Gray" opacity="1"/></x_axis>
+          </axes>
+      </chart_settings>
+      <data>
+      <series name="Series 1" style="parent" type="Line"><point x="2009-05-05 00:00:00" y="221.746890456" style="previous"/><point x="2009-05-05 00:20:00" y="224.313951848" style="previous"/><point x="2009-05-05 00:40:00" y="221.123009128" style="previous"/><point x="2009-05-05 01:00:00" y="222.339772816" style="previous"/><point x="2009-05-05 01:20:00" y="224.854374416" style="previous"/><point x="2009-05-05 01:40:00" y="225.286192208" style="previous"/><point x="2009-05-05 02:00:00" y="224.911820056" style="previous"/><point x="2009-05-05 02:20:00" y="221.34888972" style="previous"/><point x="2009-05-05 02:40:00" y="224.450520728" style="previous"/><point x="2009-05-05 03:00:00" y="221.609671248" style="previous"/><point x="2009-05-05 03:20:00" y="221.367749232" style="previous"/><point x="2009-05-05 03:40:00" y="225.117106928" style="previous"/><point x="2009-05-05 04:00:00" y="224.0488348" style="previous"/><point x="2009-05-05 04:20:00" y="222.370121456" style="previous"/><point x="2009-05-05 04:40:00" y="222.927452552" style="previous"/><point x="2009-05-05 05:00:00" y="224.04666704" style="previous"/><point x="2009-05-05 05:20:00" y="225.11212108" style="previous"/><point x="2009-05-05 05:40:00" y="224.233961504" style="previous"/><point x="2009-05-05 06:00:00" y="222.963437368" style="previous"/><point x="2009-05-05 06:20:00" y="222.370771784" style="previous"/><point x="2009-05-05 06:40:00" y="221.804552872" style="previous"/><point x="2009-05-05 07:00:00" y="222.378142168" style="previous"/><point x="2009-05-05 07:20:00" y="222.8294698" style="previous"/><point x="2009-05-05 07:40:00" y="221.698766184" style="previous"/><point x="2009-05-05 08:00:00" y="221.339351576" style="previous"/><point x="2009-05-05 08:20:00" y="224.915722024" style="previous"/><point x="2009-05-05 08:40:00" y="222.724983768" style="previous"/><point x="2009-05-05 09:00:00" y="224.26669468" style="previous"/><point x="2009-05-05 09:20:00" y="222.779828096" style="previous"/><point x="2009-05-05 09:40:00" y="225.02866232" style="previous"/><point x="2009-05-05 10:00:00" y="223.605311104" style="previous"/><point x="2009-05-05 10:20:00" y="223.995941456" style="previous"/><point x="2009-05-05 10:40:00" y="223.297922736" style="previous"/><point x="2009-05-05 11:00:00" y="224.443800672" style="previous"/><point x="2009-05-05 11:20:00" y="222.44686016" style="previous"/><point x="2009-05-05 11:40:00" y="224.378551096" style="previous"/><point x="2009-05-05 12:00:00" y="221.644355408" style="previous"/><point x="2009-05-05 12:20:00" y="222.00680488" style="previous"/><point x="2009-05-05 12:40:00" y="223.059685912" style="previous"/><point x="2009-05-05 13:00:00" y="222.600554344" style="previous"/><point x="2009-05-05 13:20:00" y="222.611176368" style="previous"/><point x="2009-05-05 13:40:00" y="221.585825888" style="previous"/><point x="2009-05-05 14:00:00" y="225.01782352" style="previous"/><point x="2009-05-05 14:20:00" y="223.550033224" style="previous"/><point x="2009-05-05 14:40:00" y="221.088324968" style="previous"/><point x="2009-05-05 15:00:00" y="224.749671608" style="previous"/><point x="2009-05-05 15:20:00" y="223.582983176" style="previous"/><point x="2009-05-05 15:40:00" y="222.76660476" style="previous"/><point x="2009-05-05 16:00:00" y="223.621569304" style="previous"/><point x="2009-05-05 16:20:00" y="221.277787192" style="previous"/><point x="2009-05-05 16:40:00" y="221.6751376" style="previous"/><point x="2009-05-05 17:00:00" y="224.201011552" style="previous"/><point x="2009-05-05 17:20:00" y="223.062504" style="previous"/><point x="2009-05-05 17:40:00" y="221.959547712" style="previous"/><point x="2009-05-05 18:00:00" y="222.213175632" style="previous"/><point x="2009-05-05 18:20:00" y="221.878473488" style="previous"/><point x="2009-05-05 18:40:00" y="221.343687096" style="previous"/><point x="2009-05-05 19:00:00" y="223.500608296" style="previous"/><point x="2009-05-05 19:20:00" y="224.126007056" style="previous"/><point x="2009-05-05 19:40:00" y="222.88041216" style="previous"/><point x="2009-05-05 20:00:00" y="221.638068904" style="previous"/><point x="2009-05-05 20:20:00" y="221.940037872" style="previous"/><point x="2009-05-05 20:40:00" y="223.54916612" style="previous"/><point x="2009-05-05 21:00:00" y="222.52273176" style="previous"/><point x="2009-05-05 21:20:00" y="223.61419892" style="previous"/><point x="2009-05-05 21:40:00" y="223.621352528" style="previous"/><point x="2009-05-05 22:00:00" y="221.251123744" style="previous"/><point x="2009-05-05 22:20:00" y="222.707641688" style="previous"/><point x="2009-05-05 22:40:00" y="223.778731904" style="previous"/><point x="2009-05-05 23:00:00" y="224.84331884" style="previous"/><point x="2009-05-05 23:20:00" y="222.028048928" style="previous"/><point x="2009-05-05 23:40:00" y="225.155259504" style="previous"/><point x="2009-05-06 00:00:00" y="224.982922584" style="current"/><point x="2009-05-06 00:20:00" y="221.4746198" style="current"/><point x="2009-05-06 00:40:00" y="221.766617072" style="current"/><point x="2009-05-06 01:00:00" y="222.735822568" style="current"/><point x="2009-05-06 01:20:00" y="222.454880872" style="current"/><point x="2009-05-06 01:40:00" y="224.821424464" style="current"/><point x="2009-05-06 02:00:00" y="221.92117836" style="current"/><point x="2009-05-06 02:20:00" y="225.065947792" style="current"/><point x="2009-05-06 02:40:00" y="224.230493088" style="current"/><point x="2009-05-06 03:00:00" y="222.591232976" style="current"/><point x="2009-05-06 03:20:00" y="223.05816848" style="current"/><point x="2009-05-06 03:40:00" y="225.033214616" style="current"/><point x="2009-05-06 04:00:00" y="224.206864504" style="current"/><point x="2009-05-06 04:20:00" y="223.571494048" style="current"/><point x="2009-05-06 04:40:00" y="221.788511448" style="current"/><point x="2009-05-06 05:00:00" y="221.538351944" style="current"/><point x="2009-05-06 05:20:00" y="222.381177032" style="current"/><point x="2009-05-06 05:40:00" y="221.477004336" style="current"/><point x="2009-05-06 06:00:00" y="223.585150936" style="current"/><point x="2009-05-06 06:20:00" y="223.516432944" style="current"/><point x="2009-05-06 06:40:00" y="222.613127352" style="current"/><point x="2009-05-06 07:00:00" y="224.71433712" style="current"/><point x="2009-05-06 07:20:00" y="221.6588794" style="current"/><point x="2009-05-06 07:40:00" y="222.74601104" style="current"/><point x="2009-05-06 08:00:00" y="222.215343392" style="current"/><point x="2009-05-06 08:20:00" y="222.548311328" style="current"/><point x="2009-05-06 08:40:00" y="221.791979864" style="current"/><point x="2009-05-06 09:00:00" y="221.105233496" style="current"/><point x="2009-05-06 09:20:00" y="221.486759256" style="current"/><point x="2009-05-06 09:40:00" y="222.024580512" style="current"/><point x="2009-05-06 10:00:00" y="223.007659672" style="current"/><point x="2009-05-06 10:20:00" y="224.598795512" style="current"/><point x="2009-05-06 10:40:00" y="224.138146512" style="current"/><point x="2009-05-06 11:00:00" y="221.933751368" style="current"/><point x="2009-05-06 11:20:00" y="221.319841736" style="current"/><point x="2009-05-06 11:40:00" y="221.57325288" style="current"/><point x="2009-05-06 12:00:00" y="223.151165384" style="current"/><point x="2009-05-06 12:20:00" y="223.145095656" style="current"/><point x="2009-05-06 12:40:00" y="225.088709272" style="current"/><point x="2009-05-06 13:00:00" y="225.090009928" style="current"/><point x="2009-05-06 13:20:00" y="221.743205264" style="current"/><point x="2009-05-06 13:40:00" y="224.492575272" style="current"/><point x="2009-05-06 14:00:00" y="221.47678756" style="current"/><point x="2009-05-06 14:20:00" y="221.362763384" style="current"/><point x="2009-05-06 14:40:00" y="222.438839448" style="current"/><point x="2009-05-06 15:00:00" y="223.695706696" style="current"/><point x="2009-05-06 15:20:00" y="225.337784896" style="current"/><point x="2009-05-06 15:40:00" y="224.71108548" style="current"/><point x="2009-05-06 16:00:00" y="224.12904192" style="current"/><point x="2009-05-06 16:20:00" y="224.1301258" style="current"/><point x="2009-05-06 16:40:00" y="221.25675992" style="current"/><point x="2009-05-06 17:00:00" y="222.66363616" style="current"/><point x="2009-05-06 17:20:00" y="222.607707952" style="current"/><point x="2009-05-06 17:40:00" y="224.750538712" style="current"/><point x="2009-05-06 18:00:00" y="222.9486966" style="current"/><point x="2009-05-06 18:20:00" y="224.670331592" style="current"/><point x="2009-05-06 18:40:00" y="222.721515352" style="current"/><point x="2009-05-06 19:00:00" y="223.798892072" style="current"/><point x="2009-05-06 19:20:00" y="222.030867016" style="current"/><point x="2009-05-06 19:40:00" y="222.001819032" style="current"/><point x="2009-05-06 20:00:00" y="224.640416504" style="current"/><point x="2009-05-06 20:20:00" y="224.733630184" style="current"/><point x="2009-05-06 20:40:00" y="223.236791904" style="current"/><point x="2009-05-06 21:00:00" y="221.612489336" style="current"/><point x="2009-05-06 21:20:00" y="224.144866568" style="current"/><point x="2009-05-06 21:40:00" y="223.69223828" style="current"/><point x="2009-05-06 22:00:00" y="221.42909684" style="current"/><point x="2009-05-06 22:20:00" y="222.986849176" style="current"/><point x="2009-05-06 22:40:00" y="222.98446464" style="current"/><point x="2009-05-06 23:00:00" y="224.551538344" style="current"/><point x="2009-05-06 23:20:00" y="222.084627464" style="current"/><point x="2009-05-06 23:40:00" y="222.344758664" style="current"/></series></data>
+    </chart>
+  </charts>
+</anychart>

@@ -1,0 +1,242 @@
+<SimpleDiagram>
+  <diagram version="" updatedAt="Fri Feb 4 18:20:55 GMT-0300 2011" width="3000" height="2400">
+    <name/>
+    <description>null</description>
+    <background libraryName="com.simplediagrams.backgroundLibrary.basic" backgroundName="Chalkboard" fillMode="repeat" tintColor="0" tintAlpha="0"/>
+  </diagram>
+  <sdObjects>
+    <SDTextArea x="524.55" y="337.25" height="50" width="120" rotation="0" depth="1" color="16777215" colorizable="true">
+      <styleName>noBackground</styleName>
+      <text>gateway</text>
+      <fontWeight>normal</fontWeight>
+      <fontSize>12</fontSize>
+      <textAlign>left</textAlign>
+      <fontFamily>Arial</fontFamily>
+    </SDTextArea>
+    <SDSymbol symbolName="Square" libraryName="com.simplediagrams.shapelibrary.basic" x="239" y="124" height="52" width="50" rotation="0" depth="2" color="16777215" colorizable="true">
+      <text>dev Id</text>
+      <textAlign>left</textAlign>
+      <fontWeight>normal</fontWeight>
+      <textPosition>top</textPosition>
+      <fontSize>12</fontSize>
+      <fontFamily>Arial</fontFamily>
+    </SDSymbol>
+    <SDSymbol symbolName="WirelessRouter" libraryName="com.simplediagrams.shapelibrary.computersAndNetworks" x="464.95" y="528.35" height="50" width="50" rotation="0" depth="4" color="16777215" colorizable="true">
+      <text/>
+      <textAlign>left</textAlign>
+      <fontWeight>normal</fontWeight>
+      <textPosition>top</textPosition>
+      <fontSize>12</fontSize>
+      <fontFamily>Arial</fontFamily>
+    </SDSymbol>
+    <SDSymbol symbolName="WirelessRouter" libraryName="com.simplediagrams.shapelibrary.computersAndNetworks" x="469.25" y="319.05" height="50" width="50" rotation="0" depth="4" color="16777215" colorizable="true">
+      <text/>
+      <textAlign>left</textAlign>
+      <fontWeight>normal</fontWeight>
+      <textPosition>top</textPosition>
+      <fontSize>12</fontSize>
+      <fontFamily>Arial</fontFamily>
+    </SDSymbol>
+    <SDTextArea x="525.05" y="545" height="50" width="120" rotation="0" depth="5" color="16777215" colorizable="true">
+      <styleName>noBackground</styleName>
+      <text>Nodo</text>
+      <fontWeight>normal</fontWeight>
+      <fontSize>12</fontSize>
+      <textAlign>left</textAlign>
+      <fontFamily>Arial</fontFamily>
+    </SDTextArea>
+    <SDSymbol symbolName="Square" libraryName="com.simplediagrams.shapelibrary.basic" x="408" y="122" height="52" width="50" rotation="0" depth="6" color="16777215" colorizable="true">
+      <text>m (char)</text>
+      <textAlign>left</textAlign>
+      <fontWeight>normal</fontWeight>
+      <textPosition>top</textPosition>
+      <fontSize>12</fontSize>
+      <fontFamily>Arial</fontFamily>
+    </SDSymbol>
+    <SDSymbol symbolName="Square" libraryName="com.simplediagrams.shapelibrary.basic" x="467" y="122" height="52" width="50" rotation="0" depth="7" color="16777215" colorizable="true">
+      <text>IO(0-11)</text>
+      <textAlign>left</textAlign>
+      <fontWeight>normal</fontWeight>
+      <textPosition>top</textPosition>
+      <fontSize>12</fontSize>
+      <fontFamily>Arial</fontFamily>
+    </SDSymbol>
+    <SDSymbol symbolName="Square" libraryName="com.simplediagrams.shapelibrary.basic" x="530" y="122" height="51" width="130" rotation="0" depth="8" color="16777215" colorizable="true">
+      <text>Hasta (entero 0-144)</text>
+      <textAlign>left</textAlign>
+      <fontWeight>normal</fontWeight>
+      <textPosition>top</textPosition>
+      <fontSize>12</fontSize>
+      <fontFamily>Arial</fontFamily>
+    </SDSymbol>
+    <SDSymbol symbolName="Square" libraryName="com.simplediagrams.shapelibrary.basic" x="670" y="122" height="52" width="137" rotation="0" depth="9" color="16777215" colorizable="true">
+      <text>Estado (0 OFF, 1 ON)</text>
+      <textAlign>left</textAlign>
+      <fontWeight>normal</fontWeight>
+      <textPosition>top</textPosition>
+      <fontSize>12</fontSize>
+      <fontFamily>Arial</fontFamily>
+    </SDSymbol>
+    <SDSymbol symbolName="Square" libraryName="com.simplediagrams.shapelibrary.basic" x="341" y="122" height="52" width="57" rotation="0" depth="16" color="16777215" colorizable="true">
+      <text>numero bytes</text>
+      <textAlign>left</textAlign>
+      <fontWeight>normal</fontWeight>
+      <textPosition>top</textPosition>
+      <fontSize>12</fontSize>
+      <fontFamily>Arial</fontFamily>
+    </SDSymbol>
+    <SDSymbol symbolName="Square" libraryName="com.simplediagrams.shapelibrary.basic" x="334" y="419" height="52" width="50" rotation="0" depth="17" color="16777215" colorizable="true">
+      <text>m (char)</text>
+      <textAlign>left</textAlign>
+      <fontWeight>normal</fontWeight>
+      <textPosition>top</textPosition>
+      <fontSize>12</fontSize>
+      <fontFamily>Arial</fontFamily>
+    </SDSymbol>
+    <SDSymbol symbolName="Square" libraryName="com.simplediagrams.shapelibrary.basic" x="393" y="419" height="52" width="50" rotation="0" depth="18" color="16777215" colorizable="true">
+      <text>IO(0-11)</text>
+      <textAlign>left</textAlign>
+      <fontWeight>normal</fontWeight>
+      <textPosition>top</textPosition>
+      <fontSize>12</fontSize>
+      <fontFamily>Arial</fontFamily>
+    </SDSymbol>
+    <SDSymbol symbolName="Square" libraryName="com.simplediagrams.shapelibrary.basic" x="456" y="419" height="51" width="130" rotation="0" depth="19" color="16777215" colorizable="true">
+      <text>Hasta (entero 0-144)</text>
+      <textAlign>left</textAlign>
+      <fontWeight>normal</fontWeight>
+      <textPosition>top</textPosition>
+      <fontSize>12</fontSize>
+      <fontFamily>Arial</fontFamily>
+    </SDSymbol>
+    <SDSymbol symbolName="Square" libraryName="com.simplediagrams.shapelibrary.basic" x="596" y="419" height="52" width="137" rotation="0" depth="20" color="16777215" colorizable="true">
+      <text>Estado (0 OFF, 1 ON)</text>
+      <textAlign>left</textAlign>
+      <fontWeight>normal</fontWeight>
+      <textPosition>top</textPosition>
+      <fontSize>12</fontSize>
+      <fontFamily>Arial</fontFamily>
+    </SDSymbol>
+    <SDSymbol symbolName="Square" libraryName="com.simplediagrams.shapelibrary.basic" x="274" y="419" height="52" width="50" rotation="0" depth="21" color="16777215" colorizable="true">
+      <text>numero bytes</text>
+      <textAlign>left</textAlign>
+      <fontWeight>normal</fontWeight>
+      <textPosition>top</textPosition>
+      <fontSize>12</fontSize>
+      <fontFamily>Arial</fontFamily>
+    </SDSymbol>
+    <SDLine x="491" y="377" height="50" width="50" rotation="0" depth="16" color="16777215" colorizable="true">
+      <startX>0</startX>
+      <startY>0</startY>
+      <endX>1</endX>
+      <endY>129</endY>
+      <bendX>1</bendX>
+      <bendY>65</bendY>
+      <lineWeight>1</lineWeight>
+      <startLineStyle>0</startLineStyle>
+      <endLineStyle>3</endLineStyle>
+    </SDLine>
+    <SDTextArea x="411" y="92" height="24" width="47" rotation="0" depth="17" color="16777215" colorizable="true">
+      <styleName>noBackground</styleName>
+      <text>1 byte</text>
+      <fontWeight>normal</fontWeight>
+      <fontSize>12</fontSize>
+      <textAlign>left</textAlign>
+      <fontFamily>Arial</fontFamily>
+    </SDTextArea>
+    <SDTextArea x="470" y="91" height="24" width="47" rotation="0" depth="18" color="16777215" colorizable="true">
+      <styleName>noBackground</styleName>
+      <text>1 byte</text>
+      <fontWeight>normal</fontWeight>
+      <fontSize>12</fontSize>
+      <textAlign>left</textAlign>
+      <fontFamily>Arial</fontFamily>
+    </SDTextArea>
+    <SDTextArea x="569" y="92" height="24" width="47" rotation="0" depth="19" color="16777215" colorizable="true">
+      <styleName>noBackground</styleName>
+      <text>1 byte</text>
+      <fontWeight>normal</fontWeight>
+      <fontSize>12</fontSize>
+      <textAlign>left</textAlign>
+      <fontFamily>Arial</fontFamily>
+    </SDTextArea>
+    <SDTextArea x="715" y="92" height="24" width="47" rotation="0" depth="20" color="16777215" colorizable="true">
+      <styleName>noBackground</styleName>
+      <text>1 byte</text>
+      <fontWeight>normal</fontWeight>
+      <fontSize>12</fontSize>
+      <textAlign>left</textAlign>
+      <fontFamily>Arial</fontFamily>
+    </SDTextArea>
+    <SDTextArea x="346" y="91" height="24" width="47" rotation="0" depth="21" color="16777215" colorizable="true">
+      <styleName>noBackground</styleName>
+      <text>1 byte</text>
+      <fontWeight>normal</fontWeight>
+      <fontSize>12</fontSize>
+      <textAlign>left</textAlign>
+      <fontFamily>Arial</fontFamily>
+    </SDTextArea>
+    <SDLine x="488" y="186" height="50" width="50" rotation="0" depth="22" color="16777215" colorizable="true">
+      <startX>0</startX>
+      <startY>0</startY>
+      <endX>0</endX>
+      <endY>115</endY>
+      <bendX>0</bendX>
+      <bendY>58</bendY>
+      <lineWeight>1</lineWeight>
+      <startLineStyle>0</startLineStyle>
+      <endLineStyle>3</endLineStyle>
+    </SDLine>
+    <SDLine x="489" y="12" height="50" width="50" rotation="0" depth="23" color="16777215" colorizable="true">
+      <startX>0</startX>
+      <startY>0</startY>
+      <endX>0</endX>
+      <endY>60</endY>
+      <bendX>0</bendX>
+      <bendY>30</bendY>
+      <lineWeight>1</lineWeight>
+      <startLineStyle>0</startLineStyle>
+      <endLineStyle>3</endLineStyle>
+    </SDLine>
+    <SDSymbol symbolName="Square" libraryName="com.simplediagrams.shapelibrary.basic" x="101" y="123" height="52" width="57" rotation="0" depth="24" color="16777215" colorizable="true">
+      <text>metodo</text>
+      <textAlign>left</textAlign>
+      <fontWeight>normal</fontWeight>
+      <textPosition>top</textPosition>
+      <fontSize>12</fontSize>
+      <fontFamily>Arial</fontFamily>
+    </SDSymbol>
+    <SDTextArea x="102" y="92" height="24" width="47" rotation="0" depth="26" color="16777215" colorizable="true">
+      <styleName>noBackground</styleName>
+      <text>1 byte</text>
+      <fontWeight>normal</fontWeight>
+      <fontSize>12</fontSize>
+      <textAlign>left</textAlign>
+      <fontFamily>Arial</fontFamily>
+    </SDTextArea>
+    <SDTextArea x="218" y="93" height="24" width="120" rotation="0" depth="26" color="16777215" colorizable="true">
+      <styleName>noBackground</styleName>
+      <text>Control Manual</text>
+      <fontWeight>normal</fontWeight>
+      <fontSize>12</fontSize>
+      <textAlign>left</textAlign>
+      <fontFamily>Arial</fontFamily>
+    </SDTextArea>
+    <SDSymbol symbolName="Square" libraryName="com.simplediagrams.shapelibrary.basic" x="169" y="123" height="52" width="57" rotation="0" depth="26" color="16777215" colorizable="true">
+      <text>opID</text>
+      <textAlign>left</textAlign>
+      <fontWeight>normal</fontWeight>
+      <textPosition>top</textPosition>
+      <fontSize>12</fontSize>
+      <fontFamily>Arial</fontFamily>
+    </SDSymbol>
+    <SDTextArea x="170" y="92" height="24" width="47" rotation="0" depth="27" color="16777215" colorizable="true">
+      <styleName>noBackground</styleName>
+      <text>1 byte</text>
+      <fontWeight>normal</fontWeight>
+      <fontSize>12</fontSize>
+      <textAlign>left</textAlign>
+      <fontFamily>Arial</fontFamily>
+    </SDTextArea>
+  </sdObjects>
+</SimpleDiagram>

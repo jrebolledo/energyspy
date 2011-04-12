@@ -1,0 +1,145 @@
+# SOME DESCRIPTIVE TITLE.                                                                                     
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER                                                           
+# This file is distributed under the same license as the PACKAGE package.                                     
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.                                                                         
+#                                                                                                             
+#, fuzzy                                                                                                      
+msgid ""                                                                                                      
+msgstr ""                                                                                                     
+"Project-Id-Version: PACKAGE VERSION\n"                                                                       
+"Report-Msgid-Bugs-To: \n"                                                                                    
+"POT-Creation-Date: 2010-08-03 16:00-0400\n"                                                                  
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"                                                                   
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"                                                                
+"Language-Team: LANGUAGE <LL@li.org>\n"                                                                       
+"MIME-Version: 1.0\n"                                                                                         
+"Content-Type: text/plain; charset=UTF-8\n"                                                                   
+"Content-Transfer-Encoding: 8bit\n"
+
+#: templates/blueprint1/control.html:452 templates/blueprint1/control.html:469
+msgid "['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa']"
+msgstr "['Sun','Mon','Tue','Wed','Thu','Fri','Sat']"
+
+#: templates/blueprint1/control.html:453 templates/blueprint1/control.html:470
+msgid "['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic']"
+msgstr "['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']"
+
+#: templates/blueprint1/control.html:454 templates/blueprint1/control.html:471
+msgid "['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre']"
+msgstr "['January','February','March','April','May','June','July','August','September','October','November','December']"
+
+#: templates/blueprint1/control.html:492 templates/blueprint1/control.html:562
+msgid "Control y Planificación"
+msgstr "Control and Planification"
+
+#: templates/blueprint1/control.html:493
+msgid "Controle como se usa su energía"
+msgstr "Control how to use the energy"
+
+#: templates/blueprint1/control.html:505
+#: templates/blueprint1/control.html:1273
+msgid "Revisar Estado de Actuadores"
+msgstr "Check the Actuators State"
+
+#: templates/blueprint1/control.html:506
+#: templates/blueprint1/control.html:1274
+msgid "Crear Nueva Regla de Control"
+msgstr "Create a New Control Rule"
+
+#: templates/blueprint1/control.html:507
+#: templates/blueprint1/control.html:1275
+msgid "Editar Reglas de Control"
+msgstr "Edit a Control Rule"
+
+#: templates/blueprint1/control.html:522
+msgid "Su nueva regla de control"
+msgstr "Your New Control Rule "
+
+#: templates/blueprint1/control.html:522
+msgid "Ha sido configurada"
+msgstr "Has been created"
+
+#: templates/blueprint1/control.html:526
+msgid "Control"
+msgstr "Control"
+
+#: templates/blueprint1/control.html:526
+msgid "Lista de Reglas"
+msgstr "List of Rules"
+
+#: templates/blueprint1/control.html:534
+msgid "Nombre"
+msgstr "Name"
+
+#: templates/blueprint1/control.html:535
+msgid "Local Comercial"
+msgstr "Site"
+
+#: templates/blueprint1/control.html:536
+msgid "Status"
+msgstr "Status"
+
+#: templates/blueprint1/control.html:537
+msgid "Tipo"
+msgstr "Control Type"
+
+#: templates/blueprint1/control.html:538 templates/blueprint1/control.html:548
+#: templates/blueprint1/control.html:912
+msgid "Editar"
+msgstr "Edit"
+
+#: templates/blueprint1/control.html:555
+msgid "No existen reglas de control... Puede crear una nueva regla"
+msgstr "There are not control rules... You can create a new one"
+
+#: templates/blueprint1/control.html:555
+msgid "AQUI"
+msgstr "HERE"
+
+#: templates/blueprint1/control.html:562
+msgid "Nueva Regla de Control"
+msgstr "New Control Rule"
+
+#: templates/blueprint1/control.html:566 templates/blueprint1/control.html:917
+msgid "Hay errores en la definición de la regla"
+msgstr "There are errors in the control rule definition"
+
+#: templates/blueprint1/control.html:602 templates/blueprint1/control.html:951
+msgid "Periodo de operación de la regla de control"
+msgstr "Operation Period of the Control Rule"
+
+#: templates/blueprint1/control.html:623 templates/blueprint1/control.html:972
+msgid "Dias de la semana en los que opera el control"
+msgstr "Week days where the control rule is evaluated"
+
+#: templates/blueprint1/control.html:789
+#: templates/blueprint1/control.html:1138
+msgid "Ciclo 1"
+msgstr "Cycle 1"
+
+#: templates/blueprint1/control.html:821
+#: templates/blueprint1/control.html:1170
+msgid "Ciclo 2"
+msgstr "Cycle 2"
+
+#: templates/blueprint1/control.html:854
+#: templates/blueprint1/control.html:1203
+msgid "Ciclo 3"
+msgstr "Cycle 3"
+
+#: templates/blueprint1/control.html:904
+#: templates/blueprint1/control.html:1256
+msgid "Guardar Regla de Control"
+msgstr "Save"
+
+#: templates/blueprint1/control.html:912
+msgid "regla de control"
+msgstr "control rule"
+
+#: templates/blueprint1/control.html:1257
+msgid "Eliminar Regla de Control"
+msgstr "Delete"
+
+#: templates/blueprint1/control.html:1279
+msgid "Cargando"
+msgstr "Loading"

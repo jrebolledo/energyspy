@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="ASCII"?>
+<!DOCTYPE PRJ SYSTEM "energyspy.jaime-laptop.jaime.dtd">
+<PRJ>
+  <Project_Information>
+    <Project_Start>190000001300000014000000170000000A0000006E000000020000004601000001000000D0D5FFFFA8490D0BC5</Project_Start>
+    <Working_Time>                                                     -1112537083</Working_Time>
+  </Project_Information>
+  <Active_Settings>
+    <Active_File_Display_Mode>                                                              -1</Active_File_Display_Mode>
+  </Active_Settings>
+  <Folder Name="energyspy">
+    <Expand>0</Expand>
+    <Folder Name="templates">
+      <Expand>1</Expand>
+    </Folder>
+  </Folder>
+</PRJ>

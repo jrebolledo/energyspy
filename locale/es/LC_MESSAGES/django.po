@@ -1,0 +1,702 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-08-27 15:14-0400\n"
+"PO-Revision-Date: 2010-09-07 17:48\n"
+"Last-Translator: <jaime.rebolledo@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Translated-Using: django-rosetta 0.5.6\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: clients/cencosud/settings.py:32
+msgid "Español"
+msgstr ""
+
+#: clients/cencosud/settings.py:33
+msgid "English"
+msgstr ""
+
+#: remotelog/templates/remotelog/view_message.html:25
+msgid "Home"
+msgstr ""
+
+#: remotelog/templates/remotelog/view_message.html:28
+msgid "View"
+msgstr ""
+
+#: templates/blueprint1/alarms.html:24
+msgid "Previsualización de Perfil de alarma"
+msgstr ""
+
+#: templates/blueprint1/alarms.html:32
+msgid "Hora"
+msgstr ""
+
+#: templates/blueprint1/alarms.html:50 templates/blueprint1/alarms.html:680
+msgid "Umbral de alarma"
+msgstr ""
+
+#: templates/blueprint1/alarms.html:142 templates/blueprint1/alarms.html:156
+#: templates/blueprint1/alarms.html:169 templates/blueprint1/control.html:453
+#: templates/blueprint1/control.html:471
+msgid "['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa']"
+msgstr ""
+
+#: templates/blueprint1/alarms.html:143 templates/blueprint1/alarms.html:157
+#: templates/blueprint1/alarms.html:170 templates/blueprint1/control.html:454
+#: templates/blueprint1/control.html:472
+msgid "['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic']"
+msgstr ""
+
+#: templates/blueprint1/alarms.html:144 templates/blueprint1/alarms.html:158
+#: templates/blueprint1/alarms.html:171 templates/blueprint1/control.html:455
+#: templates/blueprint1/control.html:473
+msgid "['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre']"
+msgstr ""
+
+#: templates/blueprint1/alarms.html:282 templates/blueprint1/alarms.html:307
+#: templates/blueprint1/alarms.html:442 templates/blueprint1/alarms.html:665
+msgid "Tramo"
+msgstr ""
+
+#: templates/blueprint1/alarms.html:506
+msgid "Gestión Alarmas de Monitoreo"
+msgstr ""
+
+#: templates/blueprint1/alarms.html:507
+msgid "Sepa Dónde, Cuándo y Cuánto.... justo a tiempo"
+msgstr ""
+
+#: templates/blueprint1/alarms.html:517
+#, fuzzy
+msgid "Lista de Eventos"
+msgstr "List of Rules"
+
+#: templates/blueprint1/alarms.html:518 templates/blueprint1/alarms.html:772
+msgid "Crear Nueva Alarma"
+msgstr ""
+
+#: templates/blueprint1/alarms.html:519 templates/blueprint1/alarms.html:773
+msgid "Editar Alarmas"
+msgstr ""
+
+#: templates/blueprint1/alarms.html:527
+msgid "Su nueva alarma"
+msgstr ""
+
+#: templates/blueprint1/alarms.html:528 templates/blueprint1/control.html:524
+msgid "Ha sido configurada"
+msgstr ""
+
+#: templates/blueprint1/alarms.html:531
+msgid "Sistema de Notificación"
+msgstr ""
+
+#: templates/blueprint1/alarms.html:532
+msgid "Nueva Alarma"
+msgstr ""
+
+#: templates/blueprint1/alarms.html:536
+msgid "Hay errores en la definición de la alarma"
+msgstr ""
+
+#: templates/blueprint1/alarms.html:545 templates/blueprint1/control.html:536
+#: templates/blueprint1/control.html:580 templates/blueprint1/control.html:929
+msgid "Nombre"
+msgstr ""
+
+#: templates/blueprint1/alarms.html:558 templates/blueprint1/sensores.html:21
+msgid "Descripción"
+msgstr ""
+
+#: templates/blueprint1/alarms.html:571
+#: templates/blueprint1/chartviewer.html:33
+#: templates/blueprint1/control.html:537 templates/blueprint1/control.html:592
+#: templates/blueprint1/control.html:941
+msgid "Local Comercial"
+msgstr ""
+
+#: templates/blueprint1/alarms.html:584
+msgid "Periodo de operación de alarma"
+msgstr ""
+
+#: templates/blueprint1/alarms.html:588 templates/blueprint1/control.html:608
+#: templates/blueprint1/control.html:957
+msgid "Fecha de Inicio"
+msgstr ""
+
+#: templates/blueprint1/alarms.html:595 templates/blueprint1/control.html:614
+#: templates/blueprint1/control.html:963
+msgid "Fecha de Término"
+msgstr ""
+
+#: templates/blueprint1/alarms.html:608
+msgid "Dias de la semana en los que opera la alarma"
+msgstr ""
+
+#: templates/blueprint1/alarms.html:622 templates/blueprint1/control.html:638
+msgid "Seleccione Dias"
+msgstr ""
+
+#: templates/blueprint1/alarms.html:636 templates/blueprint1/control.html:763
+#: templates/blueprint1/control.html:1112
+msgid "Segun la medicion del nodo sensor"
+msgstr ""
+
+#: templates/blueprint1/alarms.html:649 templates/blueprint1/control.html:776
+#: templates/blueprint1/control.html:1125
+msgid "y su variable medida"
+msgstr ""
+
+#: templates/blueprint1/alarms.html:668 templates/blueprint1/control.html:797
+#: templates/blueprint1/control.html:829 templates/blueprint1/control.html:862
+#: templates/blueprint1/control.html:1146
+#: templates/blueprint1/control.html:1178
+#: templates/blueprint1/control.html:1211
+msgid "Inicio"
+msgstr ""
+
+#: templates/blueprint1/alarms.html:674 templates/blueprint1/control.html:804
+#: templates/blueprint1/control.html:836 templates/blueprint1/control.html:869
+#: templates/blueprint1/control.html:1153
+#: templates/blueprint1/control.html:1185
+#: templates/blueprint1/control.html:1218
+msgid "Término"
+msgstr ""
+
+#: templates/blueprint1/alarms.html:691
+msgid "Agregar"
+msgstr ""
+
+#: templates/blueprint1/alarms.html:694
+msgid "Remover"
+msgstr ""
+
+#: templates/blueprint1/alarms.html:697
+msgid "Previsualizar"
+msgstr ""
+
+#: templates/blueprint1/alarms.html:707
+msgid "Herramientas de Gráfico"
+msgstr ""
+
+#: templates/blueprint1/alarms.html:709
+msgid "Superponer medición"
+msgstr ""
+
+#: templates/blueprint1/alarms.html:711
+#: templates/blueprint1/chartviewer.html:61
+msgid "Fecha"
+msgstr ""
+
+#: templates/blueprint1/alarms.html:719
+msgid "Activar alarma"
+msgstr ""
+
+#: templates/blueprint1/alarms.html:732
+msgid "Método de Notificación"
+msgstr ""
+
+#: templates/blueprint1/alarms.html:745
+msgid "Destinatario"
+msgstr ""
+
+#: templates/blueprint1/alarms.html:758
+msgid "Guardar Alarma"
+msgstr ""
+
+#: templates/blueprint1/alarms.html:771
+#, fuzzy
+msgid "Lista de Eventos "
+msgstr "List of Rules"
+
+#: templates/blueprint1/alarms.html:777 templates/blueprint1/control.html:1281
+msgid "Cargando"
+msgstr ""
+
+#: templates/blueprint1/chartviewer.html:8
+msgid "Enero"
+msgstr ""
+
+#: templates/blueprint1/chartviewer.html:8
+msgid "Febrero"
+msgstr ""
+
+#: templates/blueprint1/chartviewer.html:8
+msgid "Marzo"
+msgstr ""
+
+#: templates/blueprint1/chartviewer.html:8
+msgid "Abril"
+msgstr ""
+
+#: templates/blueprint1/chartviewer.html:8
+msgid "Mayo"
+msgstr ""
+
+#: templates/blueprint1/chartviewer.html:8
+msgid "Junio"
+msgstr ""
+
+#: templates/blueprint1/chartviewer.html:8
+msgid "Julio"
+msgstr ""
+
+#: templates/blueprint1/chartviewer.html:8
+msgid "Agosto"
+msgstr ""
+
+#: templates/blueprint1/chartviewer.html:8
+msgid "Septiembre"
+msgstr ""
+
+#: templates/blueprint1/chartviewer.html:8
+msgid "Octubre"
+msgstr ""
+
+#: templates/blueprint1/chartviewer.html:8
+msgid "Noviembre"
+msgstr ""
+
+#: templates/blueprint1/chartviewer.html:8
+msgid "Diciembre"
+msgstr ""
+
+#: templates/blueprint1/chartviewer.html:8
+msgid "Domingo"
+msgstr ""
+
+#: templates/blueprint1/chartviewer.html:8
+msgid "Lunes"
+msgstr ""
+
+#: templates/blueprint1/chartviewer.html:8
+msgid "Martes"
+msgstr ""
+
+#: templates/blueprint1/chartviewer.html:8
+msgid "Miércoles"
+msgstr ""
+
+#: templates/blueprint1/chartviewer.html:8
+msgid "Jueves"
+msgstr ""
+
+#: templates/blueprint1/chartviewer.html:8
+msgid "Viernes"
+msgstr ""
+
+#: templates/blueprint1/chartviewer.html:8
+msgid "Sábado"
+msgstr ""
+
+#: templates/blueprint1/chartviewer.html:8
+msgid "Do"
+msgstr ""
+
+#: templates/blueprint1/chartviewer.html:8
+msgid "Lu"
+msgstr ""
+
+#: templates/blueprint1/chartviewer.html:8
+msgid "Ma"
+msgstr ""
+
+#: templates/blueprint1/chartviewer.html:8
+msgid "Mi"
+msgstr ""
+
+#: templates/blueprint1/chartviewer.html:8
+msgid "Ju"
+msgstr ""
+
+#: templates/blueprint1/chartviewer.html:8
+msgid "Vi"
+msgstr ""
+
+#: templates/blueprint1/chartviewer.html:8
+msgid "Sa"
+msgstr ""
+
+#: templates/blueprint1/chartviewer.html:8
+msgid "Ene"
+msgstr ""
+
+#: templates/blueprint1/chartviewer.html:8
+msgid "Feb"
+msgstr ""
+
+#: templates/blueprint1/chartviewer.html:8
+msgid "Mar"
+msgstr ""
+
+#: templates/blueprint1/chartviewer.html:8
+msgid "Abr"
+msgstr ""
+
+#: templates/blueprint1/chartviewer.html:8
+msgid "May"
+msgstr ""
+
+#: templates/blueprint1/chartviewer.html:8
+msgid "Jun"
+msgstr ""
+
+#: templates/blueprint1/chartviewer.html:8
+msgid "Jul"
+msgstr ""
+
+#: templates/blueprint1/chartviewer.html:8
+msgid "Ago"
+msgstr ""
+
+#: templates/blueprint1/chartviewer.html:8
+msgid "Sep"
+msgstr ""
+
+#: templates/blueprint1/chartviewer.html:8
+msgid "Oct"
+msgstr ""
+
+#: templates/blueprint1/chartviewer.html:8
+msgid "Nov"
+msgstr ""
+
+#: templates/blueprint1/chartviewer.html:8
+msgid "Dic"
+msgstr ""
+
+#: templates/blueprint1/chartviewer.html:8 viewer/views.py:956
+msgid "Seleccione Sensor"
+msgstr ""
+
+#: templates/blueprint1/chartviewer.html:8
+msgid "Error de conexión"
+msgstr ""
+
+#: templates/blueprint1/chartviewer.html:8
+msgid "Visualizador"
+msgstr ""
+
+#: templates/blueprint1/chartviewer.html:8
+msgid "Energia Consumida por día"
+msgstr ""
+
+#: templates/blueprint1/chartviewer.html:8
+msgid "Energia Consumida por semana"
+msgstr ""
+
+#: templates/blueprint1/chartviewer.html:8
+msgid "Energia Consumida por mes"
+msgstr ""
+
+#: templates/blueprint1/chartviewer.html:8
+msgid "Mínimo"
+msgstr ""
+
+#: templates/blueprint1/chartviewer.html:8
+msgid "Máximo"
+msgstr ""
+
+#: templates/blueprint1/chartviewer.html:8
+msgid "Media"
+msgstr ""
+
+#: templates/blueprint1/chartviewer.html:8
+msgid "Energia Utilizada"
+msgstr ""
+
+#: templates/blueprint1/chartviewer.html:8
+#: templates/blueprint1/chartviewer.html:43
+msgid "Análisis de Armónicas"
+msgstr ""
+
+#: templates/blueprint1/chartviewer.html:8
+#: templates/blueprint1/chartviewer.html:101
+msgid "Procesando Datos"
+msgstr ""
+
+#: templates/blueprint1/chartviewer.html:28
+msgid "Opciones de Gráfico"
+msgstr ""
+
+#: templates/blueprint1/chartviewer.html:36
+msgid "Sensor"
+msgstr ""
+
+#: templates/blueprint1/chartviewer.html:39
+msgid "Tipo de Gráfico"
+msgstr ""
+
+#: templates/blueprint1/chartviewer.html:41
+msgid "Seleccione Tipo"
+msgstr ""
+
+#: templates/blueprint1/chartviewer.html:42
+msgid "Perfil Eléctrico"
+msgstr ""
+
+#: templates/blueprint1/chartviewer.html:47
+msgid "Ventana de Visualizacion / Análisis"
+msgstr ""
+
+#: templates/blueprint1/chartviewer.html:49
+msgid "Diario"
+msgstr ""
+
+#: templates/blueprint1/chartviewer.html:50
+msgid "Semanal"
+msgstr ""
+
+#: templates/blueprint1/chartviewer.html:51
+msgid "Mensual"
+msgstr ""
+
+#: templates/blueprint1/chartviewer.html:71
+msgid "Variables Eléctricas"
+msgstr ""
+
+#: templates/blueprint1/chartviewer.html:78
+msgid "Seleccione Señal para Analizar"
+msgstr ""
+
+#: templates/blueprint1/control.html:494 templates/blueprint1/control.html:564
+msgid "Control y Planificación"
+msgstr ""
+
+#: templates/blueprint1/control.html:495
+msgid "Controle como se usa su energía"
+msgstr ""
+
+#: templates/blueprint1/control.html:496
+msgid "Esta herramienta le permitirá observar las principales variables eléctricas medidas por sus sensores"
+msgstr ""
+
+#: templates/blueprint1/control.html:497
+msgid "Utilizando el menu de la derecha podrá seleccionar múltiples opciones"
+msgstr ""
+
+#: templates/blueprint1/control.html:507
+#: templates/blueprint1/control.html:1275
+msgid "Revisar Estado de Actuadores"
+msgstr "Revisar Estado de Actuadores"
+
+#: templates/blueprint1/control.html:508
+#: templates/blueprint1/control.html:1276
+msgid "Crear Nueva Regla de Control"
+msgstr "Crear Nueva Regla de Control"
+
+#: templates/blueprint1/control.html:509
+#: templates/blueprint1/control.html:1277
+msgid "Editar Reglas de Control"
+msgstr "Editar Reglas de Control"
+
+#: templates/blueprint1/control.html:524
+msgid "Su nueva regla de control"
+msgstr ""
+
+#: templates/blueprint1/control.html:528
+msgid "Control"
+msgstr ""
+
+#: templates/blueprint1/control.html:528
+msgid "Lista de Reglas"
+msgstr "List of Rules"
+
+#: templates/blueprint1/control.html:538
+msgid "Status"
+msgstr ""
+
+#: templates/blueprint1/control.html:539
+#: templates/blueprint1/control.html:1003
+#: templates/blueprint1/sensores.html:23
+msgid "Tipo"
+msgstr ""
+
+#: templates/blueprint1/control.html:540 templates/blueprint1/control.html:550
+#: templates/blueprint1/control.html:914
+msgid "Editar"
+msgstr ""
+
+#: templates/blueprint1/control.html:557
+msgid "No existen reglas de control... Puede crear una nueva regla"
+msgstr ""
+
+#: templates/blueprint1/control.html:557
+msgid "AQUI"
+msgstr ""
+
+#: templates/blueprint1/control.html:564
+msgid "Nueva Regla de Control"
+msgstr ""
+
+#: templates/blueprint1/control.html:568 templates/blueprint1/control.html:919
+msgid "Hay errores en la definición de la regla"
+msgstr ""
+
+#: templates/blueprint1/control.html:604 templates/blueprint1/control.html:953
+msgid "Periodo de operación de la regla de control"
+msgstr ""
+
+#: templates/blueprint1/control.html:625 templates/blueprint1/control.html:974
+msgid "Dias de la semana en los que opera el control"
+msgstr ""
+
+#: templates/blueprint1/control.html:654
+msgid "Tipo de Regla de Control"
+msgstr ""
+
+#: templates/blueprint1/control.html:671
+msgid "Modulo de Actuación"
+msgstr ""
+
+#: templates/blueprint1/control.html:685
+#: templates/blueprint1/control.html:1034
+msgid "Relé de Control"
+msgstr ""
+
+#: templates/blueprint1/control.html:702
+#: templates/blueprint1/control.html:1051
+msgid "Número de ciclos de encendido y apagado"
+msgstr ""
+
+#: templates/blueprint1/control.html:716 templates/blueprint1/control.html:730
+#: templates/blueprint1/control.html:744 templates/blueprint1/control.html:791
+#: templates/blueprint1/control.html:823 templates/blueprint1/control.html:856
+#: templates/blueprint1/control.html:1065
+#: templates/blueprint1/control.html:1079
+#: templates/blueprint1/control.html:1093
+#: templates/blueprint1/control.html:1140
+#: templates/blueprint1/control.html:1172
+#: templates/blueprint1/control.html:1205
+msgid "Ciclo"
+msgstr ""
+
+#: templates/blueprint1/control.html:720 templates/blueprint1/control.html:734
+#: templates/blueprint1/control.html:748
+#: templates/blueprint1/control.html:1069
+#: templates/blueprint1/control.html:1083
+#: templates/blueprint1/control.html:1097
+#, fuzzy
+msgid "Estado del Relé"
+msgstr "List of Rules"
+
+#: templates/blueprint1/control.html:813 templates/blueprint1/control.html:846
+#: templates/blueprint1/control.html:878
+#: templates/blueprint1/control.html:1162
+#: templates/blueprint1/control.html:1195
+#: templates/blueprint1/control.html:1227
+msgid "Umbral de apagado"
+msgstr ""
+
+#: templates/blueprint1/control.html:890
+#: templates/blueprint1/control.html:1239
+msgid "Activar regla de control"
+msgstr ""
+
+#: templates/blueprint1/control.html:906
+#: templates/blueprint1/control.html:1258
+msgid "Guardar Regla de Control"
+msgstr ""
+
+#: templates/blueprint1/control.html:914
+msgid "regla de control"
+msgstr ""
+
+#: templates/blueprint1/control.html:987
+msgid "Seleccione Días"
+msgstr ""
+
+#: templates/blueprint1/control.html:1020
+msgid "Módulo de Actuación"
+msgstr ""
+
+#: templates/blueprint1/control.html:1259
+msgid "Eliminar Regla de Control"
+msgstr ""
+
+#: templates/blueprint1/login.html:17
+msgid "Usuario"
+msgstr ""
+
+#: templates/blueprint1/login.html:24
+msgid "Contraseña"
+msgstr ""
+
+#: templates/blueprint1/login.html:31
+msgid "Iniciar Sesión"
+msgstr ""
+
+#: templates/blueprint1/sensores.html:14
+#, fuzzy
+msgid "Lista de Sensores"
+msgstr "List of Rules"
+
+#: templates/blueprint1/sensores.html:20
+msgid "Sección"
+msgstr ""
+
+#: templates/blueprint1/sensores.html:22
+msgid "MAC"
+msgstr ""
+
+#: templates/blueprint1/sensores.html:24
+msgid "Estado"
+msgstr ""
+
+#: templates/blueprint1/sensores.html:25
+msgid "Gateway"
+msgstr ""
+
+#: templates/blueprint1/template_chart.html:36
+msgid "Gráficos"
+msgstr ""
+
+#: templates/blueprint1/template_chart.html:37
+msgid "Sensores"
+msgstr ""
+
+#: templates/blueprint1/template_chart.html:51
+#: templates/blueprint1/template_clean.html:44
+msgid "Cerrar Sesión"
+msgstr ""
+
+#: templates/blueprint1/template_chart.html:53
+#: templates/blueprint1/template_clean.html:46
+msgid "iniciar Sesión"
+msgstr ""
+
+#: templates/blueprint1/template_chart.html:67
+#: templates/blueprint1/template_clean.html:60
+msgid "Todos los Derechos Reservados - EnergySpy"
+msgstr ""
+
+#: viewer/views.py:955
+msgid "Seleccione Local Comercial"
+msgstr ""
+
+#: viewer/views.py:1112
+msgid "Tipo de Reporte no esta habilitado"
+msgstr ""
+
+#: viewer/views.py:1117 viewer/views.py:1182 viewer/views.py:1259
+msgid "No hay datos"
+msgstr ""
+
+#: viewer/views.py:1121 viewer/views.py:1186 viewer/views.py:1263
+msgid "Método incorrecto"
+msgstr ""
+
+#: viewer/views.py:1125 viewer/views.py:1190 viewer/views.py:1267
+msgid "No esta Autentificado, Reinicie Sesión"
+msgstr ""

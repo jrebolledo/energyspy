@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?><anychart>
+
+  <settings>
+        <locale>
+          <date_time_format>
+            <format>%yyyy-%MM-%dd %HH:%mm:%ss</format>
+          </date_time_format>
+        </locale>
+        <animation enabled="true"/></settings><charts>
+    <chart plot_type="Scatter">
+    
+    <styles><line_style name="parent">
+          	<fill type="Gradient">
+          		<gradient angle="90">
+          			<key color="%Color" opacity="1" position="0"/><key color="DarkColor(%Color)" opacity="1" position="1"/></gradient></fill><line color="%Color" enabled="true"/>
+          	<states>
+          		<hover color="yellow"/></states></line_style><line_style name="previous" parent="parent">
+	<fill color="LightColor(%Color)" opacity="0.2"/>
+	<states>
+		<hover>
+			<fill color="yellow"/></hover></states>
+	<line color="LightColor(%Color)">
+		</line>
+	<marker size="1"/></line_style></styles>
+    
+      <data_plot_settings default_series_type="Spline">
+        <line_series>
+          <tooltip_settings enabled="true">
+<format>
+Valor: {%YValue}{numDecimals:0}Kwh</format>
+          </tooltip_settings>
+          
+          <marker_settings enabled="true">
+          	<marker size="0"/>
+          	<states>
+          		<hover color="%Color" size="3"/></states></marker_settings></line_series></data_plot_settings>
+
+      <chart_settings>
+      
+      <chart_background>
+        	<border color="blue" enabled="false"/>
+        	<inside_margin all="0"/>
+        	<fill color="red" enabled="false" type="solid"/></chart_background>
+    <data_plot_background>
+		<fill color="White" opacity="0"/>
+	</data_plot_background>
+      			
+
+      
+	  	<title><text>Perfiles de demandas maximas del mes</text>
+	  		<font color="Blue">
+							<effects enabled="true">
+								<drop_shadow distance="1" enabled="False" opacity="1"/>
+							</effects>
+						</font></title>
+        <axes>
+		  <y_axis enabled="True">
+		  	<title><text>KW</text><font color="#003399"/></title>
+			<scale maximum="53.9600635655" minimum="0.0" type="Linear"/>
+            <labels>
+				<format>{%Value}{numDecimals:0}</format>
+			
+
+						<font color="Gray">
+							<effects>
+								<drop_shadow distance="1" enabled="False" opacity="1"/>
+							</effects>
+						</font>
+</labels>
+            
+            <line color="Gray" opacity="1"/>
+            <major_tickmark color="Gray"/>
+            <minor_tickmark color="Gray"/>
+            <minor_grid enabled="false"/>
+           <major_grid interlaced="True">
+						<line color="Gray" opacity="0.7"/>
+						<interlaced_fills>
+							<even><fill color="White" opacity="0.1"/></even>
+							<odd><fill color="White" opacity="0"/></odd>
+						</interlaced_fills>
+					</major_grid></y_axis>		  
+          <extra>
+          	<y_axis enabled="True" name="y2">
+          		 <major_tickmark color="White"/>
+            <minor_tickmark color="White"/>
+          		 <line color="Gray" opacity="1"/>
+          		<title rotation="180">
+          			<text>KW</text>
+          			
+          			<font color="#ff0099"/></title>
+          			
+          	<labels>
+          				<format>{%Value}{numDecimals:0}</format>
+          				
+          			
+						<font color="White">
+							<effects>
+								<drop_shadow distance="1" enabled="false" opacity="1"/>
+							</effects>
+						</font>
+          				
+          				
+          				</labels>		
+          			
+          		<scale maximum="53.9600635655" minimum="0.0" type="Linear"/></y_axis>
+          	<y_axis enabled="False" name="y3">
+          	<major_tickmark color="White"/>
+            <minor_tickmark color="White"/>
+          		 <line color="Gray" opacity="1"/>
+          		<labels>
+          				<format>{%Value}{numDecimals:0}</format>
+          				
+          			
+						<font color="White">
+							<effects>
+								<drop_shadow distance="1" enabled="false" opacity="1"/>
+							</effects>
+						</font>
+          				
+          				
+          				</labels>
+          		<title rotation="180">
+          			<text>m3/hr Gas</text>
+          			<font color="#00cccc"/>
+          		</title>
+          		<scale maximum="1" minimum="1"/></y_axis></extra><x_axis>
+			<scale major_interval="1" major_interval_unit="Day" maximum="2010-02-28 00:00:00" minimum="2010-02-01 00:00:00" minor_interval="1" minor_interval_unit="Hour" type="DateTime"/>
+			<major_tickmark color="Gray"/>
+					<minor_tickmark color="Gray"/>
+            <labels display_mode="Stager">
+				<format>{%Value}{dateTimeFormat: %dd}</format>
+				<font color="Gray">
+							<effects enabled="False">
+								<drop_shadow distance="1" enabled="true" opacity="1"/>
+							</effects>
+						</font>
+            </labels>
+            <title enabled="true">
+              <text/>
+            </title>
+            <minor_grid enabled="false">
+            	</minor_grid><major_grid enabled="true">
+            	<line color="Gray" opacity="0.4"/></major_grid>
+	<line color="Gray" opacity="1"/></x_axis>
+          </axes>
+      </chart_settings>
+      <data>
+      <series name="Series 1" style="parent"><point name="2010-02-01 00:00:00" y="25.4975784117" style="current"/><point name="2010-02-02 00:00:00" y="29.2980734793" style="current"/><point name="2010-02-03 00:00:00" y="14.3442140594" style="current"/><point name="2010-02-04 00:00:00" y="18.6954606234" style="current"/><point name="2010-02-05 00:00:00" y="22.2185393427" style="current"/><point name="2010-02-06 00:00:00" y="6.46533394202" style="current"/><point name="2010-02-07 00:00:00" y="5.0498749727" style="current"/><point name="2010-02-08 00:00:00" y="15.3654742163" style="current"/><point name="2010-02-09 00:00:00" y="22.6240548931" style="current"/><point name="2010-02-10 00:00:00" y="28.0770299901" style="current"/><point name="2010-02-11 00:00:00" y="30.6182847585" style="current"/><point name="2010-02-12 00:00:00" y="25.8620972341" style="current"/><point name="2010-02-13 00:00:00" y="5.95295646554" style="current"/><point name="2010-02-14 00:00:00" y="5.07944434073" style="current"/><point name="2010-02-15 00:00:00" y="23.588549854" style="current"/><point name="2010-02-16 00:00:00" y="22.6537015891" style="current"/><point name="2010-02-17 00:00:00" y="23.1311955455" style="current"/><point name="2010-02-18 00:00:00" y="24.9022623592" style="current"/><point name="2010-02-19 00:00:00" y="27.7710506119" style="current"/><point name="2010-02-20 00:00:00" y="5.2563471769" style="current"/><point name="2010-02-21 00:00:00" y="6.00684226759" style="current"/><point name="2010-02-22 00:00:00" y="23.1255849695" style="current"/><point name="2010-02-23 00:00:00" y="23.4116502398" style="current"/><point name="2010-02-24 00:00:00" y="22.8569313873" style="current"/><point name="2010-02-25 00:00:00" y="23.0826990755" style="current"/><point name="2010-02-26 00:00:00" y="21.3245428159" style="current"/><point name="2010-02-27 00:00:00" y="5.30265049449" style="current"/><point name="2010-02-28 00:00:00" y="5.18675519883" style="current"/></series><series name="Series 2" style="parent" y_axis="y2"><point name="2010-02-01 00:00:00" y="35.3286532949" style="current"/><point name="2010-02-02 00:00:00" y="41.913127131" style="current"/><point name="2010-02-03 00:00:00" y="41.0096052982" style="current"/><point name="2010-02-04 00:00:00" y="34.9876432586" style="current"/><point name="2010-02-05 00:00:00" y="35.475992133" style="current"/><point name="2010-02-06 00:00:00" y="6.46533394202" style="current"/><point name="2010-02-07 00:00:00" y="5.97249252556" style="current"/><point name="2010-02-08 00:00:00" y="38.9510190183" style="current"/><point name="2010-02-09 00:00:00" y="39.8990989632" style="current"/><point name="2010-02-10 00:00:00" y="31.9905420778" style="current"/><point name="2010-02-11 00:00:00" y="39.9810236832" style="current"/><point name="2010-02-12 00:00:00" y="35.2641993328" style="current"/><point name="2010-02-13 00:00:00" y="5.95295646554" style="current"/><point name="2010-02-14 00:00:00" y="6.25500070783" style="current"/><point name="2010-02-15 00:00:00" y="37.6493192031" style="current"/><point name="2010-02-16 00:00:00" y="37.3888516488" style="current"/><point name="2010-02-17 00:00:00" y="42.3636461484" style="current"/><point name="2010-02-18 00:00:00" y="43.8664818169" style="current"/><point name="2010-02-19 00:00:00" y="37.0870844985" style="current"/><point name="2010-02-20 00:00:00" y="5.36169691099" style="current"/><point name="2010-02-21 00:00:00" y="6.07117481677" style="current"/><point name="2010-02-22 00:00:00" y="37.0955196945" style="current"/><point name="2010-02-23 00:00:00" y="39.692534395" style="current"/><point name="2010-02-24 00:00:00" y="36.8130705823" style="current"/><point name="2010-02-25 00:00:00" y="44.9667196379" style="current"/><point name="2010-02-26 00:00:00" y="43.6752861887" style="current"/><point name="2010-02-27 00:00:00" y="6.48288847204" style="current"/><point name="2010-02-28 00:00:00" y="6.20739028778" style="current"/></series></data>
+    </chart>
+  </charts>
+</anychart>

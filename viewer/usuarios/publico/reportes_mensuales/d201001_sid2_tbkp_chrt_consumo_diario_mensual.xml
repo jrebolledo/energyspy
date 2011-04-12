@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?><anychart>
+      <settings>
+        <locale>
+          <date_time_format>
+            <format>%yyyy-%MM-%dd %HH:%mm:%ss</format>
+          </date_time_format>
+        </locale>
+        <animation enabled="true"/></settings>
+
+  <charts>
+    <chart plot_type="CategorizedVertical">
+    
+    
+    
+      <styles><bar_style name="previous" parent="parent">
+	<fill color="blue" opacity="0.2"/>
+	<states>
+		<hover>
+			<fill color="yellow"/></hover></states></bar_style>
+      	<bar_style name="parent">
+      		<fill color="blue" opacity="1" type="solid"/>
+      		<states>
+      			<hover>
+      				<fill color="yellow"/></hover></states></bar_style></styles><data_plot_settings default_series_type="Bar">
+        <bar_series>
+          <tooltip_settings enabled="true">
+<format>
+Valor: {%YValue}{numDecimals:0}Kwh</format>
+          </tooltip_settings>
+          
+          <marker_settings>
+          	<marker size="3"/></marker_settings></bar_series></data_plot_settings>
+
+      <chart_settings>
+    <chart_background>
+        	<border color="blue" enabled="false"/>
+        	<inside_margin all="0"/>
+        	<fill color="red" enabled="false" type="solid"/></chart_background><data_plot_background>
+		<border enabled="false"/><fill color="white" enabled="true" opacity="0.5" type="solid"/>
+		</data_plot_background>
+      			
+
+      
+	  	<title><text>Energia consumida durante cada dia del mes</text>
+	  		<font color="Blue">
+							<effects enabled="true">
+								<drop_shadow distance="1" enabled="False" opacity="1"/>
+							</effects>
+						</font></title>
+        <axes>
+		  <y_axis enabled="True">
+		  	<title><text>Kwh</text><font color="#003399"/></title>
+			<scale maximum="68.92213068" minimum="0.0" type="Linear"/>
+            <labels>
+				<format>{%Value}{numDecimals:0}</format>
+			
+
+						<font color="Gray">
+							<effects>
+								<drop_shadow distance="1" enabled="False" opacity="1"/>
+							</effects>
+						</font>
+</labels>
+            
+            <line color="Gray" opacity="1"/>
+            <major_tickmark color="Gray"/>
+            <minor_tickmark color="Gray"/>
+            <minor_grid enabled="false"/>
+           <major_grid interlaced="True">
+						<line color="Gray" opacity="0.7"/>
+					</major_grid></y_axis>		  
+          <extra>
+          	<y_axis enabled="False" name="y2">
+          		 <major_tickmark color="White"/>
+            <minor_tickmark color="White"/>
+          		 <line color="Gray" opacity="1"/>
+          		<title rotation="180">
+          			<text>m3/hr AguaHora</text>
+          			
+          			<font color="#ff0099"/></title>
+          			
+          	<labels>
+          				<format>{%Value}{numDecimals:0}</format>
+          				
+          			
+						<font color="Gray">
+							<effects>
+								<drop_shadow distance="1" enabled="false" opacity="1"/>
+							</effects>
+						</font>
+          				
+          				
+          				</labels>		
+          			
+          		<scale maximum="1" minimum="1"/></y_axis>
+          	<y_axis enabled="False" name="y3">
+          	<major_tickmark color="Gray"/>
+            <minor_tickmark color="Gray"/>
+          		 <line color="Black" opacity="1"/>
+          		<labels>
+          				<format>{%Value}{numDecimals:0}</format>
+          				
+          			
+						<font color="Gray">
+							<effects>
+								<drop_shadow distance="1" enabled="false" opacity="1"/>
+							</effects>
+						</font>
+          				
+          				
+          				</labels>
+          		<title rotation="180">
+          			<text>m3/hr Gas</text>
+          			<font color="#00cccc"/>
+          		</title>
+          		<scale maximum="1" minimum="1"/></y_axis></extra><x_axis>
+			<scale major_interval="1" major_interval_unit="Day" maximum="2010-01-31 00:00:00" minimum="2010-01-01 00:00:00" minor_interval="1" minor_interval_unit="Hour" type="DateTime"/>
+			<major_tickmark color="Gray"/>
+					<minor_tickmark color="Gray"/>
+            <labels display_mode="Stager">
+				<format>{%Value}{dateTimeFormat: %dd}</format>
+				<font color="Gray">
+							<effects enabled="False">
+								<drop_shadow distance="1" enabled="true" opacity="1"/>
+							</effects>
+						</font>
+            </labels>
+            <title enabled="true">
+              <text/>
+            </title>
+            <minor_grid enabled="false">
+            	</minor_grid><major_grid enabled="true">
+            	<line color="Gray" opacity="0.4"/></major_grid>
+	<line color="gray" enabled="true" opacity="0.5"/></x_axis>
+          </axes>
+        </chart_settings>
+      <data>
+      <series name="Series 1" style="parent"><point name="2010-01-01 00:00:00" y="56.62934382" style="current"/><point name="2010-01-02 00:00:00" y="14.87958378" style="current"/><point name="2010-01-03 00:00:00" y="13.49881392" style="current"/><point name="2010-01-04 00:00:00" y="51.54582966" style="current"/><point name="2010-01-05 00:00:00" y="51.45400488" style="current"/><point name="2010-01-06 00:00:00" y="55.02886962" style="current"/><point name="2010-01-07 00:00:00" y="55.03873326" style="current"/><point name="2010-01-08 00:00:00" y="56.3335713" style="current"/><point name="2010-01-09 00:00:00" y="13.5021702" style="current"/><point name="2010-01-10 00:00:00" y="14.34151812" style="current"/><point name="2010-01-11 00:00:00" y="52.69286034" style="current"/><point name="2010-01-12 00:00:00" y="53.44217184" style="current"/><point name="2010-01-13 00:00:00" y="52.17673362" style="current"/><point name="2010-01-14 00:00:00" y="52.74632958" style="current"/><point name="2010-01-15 00:00:00" y="56.7608256" style="current"/><point name="2010-01-16 00:00:00" y="14.51505414" style="current"/><point name="2010-01-17 00:00:00" y="14.33052708" style="current"/><point name="2010-01-18 00:00:00" y="55.96788378" style="current"/><point name="2010-01-19 00:00:00" y="54.01661616" style="current"/><point name="2010-01-20 00:00:00" y="51.27473124" style="current"/><point name="2010-01-21 00:00:00" y="49.7706501" style="current"/><point name="2010-01-22 00:00:00" y="57.4351089" style="current"/><point name="2010-01-23 00:00:00" y="14.90279622" style="current"/><point name="2010-01-24 00:00:00" y="13.74529542" style="current"/><point name="2010-01-25 00:00:00" y="52.96455546" style="current"/><point name="2010-01-26 00:00:00" y="54.17505468" style="current"/><point name="2010-01-27 00:00:00" y="53.34600498" style="current"/><point name="2010-01-28 00:00:00" y="48.66369642" style="current"/><point name="2010-01-29 00:00:00" y="54.77629398" style="current"/><point name="2010-01-30 00:00:00" y="13.38472926" style="current"/><point name="2010-01-31 00:00:00" y="14.13421974" style="current"/></series></data>
+      </chart>
+  </charts>
+</anychart>

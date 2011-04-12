@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?eclipse-pydev version="1.0"?>
+
+<pydev_project>
+
+<pydev_property name="org.python.pydev.PYTHON_PROJECT_VERSION">python 2.6</pydev_property>
+<pydev_property name="org.python.pydev.PYTHON_PROJECT_INTERPRETER">Default</pydev_property>
+<pydev_pathproperty name="org.python.pydev.PROJECT_EXTERNAL_SOURCE_PATH">
+<path>/home/jaime/'/usr/local/lib/python2.6/dist-packages/django</path>
+<path>/usr/local/lib/python2.6/dist-packages/django_debug_toolbar-0.8.3-py2.6.egg/debug_toolbar</path>
+</pydev_pathproperty>
+</pydev_project>
