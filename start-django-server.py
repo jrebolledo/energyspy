@@ -7,7 +7,6 @@ import tornado.wsgi
 import sys
 import django.core.handlers.wsgi
 from django.conf import settings
-#from django.core.management import execute_manager
 sys.path.append('/home/jaime/energyspy/salcobrand/')
 os.system('echo %s > tornado.pid'%os.getpid())
 
