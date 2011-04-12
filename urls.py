@@ -11,7 +11,7 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    #RUTA PARA ACCEDER A PORTAL DE ADMINISTRACION SUPERUSUARIO
+    ##RUTA PARA ACCEDER A PORTAL DE ADMINISTRACION SUPERUSUARIO
     (r'^admin/', include(admin.site.urls)),
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
     (r'^admin/jsi18n/$', 'django.views.i18n.javascript_catalog'),
