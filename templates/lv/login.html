@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<meta content="Boks - 0.1.5b" name="generator"/>
+<title>EnergySpy | Iniciar Sesión</title>
+<!-- Framework CSS -->
+<link rel="stylesheet" href="/media/css/lv/screen.css" type="text/css" media="screen, projection">
+<link rel="stylesheet" href="/media/css/lv/print.css" type="text/css" media="print">
+<link rel="stylesheet" href="/media/css/lv/ligth/jqueryUI_ligth.css" type="text/css" media="screen">
+<!--[if IE]><link rel="stylesheet" href="/media/css/lv/css/ie.css" type="text/css" media="screen, projection"><![endif]-->
+
+<script type="text/javascript" src="/media/scripts/lv/jsi18n.js"></script>
+
+      
+      <!--  I18n -->
+       
+      {% load i18n %}
+        
+</head>
+  
+<body style="background-color:#ffffff;">
+  <div last"="" span-24="" style="background-color:#ffffff !important;&gt;
+        &lt;div class=" class="container">
+        <div class="prepend-6 span-24 last">
+            <div class="span-24 last" style="margin-top:50px;">
+                <div id="logo1" style="float:left; padding-right:30px;margin-left:40px;padding-top:5px;">
+                    <img width="250px" alt="Simpla Admin logo" src="/media/images/simpla/logo.png" id="logo">
+                </div>
+                <div id="logo2">
+                    <img width="100px" alt="Salco" src="http://www.ilacadworldretail.com/BO/data/logos_cadenas/logo_salcobrand.png" id="logo">
+                </div>    
+            </div>
+        </div> <!-- End #logn-top -->
+        
+        <div class="prepend-9 span-8 last">
+            
+            <form class="ligth" method="post" action="/auth/login">
+            	{% if closed %}
+		          
+		          <div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em;width:210px;"> 
+                    <p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+                    <strong>Sesión Cerrada</strong></p>
+                  </div>
+		        {% endif %}
+                
+                
+                <p>
+                    <label>Usuario</label>
+                    <input type="text" class="text-input" id="id_username" name="username">
+                </p>
+                <div class="clear"></div>
+                <p>
+                    <label>Password</label>
+                    <input type="password" id="id_password" style="width:162px;" name="password" class="text-input">
+                </p>
+                <p>
+                    <input type="submit" class="button" value="Iniciar Sesión">
+                    <input type="hidden" name="next" value="/init">
+                </p>
+                
+            </form>
+        </div> <!-- End #login-content -->
+        
+    </div>
+</body>
+  
+</html>
+

@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<meta content="Boks - 0.1.5b" name="generator"/>
+<title>EnergySpy | Iniciar Sesión</title>
+<!-- Framework CSS -->
+<link rel="stylesheet" href="/media/css/lv/screen.css" type="text/css" media="screen, projection">
+<link rel="stylesheet" href="/media/css/lv/print.css" type="text/css" media="print">
+<link rel="stylesheet" href="/media/css/lv/platform.css" type="text/css" media="screen">
+<!--[if IE]><link rel="stylesheet" href="/media/css/lv/css/ie.css" type="text/css" media="screen, projection"><![endif]-->
+
+<script type="text/javascript" src="/media/scripts/lv/jsi18n.js"></script>
+<!--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>-->
+<script type="text/javascript" src="/media/scripts/lv/jquery.min.js"></script>
+<script type="text/javascript" src="/media/scripts/lv/jquery-ui-1.8.9.custom.min.js"></script>
+<!--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>-->
+
+      
+      <!--  I18n -->
+       
+      {% load i18n %}
+        
+</head>
+  
+<body style="background-color:#ffffff;">
+    <div class="container" style="background-color:#ffffff !important;&gt;
+        &lt;div class=" span-24="" last"="">
+        <div class="prepend-6 span-24 last">
+            <div style="margin-top:50px;" class="span-24 last">
+                <div style="float:left; padding-right:30px;padding-top:5px;" id="logo1">
+                    <img id="logo" src="/media/images/simpla/logo.png" alt="Simpla Admin logo" width="250px">
+                </div>
+                <div id="logo2">
+                    <img id="logo" src="http://www.ilacadworldretail.com/BO/data/logos_cadenas/logo_salcobrand.png" alt="Salco" width="100px">
+                </div>    
+            </div>
+        </div> <!-- End #logn-top -->
+        
+        <div class="prepend-9 span-8 last">
+            
+            <form action="/auth/login" method="post">
+            
+                <p>
+                    <label>Usuario</label>
+                    <input name="username" id="id_username" class="text-input" type="text">
+                </p>
+                <div class="clear"></div>
+                <p>
+                    <label>Password</label>
+                    <input id="id_password" name="password" class="text-input" type="password">
+                </p>
+                <p>
+                    <input value="Iniciar Sesión" class="button" type="submit">
+                    <input value="/init" name="next" type="hidden">
+                </p>
+                
+            </form>
+        </div> <!-- End #login-content -->
+        
+    </div> <!-- End #login-wrapper -->
+</body>
+  
+</html>
+

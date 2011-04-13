@@ -440,18 +440,38 @@ body {
 #last-events {
 	padding: 0 10px;
 }
-
-#tab-floor-plan #plane {
-	float:left;
-	width:470px;	
+#tab-energy,
+#tab-power, 
+#tab-ratios {
+	margin:0 -1em; 
+    min-height: 450px;  
 }
 
-#tab-floor-plan .panel-sidebar {
+#tab-floor-plan #plane, 
+#tab-energy #report-energy-charts,
+#tab-power #report-power-charts,
+#tab-ratios #report-ratios-charts
+ {
+	float:left;
+	width:480px;
+}
+.sensorcombo .ligth  {
+	font-size:10px !important;
+}
+#tab-floor-plan .panel-sidebar, 
+#tab-energy .panel-sidebar,
+#tab-power .panel-sidebar,
+#tab-ratios .panel-sidebar {
 	float: left;
 	padding: 5px;
 	width: 200px;
 }
-#tab-floor-plan .panel-sidebar label.info{
+
+#tab-floor-plan .panel-sidebar label.info, 
+#tab-energy .panel-sidebar label.info,
+#tab-power .panel-sidebar label.info,
+#tab-ratios .panel-sidebar label.info 
+{
 	padding-bottom: 5px;
     padding-top: 10px;
 }
