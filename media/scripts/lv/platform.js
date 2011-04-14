@@ -3885,11 +3885,11 @@ AutoLib.Control = {
                 	
                 if (typeof $().validate !== 'function') {
                     $.getScript('/media/scripts/lv/form.validate.js',function() {
-                        //$('#formCreateNewRule').validate(validate_options);
+                        $('#formCreateNewRule').validate(validate_options);
                     });
                 }
                 else {
-                        //$('#formCreateNewRule').validate(validate_options);
+                        $('#formCreateNewRule').validate(validate_options);
                 }
                 
                 $('#formCreateNewRule').formToWizard({ submitButton:'syncbutton'});
@@ -4967,7 +4967,50 @@ AutoLib.report =  {
             sensor_active:undefined,
             selected_building : undefined,
             locationPathToGetHere : undefined,
-            currentLevel: undefined
+            currentLevel: undefined,
+            month_dict : ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+            report_data: {},
+            chart_energy:undefined,
+            chart_power:undefined,
+            chart_ratios:undefined,
+            chartoption : ({
+                chart: {
+                    renderTo: '',
+                    width: 700,
+                    backgroundColor: {
+                        "linearGradient": ["0%", "0%", "0%", "100%"],
+                        "stops": [
+                            [0, "rgb(242,242,242)"],
+                            [1, "rgb(242,242,242)"]
+                        ]
+                    }
+                },
+                title: {
+                    text: ''
+                },
+                xAxis: {
+                    labels: {
+                        rotation: -45,
+                        align: 'right',
+                        style: {
+                            font: 'normal 10px Verdana, sans-serif'
+                        }
+                    }
+                },
+                legend: {
+                    enabled:false                
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: 'Energía (Kwh)'
+                    }
+                },
+                tooltip: {},
+                credits : {
+                    enabled : false
+                }
+        })
         },
         start : function () {
             var params = arguments[0];
@@ -5084,8 +5127,9 @@ AutoLib.report =  {
             html +=             '</li>';
             html +=         '</ul>';
             html +=     '<div id="tab-energy">';
-            html +=         '<div id="report-energy-charts">Uso de Energía</div>';
-            html +=         '<div class="panel-sidebar ui-widget ui-widget-content ui-selectmenu-menu-popup ui-corner-all">';
+            html +=         '<div id="report-energy-charts"><div id="energy_profile">Ava ba el chart</div></div>';
+            html +=         '<div class="panel-sidebar ui-widget ui-widget-content ui-corner-all" style="width: 200px;">';
+            html +=             '<div class="button-slider-menu button-slide-menu-expanded"><span class="ui-icon ui-icon-triangle-1-e" style="margin-top: 120px; "></span></div>';
             html +=             '<div class="sensorcombo ligth"></div>';
             html +=             '<label class="info">Sensor</label>';
             html +=             '<select id="sensor-combo"></select>';
@@ -5110,20 +5154,20 @@ AutoLib.report =  {
             html +=                 '</div>';
             html +=                 '<div id="range_options" style="display:none;">';
             html +=                     '<label for="from">Fecha de inicio</label>';
-            html +=                     '<input type="text" name="from" id="from" value="" class="ui-widget-content ui-corner-all"><span style="float:right;"></span>';
+            html +=                     '<input type="text" name="from" id="from" value="" class="ui-widget-content ui-corner-all"><span id="error_range_from" style="display:none;font-size: 10px;padding: 2px 2px;float:right;background:#FBE3E4;color:#8A1F11;border-color:#FBC2C4;">Requerido</span>';
             html +=                     '<label for="to">Fecha de término</label>';
-            html +=                     '<input type="text" name="to" id="to" value="" class="ui-widget-content ui-corner-all"><span style="float:right;"></span>';
+            html +=                     '<input type="text" name="to" id="to" value="" class="ui-widget-content ui-corner-all"><span id="error_range_to" style="display:none;font-size: 10px;padding: 2px 2px;float:right;background:#FBE3E4;color:#8A1F11;border-color:#FBC2C4;">Requerido</span>';
             html +=                 '</div>';       
             html +=             '</div>';
             html +=             '<button type="button" id="generate_btn">Generar Reporte</button>';
             html +=         '</div>';
             html +=     '</div>';
             html +=     '<div id="tab-power" style="margin:0 -1em;">';
-            html +=         '<div id="report-power-charts">Analisis de Potencia</div>';
+            html +=         '<div id="report-power-charts"><div id="power_profile">chart</div></div>';
             html +=     '</div>';
             
             html +=     '<div id="tab-ratios" style="margin:0 -1em;">';
-            html +=         '<div id="report-ratios-charts">Ratios de Desempeño</div>';
+            html +=         '<div id="report-ratios-charts"><div id="ratios_profile">Ava ba el chart</div></div>';
             html +=     '</div>';
             html +=  '</div>';
             $('#report-main').append($(html));
@@ -5224,14 +5268,241 @@ AutoLib.report =  {
             
             $('#generate_btn').button();
             
+            $('.button-slider-menu').css({
+                position: 'absolute',
+                width: '20px',
+                top: '0px',
+                background: '#D9E039 url(/media/css/lv/ligth/images/ui-bg_flat_100_d9e039_40x100.png) 50% 50% repeat-x',
+                height: '100%',
+                cursor:'pointer',
+                'z-index':10
+            });
+            $('.button-slider-menu').click(function () {
+                if ($(this).hasClass('button-slide-menu-expanded')) {
+                    $(this).parent().css({'width':"10px"});
+                    $(this).removeClass('button-slide-menu-expanded');
+                    $(this).addClass('button-slide-menu-collapsed');
+                    $(this).find('span').removeClass('ui-icon-triangle-1-e');
+                    $(this).find('span').addClass('ui-icon-triangle-1-w');
+                    $(this).css({
+                        position: 'absolute',
+                        width: '20px',
+                        top: '0px',
+                        right: '',
+                        left: '0px',
+                        background: '#D9E039 url(/media/css/lv/ligth/images/ui-bg_flat_100_d9e039_40x100.png) 50% 50% repeat-x',
+                        height: '100%',
+                        cursor:'pointer',
+                        'z-index':10
+                    });
+                    
+                }
+                else {
+                    $(this).parent().css({'width':"200px"});
+                    $(this).removeClass('button-slide-menu-collapsed');
+                    $(this).addClass('button-slide-menu-expanded');
+                    $(this).find('span').removeClass('ui-icon-triangle-1-w');
+                    $(this).find('span').addClass('ui-icon-triangle-1-e');
+                    $(this).css({
+                        position: 'absolute',
+                        width: '20px',
+                        top: '0px',
+                        right: '0px',
+                        left: '',
+                        background: '#D9E039 url(/media/css/lv/ligth/images/ui-bg_flat_100_d9e039_40x100.png) 50% 50% repeat-x',
+                        height: '100%',
+                        cursor:'pointer',
+                        'z-index':10
+                    });
+                }
+                
+                
+            });
+            
             $('#generate_btn').click(function () {
                 // block UI
+                $('#report-container').block({ 
+                        message: '<img src="/media/images/lv/ajax-loader.gif"> Generando Reportes ...', 
+                        css: { 
+                            border: 'none', 
+                            padding: '15px', 
+                            backgroundColor: '#000', 
+                            '-webkit-border-radius': '10px', 
+                            '-moz-border-radius': '10px',
+                            color: '#fff' 
+                        }
+                });
+                // colect data and build request packet for energy, power and ratios
+                var date_params = {type:'',date1:{year:'', month:'',day:''},date2:{year:'', month:'',day:''}};
+                var sensor_id = $('#sensor-combo').selectmenu('value');
+                var range_from, range_to;
+                var period_type = $('#period input[name=period]:checked').val();
+                switch (period_type) {
+                    case 'mensual':
+                        date_params.type = 'mensual';
+                        date_params.date1.year = parseInt($('#year_combo').selectmenu('value'),10);
+                        date_params.date1.month = parseInt($('#month_combo').selectmenu('value').split('-')[1],10);          
+                        break;
+                    case 'anual':
+                        date_params.type = 'anual';
+                        date_params.date1.year = parseInt($('#year_combo').selectmenu('value'),10);
+                        break;
+                    case 'rango':
+                        date_params.type = 'rango';
+                        range_from = $('#from').datepicker('getDate');
+                        range_to = $('#to').datepicker('getDate');
+                        if (range_from == null) {
+                            $('#error_range_from').show();
+                            $('#report-container').unblock();
+                            return false;    
+                        }
+                        if (range_to == null) {
+                            $('#error_range_from').hide();
+                            $('#error_range_to').show();
+                            $('#report-container').unblock();
+                            return false;
+                        }
+                        $('#error_range_to,#error_range_from').hide();
+                        date_params.date1.year = range_from.getFullYear(); 
+                        date_params.date1.month = range_from.getMonth()+1;
+                        date_params.date1.day = range_from.getDate();
+                        date_params.date2.year = range_to.getFullYear();
+                        date_params.date2.month = range_to.getMonth()+1;
+                        date_params.date2.day = range_to.getDate();
+                        break;
+                }
                 
-                // colect data and retrieve information from server
                 
-                // generate all charts
+                if(typeof JSON === "undefined") {
+                    $.getScript('/media/scripts/lv/JSON.js');
+                }
+                
+                var params_json = JSON.stringify({sensor_id:sensor_id,date_params:date_params});
+                AutoLib.report.Context.report_data[sensor_id] = {}
+                var returned = {error:false};
+                $.ajax({
+                    url: "/f/",
+                    context: document.body,
+                    async: false,
+                    cache: false,
+                    data: {method: 'buildSensorReport',params:params_json},
+                    error: function (data) {
+                        returned = {'error':true};
+                    },
+                    success: function (datajson) {
+                        if (datajson.hasOwnProperty('error')) {
+                            returned =  {'error':true};
+                        }else {
+                            AutoLib.report.Context.report_data[sensor_id] =  {daily_profile:datajson.daily_profile};
+                        }
+                    }
+                });
+                if (returned.error) {
+                    var opt = {
+                        title:'Servidor ocupado',
+                        text:'Intente mas tarde', 
+                        type:'error'
+                    };
+                    AutoLib.notify(opt);
+                    return false;
+                }
+                // check if chart existe an rebuild them
+                if (AutoLib.report.Context.chart_energy !== undefined) {
+                    AutoLib.report.Context.chart_energy.destroy();
+                    //AutoLib.report.Context.chart_power.destroy();
+                    //AutoLib.report.Context.chart_ratios.destroy();
+                }
+                
+                // build energy chart
+                AutoLib.report.Context.chartoption.series = [];
+                AutoLib.report.Context.chartoption.chart.renderTo = 'energy_profile';
+                AutoLib.report.Context.chartoption.chart.defaultSeriesType = 'column';
+                var day, month, year;
+                var waveform_data = [];
+                var data_point;
+                var categories_date = [];
+                for (var g=0;g<AutoLib.report.Context.report_data[sensor_id].daily_profile.energy.length;g++) {
+                    categories_date.push(''+(g+1));
+                    data_point = AutoLib.report.Context.report_data[sensor_id].daily_profile.energy[g];
+                    waveform_data.push(data_point.energy);
+                }
+                AutoLib.report.Context.chartoption.xAxis.categories = categories_date;
+                
+                var serie_constructor   =   {
+                    name: 'Energía Consumida',
+                    data: waveform_data,
+                    dataLabels: {
+                        enabled: true,
+                        rotation: -90,
+                        color: '#000000',
+                        align: 'right',
+                        x: 0,
+                        y: -10,
+                        style: {
+                           font: 'normal 10px Verdana, sans-serif'
+                        }
+                     }
+                }; 
+                         
+                //adjunt energy xaxis
+                
+                switch (period_type) {
+                    case 'mensual':
+                        // customize tooltip
+                        AutoLib.report.Context.chartoption.tooltip.formatter = function() {
+                            return '<b>'+ date_params.date1.year +'/'+date_params.date1.month+'/'+this.x +'</b><br/>'+
+                            'Energía Diaria: '+ Highcharts.numberFormat(this.y, 1) +
+                            ' kWh';
+                        };
+                        // customize title
+                        AutoLib.report.Context.chartoption.title = {text : 'Perfil Energético Mensual <b>'+AutoLib.report.Context.month_dict[date_params.date1.month-1]+' de '+date_params.date1.year +'</b>',
+                            style: {
+                                font: 'normal 12px Verdana, sans-serif'
+                            }
+                        };
+                        
+                        break;
+                        
+                    default:
+                        break;
+                }
+                // render chart
+                
+                AutoLib.report.Context.chartoption.series.push(serie_constructor);
+                AutoLib.report.Context.chart_energy = new Highcharts.Chart(AutoLib.report.Context.chartoption);
+                
+                //AutoLib.report.Context.chart_energy.xAxis[0].setExtremes(inf,sup);
+                
+                // build power chart
+                /*
+                AutoLib.report.Context.chartoption.series = [];
+                AutoLib.report.Context.chartoption.chart.renderTo = 'power_profile';
+                
+                
+                
+                
+                
+                
+                
+                AutoLib.report.Context.chart_power = new Highcharts.Chart(AutoLib.report.Context.chartoption);
+                
+                
+                // build ratios chart
+                AutoLib.report.Context.chartoption.series = [];
+                AutoLib.report.Context.chartoption.chart.renderTo = 'ratios_profile';
+                
+                
+                
+                
+                
+                
+                
+                AutoLib.report.Context.chart_ratios = new Highcharts.Chart(AutoLib.report.Context.chartoption);
+                */
+                  
                 
                 // unblock UI 
+                $('#report-container').unblock();
             });
             
         },
@@ -5250,21 +5521,22 @@ AutoLib.report =  {
             var months;
             diffmonths = (ldate.getFullYear() - fdate.getFullYear()) * 12;
             diffmonths -= fdate.getMonth();
-            diffmonths += ldate.getMonth();
+            diffmonths += ldate.getMonth()+1;
             
             var month_str = '';
             var year_str = '<option value="'+fdate.getFullYear()+'">'+fdate.getFullYear()+'</option>';
             var year = fdate.getFullYear();
             var month = fdate.getMonth()+1;
-            var month_dict = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
             
             for (var j=0;j<diffmonths;j++){
-                if (j+month > 12) {
+                if (month > 12) {
                     month = 1;
                     year = year + 1;
                     year_str += '<option value="'+year+'">'+year+'</option>';
                 }
-                month_str += '<option year="'+year+'" month="'+month+'" value="'+year+'-'+month+'">'+month_dict[month-1]+'</option>';
+                
+                month_str += '<option year="'+year+'" month="'+month+'" value="'+year+'-'+month+'">'+AutoLib.report.Context.month_dict[month-1]+'</option>';
+                month +=1;
             }
                 
             $('#year_combo').html(year_str);

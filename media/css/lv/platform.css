@@ -445,23 +445,49 @@ body {
 #tab-ratios {
 	margin:0 -1em; 
     min-height: 450px;  
+	overflow:hidden;
 }
 
-#tab-floor-plan #plane, 
-#tab-energy #report-energy-charts,
-#tab-power #report-power-charts,
-#tab-ratios #report-ratios-charts
+#tab-floor-plan #plane
  {
 	float:left;
 	width:480px;
 }
-.sensorcombo .ligth  {
-	font-size:10px !important;
+
+#tab-energy #report-energy-charts,
+#tab-power #report-power-charts,
+#tab-ratios #report-ratios-charts
+{
+    width:700px;
 }
-#tab-floor-plan .panel-sidebar, 
+
 #tab-energy .panel-sidebar,
 #tab-power .panel-sidebar,
 #tab-ratios .panel-sidebar {
+    position: absolute;
+    padding: 5px;
+	top:50px;
+	right:0px;
+	overflow:hidden;
+	height:257px;
+}
+/*
+#tab-energy .button-slider-menu {
+	
+}*/
+
+#tab-energy .button-slide-menu-expanded {
+    right: 0px;
+}
+
+#tab-energy .button-slide-menu-collapsed {
+    left: 0px;
+}
+
+.sensorcombo .ligth  {
+	font-size:10px !important;
+}
+#tab-floor-plan .panel-sidebar {
 	float: left;
 	padding: 5px;
 	width: 200px;
