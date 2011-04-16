@@ -82,18 +82,7 @@ class Alarms(models.Model):
         pass
 
 ############### MODELO DE REGLAS DE CONTROL ASOCIADOS A CADA DEVICE
-"""
-class Control(models.Model):
-    def __unicode__(self):
-        return "%s - %s" % (self.name,self.type)
-    name            =   models.CharField(max_length=200)
-    description     =   models.TextField(max_length=2000,blank=True, null=True)
-    control_data    =   models.TextField(max_length=2000,blank=True, null=True) #time steps, IOs, threshold, measurements 
-    type            =   models.CharField(max_length=20,choices=(('threshold','threshold'),('timer','timer'),))
-    is_loaded       =   models.BooleanField() #loaded(true), unloaded(false)
-    class Admin:
-        pass
-"""
+
 class Control(models.Model):
     def __unicode__(self):
         return "%s - %s - %s" % (self.name,self.device, self.tag)
@@ -192,7 +181,8 @@ class Boards(models.Model):
         return self.name
     name            = models.CharField(max_length=150)
     description     = models.TextField(null=True,blank=True)
-    corrections     = models.CharField(max_length=300,default="{'VOLT_CC':1,'AMP_CC':1,'PWR_CC':1,'ENR_CC':1}")  
+    corrections     = models.CharField(max_length=300,default="{'VOLT_CC':1,'AMP_CC':1,'PWR_CC':1,'ENR_CC':1}")
+    overflow        = models.FloatField(null=True,blank=True)
     
     class Admin:
         pass
@@ -274,7 +264,6 @@ class Buildings(models.Model):
             if field.name == 'logo':
                 field.upload_to = 'media/images/lv/icons/building/%s' % self.name
         super(Buildings, self).save()
-    
     class Admin:
         pass
 

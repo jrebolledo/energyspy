@@ -244,17 +244,6 @@ class Elec_Tools():
                          't4':date.replace(hour=23,minute=59,second=59)}} 
         
         
-        """
-        #valor maximo presente en punta diario (consumo)
-        PP     =   list(Measurements.objects.filter(Q(user= self.user),Q(sensor=Sensors.objects.get(pk=self.sensor_id)),\
-                                    Q(datetimestamp__gte = period[type]['t1'], datetimestamp__lte =   period[type]['t2']) | Q(datetimestamp__gte = period[type]['t2'],datetimestamp__lte=period[type]['t3'])).extra(select=sql_extra_pairs[signal]['sql']).\
-                                    values('datetimestamp',sql_extra_pairs[signal]['extra']))
-        #valor maximo parcialmente presente en punta diario (consumo)
-        PPP    =   list(Measurements.objects.filter(Q(user= self.user),Q(sensor=Sensors.objects.get(pk=self.sensor_id)),\
-                                    Q(datetimestamp__gte = period[type]['t2'], datetimestamp__lte =   period[type]['t3'])).extra(select=sql_extra_pairs[signal]['sql']).\
-                                    values('datetimestamp',sql_extra_pairs[signal]['extra']))
-        """
-        
         PPP     =   list(Measurements.objects.filter(Q(user= self.user),Q(sensor=Sensors.objects.get(pk=self.sensor_id)),\
                                     Q(datetimestamp__gte = period[type]['t1'], datetimestamp__lte =   period[type]['t2']) | Q(datetimestamp__gte = period[type]['t3'],datetimestamp__lte=period[type]['t4'])).extra(select=sql_extra_pairs[signal]['sql']).\
                                     order_by('datetimestamp').\
