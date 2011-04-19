@@ -442,7 +442,83 @@ def alterMAXQEEPROM(call_id):
         _alterMAXQEEPROM(call_id,logger)
     except SoftTimeLimitExceeded:
         pass
+
+@task()
+def resetTXSLAVES(coordinator_id):
+    logger = resetTXSLAVES.get_logger()
+    print 'Send Reset packet to TX slaves...'
+    import json
+    import socket
+    import ast
+    import datetime
+    import random
+
     
+    HOST = '127.0.0.1'
+    PORT = 6969                 
+    coordinator = Coordinators.objects.get(pk=coordinator_id)
+    
+    packet = [128,0]
+    packet.insert(1,len(packet)-1)
+    print 'packet: %s'%packet
+    sentToTwister = {'method':128,'webopID':77,'params':{'data':packet,'gw_id':coordinator.id}}
+    c  =   json.dumps(sentToTwister)
+    #open socket and send data
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    
+    
+    #wait for ack response, if timeout break and mark as error and 
+    #send notification to browser
+    
+    try:
+        sock.connect((HOST,PORT))
+        #logger.info('Paquete: %s'%c)
+        sock.send(c)
+        data_received = sock.recv(1024)
+        Timeout = False
+    except:
+        #logger.info('Timeout')
+        call_error = True
+        Timeout = True
+    
+    while True and not Timeout:
+        if not data_received or data_received == None:
+            #close connection and send confirmation to browser
+            #logger.info('No data from gateway or connection reset by peer')
+            sock.close()
+            call_error = True
+            break
+        else:
+            r=json.loads(data_received)
+            method = r['method']
+            
+            if method == 'ack':
+                print 'Packet send: OK'
+                call_error = False
+                break
+                
+    
+    if not call_error:
+                              
+        #CREATE EVENT OF TWISTED RECEPTION AND SEND NOTIFICATION TO DJANGO, DJANGO WILL NOTIFY TO BROWSER LATER
+        a=Events()
+        a.is_coordinator = True
+        a.coordinator = coordinator
+        a.time = datetime.datetime.now()
+        a.section = Sections.objects.filter(main_sensor__coordinator = coordinator)[0]
+        a.details = 'Slave-Reset enviado correctamente'
+        a.save()
+        
+    else:
+        #CREATE EVENT OF TWISTED RECEPTION AND SEND NOTIFICATION TO DJANGO, DJANGO WILL NOTIFY TO BROWSER LATER
+        a=Events()
+        a.is_coordinator = True
+        a.coordinator = coordinator
+        a.time = datetime.datetime.now()
+        a.section = Sections.objects.filter(main_sensor__coordinator = coordinator)[0]
+        a.details = 'Servidor de gateways no responde'
+        a.save()
+        
 def main():
     sendControlRuleNow(16)
 

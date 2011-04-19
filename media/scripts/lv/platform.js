@@ -481,12 +481,13 @@ AutoLib = {
 		    	case 'thr':
                     reference = data[u].refvalue;
                     control_params.tolvalue = data[u].tolvalue;
-                    if (data[u].operator == 'gt') {
-                       control_params.action = {'true':'false','false':'true'}[control_params.action];
+                    if ((data[u].operator == 'gt' & data[u].action == 'true') | (data[u].operator == 'lt' & data[u].action == 'false')) {
+                       control_params.action = 'false';
                        data[u].operator = 'lt';
+                    } else {
+                    control_params.operator = 'lt';
+                    control_params.action = 'true';
                     }
-                    control_params.operator = data[u].operator;
-                    control_params.action = data[u].action;
 		    	    break;
 		    	case '0':
 		    	    reference = 0; // it means always off
@@ -1106,6 +1107,7 @@ AutoLib.chartviewer =  {
 			currentLevel: undefined,
 			chartoption : ({
 			    chart: {
+					zoomType: 'x',
 			        renderTo: 'chartcontainer',
 			        width: 710,
 			        backgroundColor: {
@@ -1132,7 +1134,7 @@ AutoLib.chartviewer =  {
 			            text: ''
 			        },
 			        type: 'datetime',
-			        maxZoom: 3600000,
+			        maxZoom: 20 * 3600000,
 			        labels: {
 			            formatter: function () {
 			                return Highcharts.dateFormat('%H:%M', this.value) + '<br/>' + Highcharts.dateFormat('%a %d %b', this.value);
@@ -1270,6 +1272,44 @@ AutoLib.chartviewer =  {
 			        labels: {
 			            formatter: function () {
 			                return Highcharts.numberFormat(this.value, 2) + ' [pu]';
+			            },
+			            style: {
+			            	fontSize:'8px'
+			            }
+			        },
+			        title: {
+			            text: '',
+			            margin: 0
+			        },
+			        lineWidth: 1,
+			        tickWidth: 1,
+			        opposite: true,
+			        offset: 0,
+			        min: 0
+			    },
+			    { // C° yAxis
+			        labels: {
+			            formatter: function () {
+			                return Highcharts.numberFormat(this.value, 0) + ' [C°]';
+			            },
+			            style: {
+			            	fontSize:'8px'
+			            }
+			        },
+			        title: {
+			            text: '',
+			            margin: 0
+			        },
+			        lineWidth: 1,
+			        tickWidth: 1,
+			        opposite: true,
+			        offset: 0,
+			        min: 0
+			    },
+			    { // L yAxis
+			        labels: {
+			            formatter: function () {
+			                return Highcharts.numberFormat(this.value, 0) + ' [Lum/m2]';
 			            },
 			            style: {
 			            	fontSize:'8px'
@@ -1868,7 +1908,7 @@ AutoLib.chartviewer =  {
 								cd.setDate(cd.getDate() - 7);
 							}
 							// select first day of the current week
-							break;
+							break;s
 						case 'm':
 							if ($(this).hasClass('next')) {
 								//change date, check if is between bounderies
@@ -2259,7 +2299,7 @@ AutoLib.chartviewer =  {
 			var margin_left = 5;
 			var margin_right = 40;
 			// clean yaxis mask
-			var yaxisMask = {'V':{state:false,index:0},'A':{state:false,index:1},'Hz':{state:false, index:4},'W':{state:false,index:2},'VA':{state:false,index:2},'VAR':{state:false,index:2},'pu':{state:false,index:5}};
+			var yaxisMask = {'V':{state:false,index:0},'A':{state:false,index:1},'Hz':{state:false, index:4},'W':{state:false,index:2},'VA':{state:false,index:2},'VAR':{state:false,index:2},'pu':{state:false,index:5},'C°':{state:false,index:6},'Lum/m2':{state:false,index:7}};
 			// clean previous series from constructor options
 			AutoLib.chartviewer.Context.chartoption.series = [];
 			//convert datetime string to javascript Date()
@@ -4221,6 +4261,9 @@ AutoLib.Control = {
                                             	if (section_item[ss][sss].meta.actuators[act].registers.signals_connected.hasOwnProperty(IO)) {
                                             	   // parse data
                                             	   ki = section_item[ss][sss].meta.actuators[act].registers;
+                                            	   if (!ki.signals_connected[IO].enable) {
+                                            		   continue;
+                                            	   }
                                             	   zone_path = ki.zones_svg[IO].path;
                                             	   name = ki.signals_connected[IO].Title;
                                             	   state = ki.signals_connected[IO].state;

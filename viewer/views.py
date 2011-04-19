@@ -629,9 +629,8 @@ def f(request):
                             
                             #exit if there are no data available
                             if len(PP) > 0:
-                                day_power_analisis['PP'] = int(PP[0].TotalKW])
+                                day_power_analisis['PP'] = int(PP[0].TotalKW)
                                 
-                            
                             if len(PPP)> 0:
                                 day_power_analisis['PPP'] = int(PPP[0].TotalKW)  
                             
@@ -843,7 +842,7 @@ def update_server_control_manager(request):
                             continue
                         device      =   Devices.objects.get(pk=int(key_dev))
                         
-                        registers   =   ast.literal_eval(device.registers)
+                        registers   =   ast.literal_eval(stripcomments(device.registers))
                         coo_key     =   device.coordinator.id
                         
                         if not coordinators.has_key(coo_key):

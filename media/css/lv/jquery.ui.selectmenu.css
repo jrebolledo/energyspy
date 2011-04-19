@@ -14,7 +14,7 @@
 .ui-selectmenu-status { line-height: 1.4em; font-size:10px;}
 .ui-selectmenu-open li.ui-selectmenu-item-focus a { }
 .ui-selectmenu-open li.ui-selectmenu-item-selected { }
-.ui-selectmenu-menu li span,.ui-selectmenu-status span { display:block; margin-bottom: .2em; padding-right:5px; font-size:10px;}
+.ui-selectmenu-menu li span,.ui-selectmenu-status span { display:block; margin-bottom: .6em; padding-right:5px; font-size:10px;}
 .ui-selectmenu-menu li .ui-selectmenu-item-header { font-weight: bold;font-size:9px; }
 .ui-selectmenu-menu li .ui-selectmenu-item-content { color:#8e8e8e;font-size:9px;}
 .ui-selectmenu-menu li .ui-selectmenu-item-footer { opacity: .8; }
