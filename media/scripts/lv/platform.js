@@ -5141,7 +5141,7 @@ AutoLib.report =  {
             html +=             '</li>';*/
             html +=         '</ul>';
             html +=     '<div id="tab-energy">';
-            html +=         '<div id="report-energy-charts"><div id="energy_profile">Ava ba el chart</div></div>';
+            html +=         '<div id="report-energy-charts"><div id="energy_profile"></div></div>';
             html +=         '<div class="panel-sidebar ui-widget ui-widget-content ui-corner-all" style="width: 200px;">';
             html +=             '<div class="button-slider-menu button-slide-menu-expanded" style="right: 0;"><span class="ui-icon ui-icon-triangle-1-e" style="margin-top: 120px; "></span></div>';
             html +=             '<div class="sensorcombo ligth"></div>';

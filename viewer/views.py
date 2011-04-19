@@ -662,9 +662,18 @@ def f(request):
 # FUNCTIONS 
 #####################
 def _parseEvtDetails(evt_details):
-    if evt_details.has_key('act_id'):
-        return
-    else:
+    try:
+        evt_details_dict = ast.literal_eval(evt_details)
+        if evt_details_dict.has_key('act_id'):
+            print evt_details_dict
+            evt_details = []
+            for io in evt_details_dict['IOs']:
+                evt_details_tmp = '%s %s'%(io[io.keys()[0]]['Title'],{True:'(encendido)',False:'(apagado)'}[io[io.keys()[0]]['state']])
+                evt_details.append(evt_details_tmp)
+        
+            evt_details = ', '.join(evt_details)
+            return evt_details
+    except:
         return evt_details
     
 def getEnergybyPeriod(sensor_id,period,date=datetime.datetime.now().replace(month=10)):
