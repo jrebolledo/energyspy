@@ -138,9 +138,17 @@ class PushService(models.Model):
     is_manual_control   =   models.BooleanField()
     opID            = models.CharField(max_length=100, blank=True, null=True)
 
+######## REPORT BUFFER
+
+class Report_Buffer(models.Model):
+    sensor = models.ForeignKey('Devices')
+    range = models.CharField(max_length=10)
+    from_date = models.DateTimeField()
+    to_date = models.DateTimeField()
+
 ########DEVICES AND BOARDS
 class Devices(models.Model):
-    """def __unicode__(self):
+    def __unicode__(self):
         if self.virtual:
             if self.building != None:
                 return '%s - (VIRTUAL) - %s' % (self.building,self.name)    
@@ -151,7 +159,7 @@ class Devices(models.Model):
             elif self.subsubsection != None:
                 return '%s - (VIRTUAL) - %s' % (self.subsubsection,self.name)
         else:
-            return '%s - %s - %s' % (self.subsubsection,self.typeofdevice, self.name)"""
+            return '%s - %s - %s' % (self.subsubsection,self.typeofdevice, self.name)
         
     
     STATUS_CHOICES = (

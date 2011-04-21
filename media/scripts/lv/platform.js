@@ -9,11 +9,11 @@ var AutoLib = AutoLib || {};
 function redrawDataTable(table) {
 	table.fnDraw();
 	table.fnAdjustColumnSizing();
-};
+}
 
 function forcedCheckRelayStatus () {
 	//console.log('Forcing Status Check in the Server');
-};
+}
 
 AutoLib = {
 	Context: {
@@ -148,7 +148,7 @@ AutoLib = {
         $(arguments[0].target).html(arguments[0].prefix+' : ' +title);
     },
 	renderActionsMenu : function () {
-        if ($('#container_menu_top_nav').length == 0) {
+        if ($('#container_menu_top_nav').length === 0) {
 	        var de = AutoLib.Context.actions_available;
             var html='<div class="container_menu_top_nav">';
             html += '<div style="color:#f2f2f2;font-weight:bold; margin-right: 5px; padding-top: 3px;">Menu Principal</div>';
@@ -181,8 +181,8 @@ AutoLib = {
                         method  = 'lighting';
                     }
                 }
-                if (linkto == 'Control' & AutoLib.INTERFACE_HANDLER.Context.current_interface == 'Control') {
-                    if (method != AutoLib.Control.Context.typeofcontrol) {
+                if (linkto === 'Control' & AutoLib.INTERFACE_HANDLER.Context.current_interface === 'Control') {
+                    if (method !== AutoLib.Control.Context.typeofcontrol) {
                         // jump from hvac <-> lighting
                         jump_into_control = true;    
                     }       
@@ -323,16 +323,17 @@ AutoLib = {
                 if (AutoLib.Context.serverPoll.hasOwnProperty(params.webopID)) {
                 	// change status to "Recibido correctamente por el servidor'
                 	AutoLib.Context.serverPoll[params.webopID].status = params.status;
-                	if (params.status == 1) {
-                		var opt = {
+                	var opt;
+                	if (params.status === 1) {
+                		opt = {
                 			title:'Servidor de Gateways',
                 			text: AutoLib.Codes[AutoLib.Context.serverPoll[params.webopID].status], 
                 			type:'normal'
                 		};
                 		AutoLib.notify(opt);
                 	}
-                	if (params.status == 3) {
-                        var opt = {
+                	if (params.status === 3) {
+                        opt = {
                             title:'Error',
                             text:AutoLib.Codes[AutoLib.Context.serverPoll[params.webopID].status],
                             type:'error'
@@ -366,7 +367,7 @@ AutoLib = {
 	                                        // if the current section has been altered remotley, change button state to 
 						                    // disable (side bar) and disable 'Edit rule' and 'new rule' tabs
 						                    path = AutoLib.Control.Context.locationPathToGetHere.split('-');
-						                    if (path.length==2) { 
+						                    if (path.length===2) { 
 						                       c_section = path[1];
 						                       if (c_section === s) {
 		                                            if (params.state === 'online') {
@@ -481,7 +482,7 @@ AutoLib = {
 		    	case 'thr':
                     reference = data[u].refvalue;
                     control_params.tolvalue = data[u].tolvalue;
-                    if ((data[u].operator == 'gt' & data[u].action == 'true') | (data[u].operator == 'lt' & data[u].action == 'false')) {
+                    if ((data[u].operator === 'gt' & data[u].action === 'true') | (data[u].operator === 'lt' & data[u].action === 'false')) {
                        control_params.action = 'false';
                        data[u].operator = 'lt';
                     } else {
@@ -512,8 +513,8 @@ AutoLib = {
 	    var minutes = Math.floor(value - (hours * 60));
 	    var hstr = ''+hours;
 	    var mstr = ''+minutes;
-	    if(hstr.length == 1) {hstr = '0' + hstr;}
-	    if(mstr.length == 1) {mstr = '0' + mstr;}
+	    if(hstr.length === 1) {hstr = '0' + hstr;}
+	    if(mstr.length === 1) {mstr = '0' + mstr;}
 	    return hstr+':'+mstr;
 	},
 	renderTimeFromSlider : function (values) {
@@ -521,15 +522,15 @@ AutoLib = {
         var minutes1 = 10*(values[0] - (hours1 * 6));
         var hstr1 = ''+hours1;
         var mstr1 = ''+minutes1;
-        if(hstr1.length == 1) {hstr1 = '0' + hstr1;}
-        if(mstr1.length == 1) {mstr1 = '0' + mstr1;}
+        if(hstr1.length === 1) {hstr1 = '0' + hstr1;}
+        if(mstr1.length === 1) {mstr1 = '0' + mstr1;}
         
         var hours2 = Math.floor(values[1] / 6);
         var minutes2 = 10*(values[1] - (hours2 * 6));
         var hstr2 = ''+hours2;
         var mstr2 = ''+minutes2;
-        if(hstr2.length == 1) {hstr2 = '0' + hstr2;}
-        if(mstr2.length == 1) {mstr2 = '0' + mstr2;}
+        if(hstr2.length === 1) {hstr2 = '0' + hstr2;}
+        if(mstr2.length === 1) {mstr2 = '0' + mstr2;}
         return hstr1+':'+mstr1+' - '+hstr2+':'+mstr2;
 	},
 	makeid : function () {
@@ -775,7 +776,7 @@ AutoLib = {
 								for (var x in AutoLib.Context.deviceTree[u][v][w]) { // subsubsections (zones)
 									if (AutoLib.Context.deviceTree[u][v][w].hasOwnProperty(x)){
 										if (x === 'meta') {
-											continue
+											continue;
 										}
 										if (AutoLib.Context.deviceTree[u][v][w][x].meta.hasOwnProperty('virtual')){
 											for (var s in AutoLib.Context.deviceTree[u][v][w][x].meta.virtual) {
@@ -788,7 +789,7 @@ AutoLib = {
 										}
 										if (AutoLib.Context.deviceTree[u][v][w][x].meta.hasOwnProperty('actuators')) {
                                             for (var m in AutoLib.Context.deviceTree[u][v][w][x].meta.actuators) {
-                                                if ((m === o.id)||((o.bysection)||(o.bybuilding))&&(((o.bytype && (o.type=='actuator')))) || (o.bytype && (o.type=='actuator'))) {
+                                                if ((m === o.id)||((o.bysection)||(o.bybuilding))&&(((o.bytype && (o.type==='actuator')))) || (o.bytype && (o.type==='actuator'))) {
                                                     devices[m] = {data:AutoLib.Context.deviceTree[u][v][w][x].meta.actuators[m],path:u+'-'+v+'-'+w+'-'+x+'-'+m,type:'actuator'};
                                                 }
                                             }
@@ -803,7 +804,7 @@ AutoLib = {
 													devices[y] = {data:AutoLib.Context.deviceTree[u][v][w][x][y],path:u+'-'+v+'-'+w+'-'+x+'-'+y,type:'real_sensor'};
 												}
 												
-												if ((o.bytypeofdevice)&&(o.idtypeofdevice==AutoLib.Context.deviceTree[u][v][w][x][y].typeofdevice)) {
+												if ((o.bytypeofdevice)&&(o.idtypeofdevice===AutoLib.Context.deviceTree[u][v][w][x][y].typeofdevice)) {
 												    devices[y] = {data:AutoLib.Context.deviceTree[u][v][w][x][y],path:u+'-'+v+'-'+w+'-'+x+'-'+y,type:'real_sensor'};
 												}
 											}
@@ -1808,7 +1809,7 @@ AutoLib.chartviewer =  {
 											$( this ).dialog( "close" );
 											$( "#select-sensor-signal" ).dialog('open');
 											
-											if ($('.ui-dialog[aria-labelledby=ui-dialog-title-select-sensor-signal]').parent('.dark.modal').length == 0) {
+											if ($('.ui-dialog[aria-labelledby=ui-dialog-title-select-sensor-signal]').parent('.dark.modal').length === 0) {
 			                                    if ($('.dark.modal').length > 0) {
 			                                        $('.dark.modal').append($('.ui-dialog[aria-labelledby=ui-dialog-title-select-sensor-signal]'));
 			                                    }
@@ -1827,7 +1828,7 @@ AutoLib.chartviewer =  {
 									}
 								});
 								
-								if ($('.ui-dialog[aria-labelledby=ui-dialog-title-dialog-confirm]').parent('.dark.modal').length == 0) {
+								if ($('.ui-dialog[aria-labelledby=ui-dialog-title-dialog-confirm]').parent('.dark.modal').length === 0) {
 									if ($('.dark.modal').length > 0) {
 										$('.dark.modal').append($('.ui-dialog[aria-labelledby=ui-dialog-title-dialog-confirm]'));
 									}
@@ -1908,7 +1909,7 @@ AutoLib.chartviewer =  {
 								cd.setDate(cd.getDate() - 7);
 							}
 							// select first day of the current week
-							break;s
+							break;
 						case 'm':
 							if ($(this).hasClass('next')) {
 								//change date, check if is between bounderies
@@ -2208,7 +2209,7 @@ AutoLib.chartviewer =  {
 									$("#Date").datepicker("setDate",fd);
 									AutoLib.chartviewer.Context.datestart = datajson[b].first_date;
 								}
-								if (AutoLib.chartviewer.Context.datestart == undefined | AutoLib.chartviewer.Context.datestart == false) {
+								if (AutoLib.chartviewer.Context.datestart === undefined | AutoLib.chartviewer.Context.datestart === false) {
 									AutoLib.chartviewer.Context.datestart = datajson[b].last_date;
 								}
 								$("#Date").datepicker("option","minDate",datajson[b].first_date);
@@ -2760,14 +2761,14 @@ AutoLib.Control = {
                         AutoLib.Control.editRules.Context.rulesInfo = datajson['rulesInfo'];
                     }
                 });
-                
+                var id;
 	            if (error===false){
 	                //console.log('Rules founded : ');
 	                var manual_control_items = [];
 	                var control_rules_items = [];
 	                var numopmanual=0;
 	                var numrules=0;
-	                var date_from,status,circuit_name,dev,rule_name;
+	                var date_from,status,circuit_name,rule_name;
 	                var last_modified;
 	                for (var k in AutoLib.Control.editRules.Context.rulesInfo) {
 	                	if (AutoLib.Control.editRules.Context.rulesInfo.hasOwnProperty(k)){
@@ -2916,7 +2917,7 @@ AutoLib.Control = {
 	                        for ( var i=0 ; i<aTrs.length ; i++ ) {
 	                            if ( $(aTrs[i]).hasClass('row_selected')) {
 	                                var data = $(aTrs[i]).attr('data').split('&');
-	                                var rule = AutoLib.Control.editRules.Context.rulesInfo[parseInt(data[1],10)][data[2]][data[3]][parseInt(data[4],10)];
+	                                rule = AutoLib.Control.editRules.Context.rulesInfo[parseInt(data[1],10)][data[2]][data[3]][parseInt(data[4],10)];
 	                                rows.push(aTrs[i]);
 	                                rules_id.push(rule.id);
 	                            }
@@ -2987,7 +2988,7 @@ AutoLib.Control = {
                             for ( var i=0 ; i<aTrs.length ; i++ ) {
                                 if ( $(aTrs[i]).hasClass('row_selected')) {
                                     var data = $(aTrs[i]).attr('data').split('&');
-                                    var rule = AutoLib.Control.editRules.Context.rulesInfo[parseInt(data[1],10)][data[2]][data[3]][parseInt(data[4],10)];
+                                    rule = AutoLib.Control.editRules.Context.rulesInfo[parseInt(data[1],10)][data[2]][data[3]][parseInt(data[4],10)];
                                     rows.push(aTrs[i]);
                                     rules_id.push(rule.id);
                                 }
@@ -3032,7 +3033,7 @@ AutoLib.Control = {
 				        var nTr = this.parentNode.parentNode;
 				        var type = $(this).parent().parent().parent().parent().attr('id');
 				        var yh = {'table_manual':'ruletable_manual_rules','table_control':'ruletable_control_rules'}[type];
-				        if ( $(this).text() == 'esconder detalles') {
+				        if ( $(this).text() === 'esconder detalles') {
 				            $(this).html('ver detalles');
 				            AutoLib.Control.editRules.Context[yh].fnClose(nTr);
 				        }
@@ -3182,7 +3183,7 @@ AutoLib.Control = {
             		control_id : null
             	};
             	if (options.hasOwnProperty('data')) {
-            	   var default_data = options.data;
+            	   default_data = options.data;
                    new_rule = false;	
             	}
             	
@@ -3261,9 +3262,9 @@ AutoLib.Control = {
                     monthNames: [gettext("Enero"), gettext("Febrero"), gettext("Marzo"), gettext("Abril"), gettext("Mayo"), gettext("Junio"), gettext("Julio"), gettext("Agosto"), gettext("Septiembre"), gettext("Octubre"), gettext("Noviembre"), gettext("Diciembre")],
 		            numberOfMonths: 3,
 		            onSelect: function( selectedDate ) {
-		                var option = this.id == "from" ? "minDate" : "maxDate",
+		                	var option = this.id === "from" ? "minDate" : "maxDate",
 		                    instance = $( this ).data( "datepicker" );
-		                    date = $.datepicker.parseDate(
+		                    var date = $.datepicker.parseDate(
 		                        instance.settings.dateFormat ||
 		                        $.datepicker._defaults.dateFormat,
 		                        selectedDate, instance.settings );
@@ -3571,62 +3572,61 @@ AutoLib.Control = {
                         
                         // filling dialog
                         // Headline information (Signal restriction)
-                        var html = '\
-                            		<form id="thr-dialog-form">\
-                            			<div class="combothr1 dark"></div>\
-                            			<div class="combothr2 dark"></div>\
-                                        <fieldset>\
-                                            <legend>Medición</legend>\
-                                            <div class="ui-widget"><div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em;"><p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span><strong>Información:</strong> Solo puede seleccionar nodos pertenecientes a la misma red Zigbee a la que pertenece el nodo actuador</p></div></div>\
-                                            <br>\
-                                            <div class="ui.widget" style="padding-bottom: 15px;">\
-												<label for="sensor">Sensor</label>\
-												<select id="sensor-combo" style="width:300px;">\
-												</select><span style="float:right;"></span>\
-											</div>\
-											<div class="ui.widget">\
-                                                <label for="sensor">Medición de Referencia</label>\
-                                                <select id="signal-combo" style="width:300px;">\
-                                                </select><span style="float:right;"></span>\
-                                            </div>\
-                                            <div class="ui.widget" id="thr_edit_sensor" style="display:none;margin-top:50px;">\
-                                                <button type="button">Editar sensor y señal de medición</button>\
-                                            </div>\
-                                        </fieldset>\
-                                        <fieldset>\
-                                            <legend>Control</legend>\
-                                            <div class="ui-widget"><div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em;"><p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span><strong>Información:</strong> Si la "medición" es "<" o ">" que la "Referecia" entonces "Encender" o "Apagar" el circuito. Realizar el control con una banda de "tolerancia"</p></div></div>\
-                                            <div class="ui-widget ui-widget-content">\
-                                                <div style="float:left;height:240px;width:25%;margin:10px;padding:10px;" class="ui-corner-all ui-widget-content ui-helper-clearfix">\
-                                                    <label>Referencia</label>\
-												    <div id="ref-slider" unit="°C" style="height:200px;margin-top:10px;float:left;margin-right:30px;"></div>\
-												    <div style="float:left;">\
-												        <span id="thr-ref-str" style="padding-top:10px;width:60px;float:left;"> 20 C°</span>\
-												    </div>\
-												</div>\
-												<div style="float:left;width:25%;height:100px;margin:10px;padding:10px;" class="ui-corner-all ui-widget-content ui-helper-clearfix">\
-												    <label>Operador</label>\
-													<div id="thr-operator" style="margin-top:10px;">\
-													    <input id="gt" type="radio" name="op" value="gt"><label for="gt">&gt;</label>\
-													    <input id="lt" type="radio" name="op" value="lt"><label for="lt">&lt;</label>\
-													</div>\
-												</div>\
-												<div style="float:left;width:25%;margin:10px;height:100px;padding:10px;" class="ui-corner-all ui-widget-content ui-helper-clearfix">\
-												    <label>Acción</label>\
-													<div id="thr-action" style="margin-top:10px;">\
-														<input id="th-on" type="radio" name="thr-action" checked=checked value=true><label for="th-on">ON</label>\
-														<input id="th-off" type="radio" name="thr-action" value=false><label for="th-off">OFF</label>\
-													</div>\
-												</div>\
-												<div style="margin:10px;padding:10px;float:left;width:57.5%;" class="ui-corner-all ui-widget-content ui-helper-clearfix">\
-												    <label>Tolerancia</label>\
-												    <div style="float:left;width:100%;margin-top:10px;" id="thr-tol-slider" unit="°C"></div>\
-												    <span style="float:left;width:25%;margin-top:10px;" id="thr-tol-str">5 °C</span>\
-												</div>\
-											</div>\
-                                        </fieldset>\
-                                        <button id="saveThreshold" type="button"></button>\
-                                    </form>';
+                        var html = '<form id="thr-dialog-form">';
+                        html += '<div class="combothr1 dark"></div>';
+                        html += '<div class="combothr2 dark"></div>';
+                        html += '<fieldset>';
+                        html += '<legend>Medición</legend>';
+                        html += '<div class="ui-widget"><div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em;"><p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span><strong>Información:</strong> Solo puede seleccionar nodos pertenecientes a la misma red Zigbee a la que pertenece el nodo actuador</p></div></div>';
+                        html += '<br>';
+                        html += '<div class="ui.widget" style="padding-bottom: 15px;">';
+						html += '<label for="sensor">Sensor</label>';
+						html += '<select id="sensor-combo" style="width:300px;">';
+						html += '</select><span style="float:right;"></span>';
+						html += '</div>';
+						html += '<div class="ui.widget">';
+						html += '<label for="sensor">Medición de Referencia</label>';                                                
+						html +=	'<select id="signal-combo" style="width:300px;">';
+                        html += '</select><span style="float:right;"></span>';
+						html += '</div>';
+                        html += '<div class="ui.widget" id="thr_edit_sensor" style="display:none;margin-top:50px;">';
+                        html += '<button type="button">Editar sensor y señal de medición</button>';
+         				html += '</div>';
+                        html += '</fieldset>';
+                        html += '<fieldset>';
+                        html += '<legend>Control</legend>';
+                        html += '<div class="ui-widget"><div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em;"><p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span><strong>Información:</strong> Si la "medición" es "<" o ">" que la "Referecia" entonces "Encender" o "Apagar" el circuito. Realizar el control con una banda de "tolerancia"</p></div></div>';
+                        html += '<div class="ui-widget ui-widget-content">';
+                        html += '<div style="float:left;height:240px;width:25%;margin:10px;padding:10px;" class="ui-corner-all ui-widget-content ui-helper-clearfix">';
+                        html += '<label>Referencia</label>';
+                        html += '<div id="ref-slider" unit="°C" style="height:200px;margin-top:10px;float:left;margin-right:30px;"></div>';
+						html += '<div style="float:left;">';
+						html += '<span id="thr-ref-str" style="padding-top:10px;width:60px;float:left;"> 20 C°</span>';
+						html += '</div>';
+						html += '</div>';
+						html += '<div style="float:left;width:25%;height:100px;margin:10px;padding:10px;" class="ui-corner-all ui-widget-content ui-helper-clearfix">';
+						html += '<label>Operador</label>';
+						html += '<div id="thr-operator" style="margin-top:10px;">';
+						html += '<input id="gt" type="radio" name="op" value="gt"><label for="gt">&gt;</label>';
+						html += '<input id="lt" type="radio" name="op" value="lt"><label for="lt">&lt;</label>';
+						html += '</div>';
+						html += '</div>';
+						html += '<div style="float:left;width:25%;margin:10px;height:100px;padding:10px;" class="ui-corner-all ui-widget-content ui-helper-clearfix">';
+						html += '<label>Acción</label>';
+						html += '<div id="thr-action" style="margin-top:10px;">';
+						html += '<input id="th-on" type="radio" name="thr-action" checked=checked value=true><label for="th-on">ON</label>';
+						html += '<input id="th-off" type="radio" name="thr-action" value=false><label for="th-off">OFF</label>';
+						html += '</div>';
+						html += '</div>';
+						html += '<div style="margin:10px;padding:10px;float:left;width:57.5%;" class="ui-corner-all ui-widget-content ui-helper-clearfix">';
+						html += '<label>Tolerancia</label>';
+						html += '<div style="float:left;width:100%;margin-top:10px;" id="thr-tol-slider" unit="°C"></div>';
+						html += '<span style="float:left;width:25%;margin-top:10px;" id="thr-tol-str">5 °C</span>';
+						html += '</div>';
+						html += '</div>';
+                        html += '</fieldset>';
+                        html += '<button id="saveThreshold" type="button"></button>';
+                        html += '</form>';
 
                         $('#thr-dialog').html(html);
                         // form wizard
@@ -3637,8 +3637,8 @@ AutoLib.Control = {
                         // load dev-signal combo select (filter sensors by section)
                         
                         var typeofsensor = {'lighting':8,'hvac':7}[AutoLib.Control.Context.typeofcontrol];
-                        var sensors = AutoLib.finddevice({bysection:true,idsection:AutoLib.Control.Context.locationPathToGetHere.split('-')[1],bytype:true,type:'sensor',bytypeofdevice:true,idtypeofdevice:typeofsensor})
-                        var html = '';
+                        var sensors = AutoLib.finddevice({bysection:true,idsection:AutoLib.Control.Context.locationPathToGetHere.split('-')[1],bytype:true,type:'sensor',bytypeofdevice:true,idtypeofdevice:typeofsensor});
+                        html = '';
                         for (var dev in sensors) {
                         	if (sensors.hasOwnProperty(dev)) {
                         		html = html + '<option id="'+dev+'" value="'+sensors[dev].path+'">'+sensors[dev].data.name+'</option>';
@@ -3754,36 +3754,37 @@ AutoLib.Control = {
 				        var scopediv = options.scope;
 				        // 2
 				        $(element).before("<ul id='"+stepTitleBar+"' class='steps'></ul>");
-				
-				        steps.each(function(i) {
-				            $(this).wrap("<div id='step" + i + "'></div>");
+				        function selectStep(i) {
+				            $("#"+stepTitleBar+" li",scopediv).removeClass("current");
+				            $("#stepDesc" + i,scopediv).addClass("current");
 				            if (options.onbuttonpane) {
-				                $('.ui-dialog-buttonset').hide();
-				                $('.ui-dialog-buttonpane').append("<div class='buttonwizard' style='float:right;display:none;' id='step" + i + "commands'></div>");
+					            $('.ui-dialog-buttonpane div.buttonwizard').each(function (index,ele) {
+					            	if (jQuery(ele).attr('id') !== 'step'+i+'commands') {
+					            		jQuery(ele).hide();
+					            	}
+					            	else {
+					            		jQuery(ele).show();
+					            	}
+					            });
+					            
+					            if (i === count-1) {
+					            	$('.ui-dialog-buttonset',scopediv).show();
+					            }
+					            else {
+					            	$('.ui-dialog-buttonset',scopediv).hide();
+					            }
+				            }
+				            
+				            $('#step'+i+'commands').show();
+				            
+				            if (i !== 1) {
+				            	$('#circuit-info',scopediv).show();
 				            }
 				            else {
-				                $(this).append("<div style='text-align:center;margin:20px auto;'><div id='step" + i + "commands'></div></div>");
+				                $('#circuit-info',scopediv).hide();
 				            }
-				
-				            // 2
-				            var name = $(this).find("legend").html();
-				            $("#"+stepTitleBar).append("<li id='stepDesc" + i + "'>Paso " + (i + 1) + "<span>" + name + "</span></li>");
-				
-				            if (i == 0) {
-				                createNextButton(i);
-				                selectStep(i);
-				            }
-				            else if (i == count - 1) {
-				                $("#step" + i,scopediv).hide();
-				                createPrevButton(i);
-				            }
-				            else {
-				                $("#step" + i,scopediv).hide();
-				                createPrevButton(i);
-				                createNextButton(i);
-				            }
-				        });
-				
+				        }
+				        
 				        function createPrevButton(i) {
 				            var stepName = "step" + i;
 				            if (options.onbuttonpane) {
@@ -3822,45 +3823,46 @@ AutoLib.Control = {
 				                
 				                $("#" + stepName,scopediv).hide();
 				                $("#step" + (i + 1),scopediv).show();
-				                if (i + 2 == count) {
+				                if (i + 2 === count) {
 				                    $(submmitButtonName).show();
 				                }
 				                selectStep(i + 1);
 				            });
 				        }
 				
-				        function selectStep(i) {
-				            $("#"+stepTitleBar+" li",scopediv).removeClass("current");
-				            $("#stepDesc" + i,scopediv).addClass("current");
+				        
+				        steps.each(function(i) {
+				            $(this).wrap("<div id='step" + i + "'></div>");
 				            if (options.onbuttonpane) {
-					            $('.ui-dialog-buttonpane div.buttonwizard').each(function (index,ele) {
-					            	if (jQuery(ele).attr('id') !== 'step'+i+'commands') {
-					            		jQuery(ele).hide();
-					            	}
-					            	else {
-					            		jQuery(ele).show();
-					            	}
-					            });
-					            
-					            if (i === count-1) {
-					            	$('.ui-dialog-buttonset',scopediv).show();
-					            }
-					            else {
-					            	$('.ui-dialog-buttonset',scopediv).hide();
-					            }
-				            }
-				            
-				            $('#step'+i+'commands').show();
-				            
-				            if (i !== 1) {
-				            	$('#circuit-info',scopediv).show();
+				                $('.ui-dialog-buttonset').hide();
+				                $('.ui-dialog-buttonpane').append("<div class='buttonwizard' style='float:right;display:none;' id='step" + i + "commands'></div>");
 				            }
 				            else {
-				                $('#circuit-info',scopediv).hide();
+				                $(this).append("<div style='text-align:center;margin:20px auto;'><div id='step" + i + "commands'></div></div>");
 				            }
-				        }
 				
-				    }
+				            // 2
+				            var name = $(this).find("legend").html();
+				            $("#"+stepTitleBar).append("<li id='stepDesc" + i + "'>Paso " + (i + 1) + "<span>" + name + "</span></li>");
+				
+				            if (i === 0) {
+				                createNextButton(i);
+				                selectStep(i);
+				            }
+				            else if (i === count - 1) {
+				                $("#step" + i,scopediv).hide();
+				                createPrevButton(i);
+				            }
+				            else {
+				                $("#step" + i,scopediv).hide();
+				                createPrevButton(i);
+				                createNextButton(i);
+				            }
+				        });
+				
+				        
+				
+				    };
 				})(jQuery);
 				 
 				
@@ -3943,7 +3945,7 @@ AutoLib.Control = {
                     values: [start,end],
                     slide: function( event, ui ) {
                     	var steps = $('.clonedStep').length;
-                    	if (jQuery(ui.handle).parent().attr('id') == 'slider'+steps) {
+                    	if (jQuery(ui.handle).parent().attr('id') === 'slider'+steps) {
                     		if (ui.values[1]<144) {
                     		    $('#slider'+steps).slider('values',[ui.values[0],144]);
                     		    return false;
@@ -4012,7 +4014,8 @@ AutoLib.Control = {
             loadDefaultData : function () {
             	// load default data in device-signal menuselect and sliders
             	var init = $('#thr-dialog-form').attr('initialized');
-            	
+            	var unit;
+            	var defaults;
             	if (init === "true") { // load data from previous threshold selection 
             		var step = AutoLib.Control.newControlRule.Context.workingStep;
             		
@@ -4024,10 +4027,10 @@ AutoLib.Control = {
             	    var thr_step_data = AutoLib.Control.newControlRule.Context.loadedRule.data.steps[step];
             	    
            	        var signal_obj = $('#signal-combo option[value='+$('#signal-combo').selectmenu('value')+']');
-            	    var unit = signal_obj.attr('unit');
+            	    unit = signal_obj.attr('unit');
                     $('#ref-slider').attr('unit',unit);
                     $('#thr-tol-slider').attr('unit',unit);
-                    var defaults = AutoLib.Control.newControlRule.Context.extra_param[AutoLib.Control.Context.typeofcontrol];
+                    defaults = AutoLib.Control.newControlRule.Context.extra_param[AutoLib.Control.Context.typeofcontrol];
                     $('#ref-slider').slider('option','min',defaults.refrange.min);
                     $('#ref-slider').slider('option','max',defaults.refrange.max);
                     $('#ref-slider').slider('option','value',thr_step_data.refvalue);
@@ -4059,10 +4062,10 @@ AutoLib.Control = {
             		var signal_tag = $('#signal-combo').selectmenu('value');
             		signal_obj = $('#signal-combo option[value='+$('#signal-combo').selectmenu('value')+']');
             		
-            		var unit = signal_obj.attr('unit');
+            		unit = signal_obj.attr('unit');
             		$('#ref-slider').attr('unit',unit);
             		$('#thr-tol-slider').attr('unit',unit);
-            		var defaults = AutoLib.Control.newControlRule.Context.extra_param[AutoLib.Control.Context.typeofcontrol];
+            		defaults = AutoLib.Control.newControlRule.Context.extra_param[AutoLib.Control.Context.typeofcontrol];
             		$('#ref-slider').slider('option','min',defaults.refrange.min);
             		$('#ref-slider').slider('option','max',defaults.refrange.max);
             		$('#ref-slider').slider('option','value',defaults.refrange.min+(defaults.refrange.max-defaults.refrange.min)/2);            		
@@ -4397,7 +4400,7 @@ AutoLib.Control = {
                 var rulesd = '<p class="info">Activas: 2 <a href="javascript:void(0)">(Editar)</a></p><p class="info">Operando Ahora: 3 </p>'; 
                 //$('#circuit-state-selected').after($('<label class="info">Reglas de Control</label><span id="rules-info-selected">'+rulesd+'</span>'));
                 var leyenda;
-                if (AutoLib.Control.Context.typeofcontrol == 'lighting') {
+                if (AutoLib.Control.Context.typeofcontrol === 'lighting') {
                     leyenda = '<span class="legend-color-yellow"></span><span class="legend-title">Luz Encendida</span><span class="legend-color-gray"></span><span class="legend-title">Luz Apagada</span><span class="legend-color-light-selected"></span><span class="legend-title">Circuito Seleccionado</span>';
                 }
                 else {
@@ -4450,7 +4453,7 @@ AutoLib.Control = {
                 	select: function(event, ui) {
                 		
                 		
-                        if (AutoLib.Control.Context.currentLevel == 'section') {
+                        if (AutoLib.Control.Context.currentLevel === 'section') {
                         	
                         	switch (AutoLib.Control.Context.activeTab) {
                         	   case 0:
@@ -4549,45 +4552,41 @@ AutoLib.Control = {
                 	    var n_s = {Apagado:'Encendido',Encendido:'Apagado'}[l_s];
                 	    
                 	    html_message = html_message + '<table id="modal-manual-table"><tr><th>Centro de Monitoreo</th><th>Unidad</th><th>Tipo de Control</th><th>Nombre del Circuito</th><th>Estado Actual</th><th>Cambiar a:</th></tr><tr><td>'+cm+'</td><td>'+un+'</td><td>'+typeofcontrol+'</td><td>'+circuitname+'</td><td>'+l_s+'</td><td>'+n_s+'</td></tr></table>';
-                	    html_message = html_message + '\
-                	    		<form id="manualForm">\
-                                    <fieldset>\
-									    <legend>\
-									        Inicio y Término\
-									    </legend>\
-									    <div style="display:block;width:100%;height:50px;">\
-									        <label for="from">\
-									            Fecha y Hora de inicio de aplicación de control manual\
-									        </label>\
-									        <div style="float:left;width:210px;height:50px;">\
-									            <input type="text" name="manual-datepicker-from" id="manual-datepicker-from" class="text ui-widget-content ui-corner-all" style="width:110px;margin-right:5px;">\
-									        </div>\
-									        <div id="time1_str" style="float:left;width: 40px; padding: 8px 0 0 10px;"></div>\
-									        <div style="float:left;width:450px;margin-top:12px;height:50px;">\
-									            <div id="time-from"></div>\
-									        </div>\
-									    </div>\
-									    <div style="display:block;width:100%;height:50px;">\
-									        <label for="to">\
-									            Fecha y Hora de término de aplicación de control manual\
-									        </label>\
-									        <div style="float:left;width:210px;height:50px;">\
-									            <input type="text" name="manual-datepicker-to" id="manual-datepicker-to" class="text ui-widget-content ui-corner-all" style="width:110px;margin-right:5px;">\
-									        </div>\
-									        <div id="time2_str" style="float:left;width: 40px; padding: 8px 0 0 10px;"></div>\
-									        <div style="float:left;width:450px;margin-top:12px;height:50px;">\
-									            <div id="time-to"></div>\
-									        </div>\
-									</fieldset>\
-                	    		</form>';
-                	    		
-
-                	    	
+                	    html_message += '<form id="manualForm">';
+                	    html_message += '<fieldset>';
+                	    html_message += '<legend>';
+                	    html_message += 'Inicio y Término';
+                	    html_message += '</legend>';
+                	    html_message += '<div style="display:block;width:100%;height:50px;">';
+                	    html_message += '<label for="from">';
+                	    html_message += 'Fecha y Hora de inicio de aplicación de control manual';
+                	    html_message += '</label>';
+                	    html_message += '<div style="float:left;width:210px;height:50px;">';
+                	    html_message += '<input type="text" name="manual-datepicker-from" id="manual-datepicker-from" class="text ui-widget-content ui-corner-all" style="width:110px;margin-right:5px;">';
+                	    html_message += '</div>';
+                	    html_message += '<div id="time1_str" style="float:left;width: 40px; padding: 8px 0 0 10px;"></div>';
+                	    html_message += '<div style="float:left;width:450px;margin-top:12px;height:50px;">';
+                	    html_message += '<div id="time-from"></div>';
+                	    html_message += '</div>';
+                	    html_message += '</div>';
+                	    html_message += '<div style="display:block;width:100%;height:50px;">';
+                	    html_message += '<label for="to">';
+                	    html_message += 'Fecha y Hora de término de aplicación de control manual';
+                	    html_message += '</label>';
+                	    html_message += '<div style="float:left;width:210px;height:50px;">';
+                	    html_message += '<input type="text" name="manual-datepicker-to" id="manual-datepicker-to" class="text ui-widget-content ui-corner-all" style="width:110px;margin-right:5px;">';
+                	    html_message += '</div>';
+                	    html_message += '<div id="time2_str" style="float:left;width: 40px; padding: 8px 0 0 10px;"></div>';
+                	    html_message += '<div style="float:left;width:450px;margin-top:12px;height:50px;">';
+                	    html_message += '</div>';
+                	    html_message += '</fieldset>';
+                	    html_message += '</form>';
+                	    		                	    	
                 	    if ($('#confirm-change-state').length === 0) {
                 	       $('#hidden').append('<div id="confirm-change-state"></div>');
                 	    } 
                 	    else{
-                	       if (typeof $('#confirm-change-state').dialog == 'function') {
+                	       if (typeof $('#confirm-change-state').dialog === 'function') {
                 	           $("#confirm-change-state").dialog('destroy');
                 	           $("#confirm-change-state").remove();
                 	           $('#hidden').append('<div id="confirm-change-state"></div>');
@@ -4668,7 +4667,7 @@ AutoLib.Control = {
 	                                          $('.ui-dialog-buttonset button:eq(1) span').html('Cerrar');
 	                                          $("#confirm-change-state").dialog("close");
 	  						              }
-                                  	  };
+                                  	  }
                                   	  
                                   	  function packetGen () {
                                   		
@@ -4688,7 +4687,7 @@ AutoLib.Control = {
                                     	  
                                     	  var applyActionFrom = $("#manual-datepicker-from").datepicker('getDate');
                                     	  var applyActionFromStr = applyActionFrom.getFullYear()+'-';
-                                          var month = applyActionFrom.getMonth()+1;
+                                          month = applyActionFrom.getMonth()+1;
                                           applyActionFromStr = applyActionFromStr + month + '-' + applyActionFrom.getDate() + ' '+$('#time1_str').html();
                                     	  
                                     	  dataToSend[dev][tag] = {
@@ -4705,7 +4704,7 @@ AutoLib.Control = {
                                     	  
                                     	  JSONDataToSend = JSON.stringify(dataToSend);
                                     	
-                                  	  };
+                                  	  }
                                   	  
                                   	  packetGen();
                                   	  
@@ -4725,7 +4724,7 @@ AutoLib.Control = {
                               $("#time-from,#time-to").slider('destroy');             
                               $( this ).dialog( "destroy" );
                               $('body').find('.dark.modal').remove();
-                              
+                              	var hy;
                               // prevent botton pressing
 			                    var array = AutoLib.Control.Context.clicked_tag.pathToGetHere.split('-');
 			                    var last_state = AutoLib.Context.deviceTree[parseInt(array[0],10)][parseInt(array[1],10)][parseInt(array[2],10)][parseInt(array[3],10)].meta.actuators[parseInt(array[4],10)].registers.signals_connected[array[5]].state;
@@ -4738,7 +4737,7 @@ AutoLib.Control = {
 			                    
 			                    
 			                    $('#change_state input').each(function () {
-			                        if ($(this).attr('id') == hy) {
+			                        if ($(this).attr('id') === hy) {
 			                            $(this).attr('checked', true);
 			                        }else {
 			                            $(this).attr('checked', false); 
@@ -4763,7 +4762,7 @@ AutoLib.Control = {
 					        	var id = jQuery(ui.handle).parent().attr('id');
 					        	var from_date = $('#manual-datepicker-from').datepicker('getDate').getTime();
 					        	var to_date = $('#manual-datepicker-to').datepicker('getDate').getTime();
-					        	if (from_date == to_date) {
+					        	if (from_date === to_date) {
 						        	if (id === 'time-from') {
 						              var value_to = $('#time-to').slider('value');
 						        	  if (ui.value > value_to) {
@@ -4777,16 +4776,16 @@ AutoLib.Control = {
 						              var value_from = $('#time-from').slider('value');
 	                                  if (ui.value < value_from) {
 	                                  	$('#time-to').slider('value',value_from+1);
-	                                  	var str = AutoLib.renderTimeNoRange(value_from+1);
-	                                  	$('#time2_str').html(str);
+	                                  	var str2 = AutoLib.renderTimeNoRange(value_from+1);
+	                                  	$('#time2_str').html(str2);
 	                                    return false;     
 	                                  }
 						            }
 					        	}
-					            var str = AutoLib.renderTimeNoRange(ui.value);
-					            var id = jQuery(ui.handle).parent().attr('id');
+					            var str3 = AutoLib.renderTimeNoRange(ui.value);
+					            id = jQuery(ui.handle).parent().attr('id');
 					            var div = {'time-from':'time1_str','time-to':'time2_str'}[id];
-                                $('#'+div).html(str);
+                                $('#'+div).html(str3);
                                 
 					        }
 					    });
@@ -4794,11 +4793,11 @@ AutoLib.Control = {
 					    $("#time-from").slider('value',now2min);
 					    $("#time-to").slider('value',(1440-now2min)/2+now2min);
                         
-                        var str = AutoLib.renderTimeNoRange(now2min);
-                        $('#time1_str').html(str);
+                        var str4 = AutoLib.renderTimeNoRange(now2min);
+                        $('#time1_str').html(str4);
                         
-                        var str = AutoLib.renderTimeNoRange((1440-now2min)/2+now2min);
-                        $('#time2_str').html(str);
+                        var str5 = AutoLib.renderTimeNoRange((1440-now2min)/2+now2min);
+                        $('#time2_str').html(str5);
                         
                         // datepicker options
                         var opt_datepicker = {
@@ -4832,7 +4831,7 @@ AutoLib.Control = {
                                var today = $('#'+inst.id).datepicker( "option", "minDate");
                                var selec = $('#'+inst.id).datepicker( "getDate");
                                
-                               if ((today.getFullYear() == inst.selectedYear)&(today.getMonth() == inst.selectedMonth)&(today.getDate() == inst.selectedDay)){
+                               if ((today.getFullYear() === inst.selectedYear)&(today.getMonth() === inst.selectedMonth)&(today.getDate() === inst.selectedDay)){
                                    var now = new Date();
                                    var now2min=now.getMinutes() + now.getHours()*60;
                                    $('#time-'+inst.id.split('-')[2]).slider( "option","min",now2min);
@@ -4843,7 +4842,7 @@ AutoLib.Control = {
                                 
                                
                                
-                               if (from == to) {
+                               if (from === to) {
                                    var time_from = $('#time-from').slider('value');
                                    var time_to = $('#time-to').slider('value');
                                    var dif = time_to-time_from;
@@ -4851,8 +4850,8 @@ AutoLib.Control = {
                                     var newto = time_from+Math.ceil(-dif/2);
                                        $('#time-to').slider('value',newto);
                                    }
-                                   if (dif == 0) {
-                                       var to = $('#manual-datepicker-to').datepicker('setDate','+1');      
+                                   if (dif === 0) {
+                                       to = $('#manual-datepicker-to').datepicker('setDate','+1');      
                                    } 
                                }
                                
@@ -4990,9 +4989,14 @@ AutoLib.report =  {
             currentLevel: undefined,
             month_dict : ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
             report_data: {},
+            group_report_data : {},
+            building_devices : {},
+            building_meas_range : {},
+            nodata : true,
             chart_energy:undefined,
             chart_power:undefined,
             chart_ratios:undefined,
+            chart_area_group : undefined,
             chartoption : ({
                 chart: {
                     renderTo: '',
@@ -5006,15 +5010,18 @@ AutoLib.report =  {
                     }
                 },
                 title: {
-                    text: ''
+                    text: '',
+                    style: {
+                        font: 'normal 12px Verdana, sans-serif'
+                    }
                 },
                 xAxis: {
                     labels: {
                         rotation: -45,
-                        align: 'right',
                         style: {
                             font: 'normal 10px Verdana, sans-serif'
-                        }
+                        },
+                		x:2
                     }
                 },
                 legend : {
@@ -5024,13 +5031,57 @@ AutoLib.report =  {
                     y: 20
                 },
                 yAxis: {
-                    min: 0
+                    min: 0,
+                    plotLines : []
                 },
                 tooltip: {},
                 credits : {
                     enabled : false
                 }
-        })
+            }),
+            areachartoptions : ({
+                chart: {
+                    renderTo: 'report_per_area_chart',
+                    width: 700,
+                    defaultSeriesType : 'column',
+                    backgroundColor: {
+                        "linearGradient": ["0%", "0%", "0%", "100%"],
+                        "stops": [
+                            [0, "rgb(242,242,242)"],
+                            [1, "rgb(242,242,242)"]
+                        ]
+                    }
+                },
+                title: {
+                    text: 'Factor de desempeño energético por metro cuadrado',
+                    style: {
+                        font: 'normal 12px Verdana, sans-serif'
+                    }
+                },
+                xAxis: {
+                    labels: {
+                        rotation: -45,
+                        style: {
+                            font: 'normal 10px Verdana, sans-serif'
+                        },
+                		x:2
+                    }
+                },
+                legend : {
+                    align: 'center',
+                    verticalAlign: 'top',
+                    x: 0,
+                    y: 20
+                },
+                yAxis: {
+                    min: 0,
+                    plotLines : []
+                },
+                tooltip: {},
+                credits : {
+                    enabled : false
+                }
+            })
         },
         start : function () {
             var params = arguments[0];
@@ -5093,16 +5144,16 @@ AutoLib.report =  {
                 $('#report-container').remove();
             }
             
-            var html = '<div id="breadcrum"></div>';
-            html += '<div id="report-container" class="ligth">';
-            html +=     '<div id="report-title-container">';
-            html +=         '<div id="report-title-content"></div>';
-            html +=     '</div>';
-            html +=     '<div id="report-main"></div>';
-            html += '</div>';
+            var html1 = '<div id="breadcrum"></div>';
+            html1 += '<div id="report-container" class="ligth">';
+            html1 +=     '<div id="report-title-container">';
+            html1 +=         '<div id="report-title-content"></div>';
+            html1 +=     '</div>';
+            html1 +=     '<div id="report-main"></div>';
+            html1 += '</div>';
             
                   
-            $('#breadcrum').after($(html));
+            $('#breadcrum').after($(html1));
             
             // tag location menu to highlight current level
             AutoLib.HighLightLocationMenuToCurrentLevel();
@@ -5120,7 +5171,300 @@ AutoLib.report =  {
             }
         },
         renderBenchGenerator : function () {
-        
+        	var html = '<div id="report_group">';
+        	html += 		'<div id="report_month_comp_table" class="ui-widget ui-widget-content ui-corner-all" style="float:left;width: 300px;">';
+        	html += 		'</div>';
+        	html += 		'<div id="report_per_area_chart" class="ui-widget ui-widget-content ui-corner-all" style="float:left;width: 300px;">';
+        	html += 		'</div>';
+        	html +=         '<div class="panel-sidebar ui-widget ui-widget-content ui-corner-all" style="width: 200px;">';
+            html +=             '<div class="button-slider-menu button-slide-menu-expanded" style="right: 0;"><span class="ui-icon ui-icon-triangle-1-e" style="margin-top: 120px; "></span></div>';
+            html +=             '<label class="info">Periodo de análisis</label>';
+            html +=				'<div id="year_container" style="width:90px;float:left;">';
+            html +=             	'<div class="year_dropdown ligth"></div>';
+            html +=                 '<label for="year_combo">Año</label>';
+            html +=                 '<select id="year_combo" width="70px;"></select>';
+            html +=             '</div>';
+            html +=             '<div id="month_container" style="width:90px;float:left;">';
+            html +=             	'<div class="month_dropdown ligth"></div>';
+            html +=                 '<label for="month_combo">Mes</label>';
+            html +=                 '<select id="month_combo" width="70px;"></select>';                    
+            html +=             '</div>';
+            html +=             '<button type="button" style="position: absolute;bottom: 0;left: 30px;" id="generate_btn">Generar Reporte</button>';
+            html += 		'</div>';
+        	html +=	 '</div>';
+        	
+        	$('#report-main').append($(html));
+        	
+        	$('.button-slider-menu').css({
+                position: 'absolute',
+                width: '20px',
+                top: '0px',
+                background: '#D9E039 url(/media/css/lv/ligth/images/ui-bg_flat_100_d9e039_40x100.png) 50% 50% repeat-x',
+                height: '100%',
+                cursor:'pointer',
+                'z-index':10
+            });
+        	
+        	$('.button-slider-menu').click(function () {
+                if ($(this).hasClass('button-slide-menu-expanded')) {
+                    $(this).parent().css({'width':"10px"});
+                    $(this).removeClass('button-slide-menu-expanded');
+                    $(this).addClass('button-slide-menu-collapsed');
+                    $(this).find('span').removeClass('ui-icon-triangle-1-e');
+                    $(this).find('span').addClass('ui-icon-triangle-1-w');
+                    $(this).css({
+                        position: 'absolute',
+                        width: '20px',
+                        top: '0px',
+                        right: '',
+                        left: '0px',
+                        background: '#D9E039 url(/media/css/lv/ligth/images/ui-bg_flat_100_d9e039_40x100.png) 50% 50% repeat-x',
+                        height: '100%',
+                        cursor:'pointer',
+                        'z-index':10
+                    });
+                    
+                }
+                else {
+                    $(this).parent().css({'width':"200px"});
+                    $(this).removeClass('button-slide-menu-collapsed');
+                    $(this).addClass('button-slide-menu-expanded');
+                    $(this).find('span').removeClass('ui-icon-triangle-1-w');
+                    $(this).find('span').addClass('ui-icon-triangle-1-e');
+                    $(this).css({
+                        position: 'absolute',
+                        width: '20px',
+                        top: '0px',
+                        right: '0px',
+                        left: '',
+                        background: '#D9E039 url(/media/css/lv/ligth/images/ui-bg_flat_100_d9e039_40x100.png) 50% 50% repeat-x',
+                        height: '100%',
+                        cursor:'pointer',
+                        'z-index':10
+                    });
+                }
+                
+            });
+        	
+        	// fill month year 
+        	
+        	var building_id = parseInt(AutoLib.report.Context.locationPathToGetHere.split('-')[0],10);
+        	var params_json = JSON.stringify({building_id:building_id});
+
+            AutoLib.report.Context.group_report_data[building_id] = {};
+            
+            var returned = {error:false};
+            
+            $.ajax({
+                url: "/f/",
+                context: document.body,
+                async: false,
+                cache: false,
+                data: {method: 'getBuildingDateLimits',params:params_json},
+                error: function (data) {
+                    returned = {'error':true};
+                },
+                success: function (datajson) {
+                    if (datajson.hasOwnProperty('error')) {
+                        returned =  {'error':true};
+                        AutoLib.report.Context.nodata = true;
+                    }else {
+                        AutoLib.report.Context.building_meas_range =  datajson.date_limits;
+                        AutoLib.report.Context.building_devices =  datajson.devices;
+                        AutoLib.report.Context.nodata = false;
+                    }
+                }
+            });
+            
+            if (returned.error) {
+                var opt = {
+                    title:'Servidor ocupado',
+                    text:'Intente mas tarde', 
+                    type:'error'
+                };
+                AutoLib.notify(opt);
+                $('#report-container').unblock();
+                return false;
+            }
+        	
+            var fdate = new Date(AutoLib.report.Context.building_meas_range.first_date[0]+'/'+AutoLib.report.Context.building_meas_range.first_date[1]+'/'+AutoLib.report.Context.building_meas_range.first_date[2]);
+            var ldate = new Date(AutoLib.report.Context.building_meas_range.end_date[0]+'/'+AutoLib.report.Context.building_meas_range.end_date[1]+'/'+AutoLib.report.Context.building_meas_range.end_date[2]);
+            
+            var months;
+            var diffmonths;
+            diffmonths = (ldate.getFullYear() - fdate.getFullYear()) * 12;
+            diffmonths -= fdate.getMonth();
+            diffmonths += ldate.getMonth()+1;
+            
+            var month_str = '';
+            var year_str = '<option value="'+fdate.getFullYear()+'">'+fdate.getFullYear()+'</option>';
+            var year = fdate.getFullYear();
+            var month = fdate.getMonth()+1;
+            
+            for (var j=0;j<diffmonths;j++){
+                if (month > 12) {
+                    month = 1;
+                    year = year + 1;
+                    year_str += '<option value="'+year+'">'+year+'</option>';
+                }
+                
+                month_str += '<option year="'+year+'" month="'+month+'" value="'+year+'-'+month+'">'+AutoLib.report.Context.month_dict[month-1]+'</option>';
+                month +=1;
+            }
+                
+            $('#year_combo').html(year_str);
+            $('#month_combo').html(month_str);
+            
+        	$('#year_combo').selectmenu({
+                menuWidth: 70,
+                maxHeight: 200,
+                style:'dropown',
+                //format: addressFormatting,
+                wrapperElement:'.year_dropdown',
+                select: function(event, options) {
+                    
+                }
+            });
+            
+            $('#year_combo').selectmenu('index',0);
+            
+            $('#month_combo').selectmenu({
+                menuWidth: 70,
+                maxHeight: 200,
+                style:'dropown',
+                //format: addressFormatting,
+                wrapperElement:'.month_dropdown',
+                select: function(event, options) {
+                    
+                }
+            });
+            
+            $('#month_combo').selectmenu('index',0);
+            
+            $('#generate_btn').button();
+            
+            $('#generate_btn').click(function () {
+                // block UI
+            	if (!AutoLib.report.Context.nodata) {
+	                $('#report-container').block({ 
+                        message: '<img src="/media/images/lv/ajax-loader.gif"> Generando Reportes ...', 
+                        css: { 
+                            border: 'none', 
+                            padding: '15px', 
+                            backgroundColor: '#000', 
+                            '-webkit-border-radius': '10px', 
+                            '-moz-border-radius': '10px',
+                            color: '#fff' 
+                        }
+	                });
+	                // colect data and build request packet for energy, power and ratios
+	                var date_params = {type:'',date1:{year:'', month:'',day:''}};
+	                var building_id = 1;
+	                var range_from, range_to;
+	                
+                    date_params.type = 'mensual';
+                    date_params.date1.year = parseInt($('#year_combo').selectmenu('value'),10);
+                    date_params.date1.month = parseInt($('#month_combo').selectmenu('value').split('-')[1],10);          
+                    
+                    var params_json,returned,sensor_id; 
+                    var row = '';
+                    for (var f=0;f<AutoLib.report.Context.building_devices.length;f++) {
+                    	sensor_id = AutoLib.report.Context.building_devices[f];
+                    	params_json = JSON.stringify({sensor_id:sensor_id,date_params:date_params});
+                    	
+                    	AutoLib.report.Context.group_report_data[sensor_id] = {current_period:{},past_period:{}};
+                    	
+                    	returned = {error:false};
+                    	
+                    	$.ajax({
+    	                    url: "/f/",
+    	                    context: document.body,
+    	                    async: false,
+    	                    cache: false,
+    	                    data: {method: 'buildSensorReport',params:params_json},
+    	                    error: function (data) {
+    	                        returned = {'error':true};
+    	                    },
+    	                    success: function (datajson) {
+    	                        if (datajson.hasOwnProperty('error')) {
+    	                            returned =  {'error':true};
+    	                        }else {
+    	                        	AutoLib.report.Context.group_report_data[sensor_id].current_period = datajson.profile;   
+    	                        }
+    	                    }
+    	                });
+                    	
+                    	if (date_params.date1.month === 1) {
+                    		date_params.date1.month = 12;
+                    		date_params.date1.year = date_params.date1.year - 1;
+                    	}
+                    	else {
+                    		date_params.date1.month = date_params.date1.month - 1;
+                    	}
+                    	params_json = JSON.stringify({sensor_id:AutoLib.report.Context.building_devices[f],date_params:date_params});
+                    	$.ajax({
+    	                    url: "/f/",
+    	                    context: document.body,
+    	                    async: false,
+    	                    cache: false,
+    	                    data: {method: 'buildSensorReport',params:params_json},
+    	                    error: function (data) {
+    	                        returned = {'error':true};
+    	                    },
+    	                    success: function (datajson) {
+    	                        if (datajson.hasOwnProperty('error')) {
+    	                            returned =  {'error':true};
+    	                        }else {
+    	                        	AutoLib.report.Context.group_report_data[sensor_id].past_period = datajson.profile;   
+    	                        }
+    	                    }
+    	                });
+                    	
+    	                if (returned.error) {
+    	                    var opt = {
+    	                        title:'Servidor ocupado',
+    	                        text:'Intente mas tarde', 
+    	                        type:'error'
+    	                    };
+    	                    AutoLib.notify(opt);
+    	                    $('#report-container').unblock();
+    	                    return false;
+    	                }
+    	                
+    	                // append it to table
+    	                
+    	                row = '<div class="row_grp_ener_comp">';
+    	                row += 		'<div class="grp_row_table">'+sensor_id+'</div>';
+    	                row += 		'<div class="grp_row_table">Energia mes anterior</div>';
+    	                row += 		'<div class="grp_row_table">Energia mes actual</div>';
+    	                row += 		'<div class="grp_row_table">Mejor o peor</div>';
+    	                row += '</div>';
+    	                
+    	                $('#report_month_comp_table').append($(row));
+                    }
+	                
+                    
+	                
+	                // hide menu slider
+	                $('.button-slider-menu').click();
+	                
+	                
+	                // unblock UI 
+	                $('#report-container').unblock();
+	            }
+            	else {
+            		console.log('no data');
+            		AutoLib.report.Context.chartoption.series = [];
+            		AutoLib.report.Context.chartoption.yAxis.plotLines = [];
+            		AutoLib.report.Context.chartoption.chart.renderTo = 'area_group';
+            		AutoLib.report.Context.chart_area_group  = new Highcharts.Chart(AutoLib.report.Context.chartoption);
+            	}
+            });
+            
+            // generate initial monthly chart
+            $('#generate_btn').click();
+            
+            
         },
         renderReportGenerator : function (options) {
         
@@ -5151,7 +5495,7 @@ AutoLib.report =  {
             html +=             '<div id="period" style="font-size: 10px;">';
             html +=                 '<input type="radio" name="period" id="mensual" value="mensual" /><label for="mensual">Mensual</label>';
             html +=                 '<input type="radio" name="period" id="anual" value="anual" /><label for="anual">Anual</label>';
-            html +=                 '<input type="radio" name="period" id="rango" value="rango" /><label for="rango">Rango</label>';
+            //html +=                 '<input type="radio" name="period" id="rango" value="rango" /><label for="rango">Rango</label>';
             html +=             '</div>';
             html +=             '<div id="period_options" style="margin-top:10px;width:100%;height:100px;">';
             html +=                 '<div id="year_month_options" style="display:none;">';
@@ -5159,7 +5503,7 @@ AutoLib.report =  {
             html +=                         '<div class="year_dropdown ligth"></div>';
             html +=                         '<label for="year_combo">Año</label>';
             html +=                         '<select id="year_combo" width="70px;"></select>';
-            html +=                     '</div>'
+            html +=                     '</div>';
             html +=                     '<div id="month_container" style="width:90px;float:left;">';
             html +=                         '<div class="month_dropdown ligth"></div>';
             html +=                         '<label for="month_combo">Mes</label>';
@@ -5188,7 +5532,7 @@ AutoLib.report =  {
             
             $('#report-main-tabs').tabs({
                 select: function(event, ui) {
-                    if (AutoLib.report.Context.currentLevel == 'section') {
+                    if (AutoLib.report.Context.currentLevel === 'section') {
                         switch (AutoLib.report.Context.activeTab) {
                            case 0:
                                break;
@@ -5255,7 +5599,7 @@ AutoLib.report =  {
                 }
             });
             
-            var tr = {
+            /*var tr = {
                 defaultDate: "+1w",
                 changeMonth: true,
                 numberOfMonths: 3,
@@ -5278,7 +5622,7 @@ AutoLib.report =  {
             else {
                 AutoLib.report.Context.daterange = $("#from, #to").datepicker(tr);
                 $('#from').datepicker('widget').wrap('<div class="ligth"></div>');
-            }
+            }*/
             
             $('#generate_btn').button();
             
@@ -5330,219 +5674,291 @@ AutoLib.report =  {
                     });
                 }
                 
-                
             });
             
             $('#generate_btn').click(function () {
                 // block UI
-                $('#report-container').block({ 
-                        message: '<img src="/media/images/lv/ajax-loader.gif"> Generando Reportes ...', 
-                        css: { 
-                            border: 'none', 
-                            padding: '15px', 
-                            backgroundColor: '#000', 
-                            '-webkit-border-radius': '10px', 
-                            '-moz-border-radius': '10px',
-                            color: '#fff' 
-                        }
-                });
-                // colect data and build request packet for energy, power and ratios
-                var date_params = {type:'',date1:{year:'', month:'',day:''},date2:{year:'', month:'',day:''}};
-                var sensor_id = $('#sensor-combo').selectmenu('value');
-                var range_from, range_to;
-                var period_type = $('#period input[name=period]:checked').val();
-                switch (period_type) {
-                    case 'mensual':
-                        date_params.type = 'mensual';
-                        date_params.date1.year = parseInt($('#year_combo').selectmenu('value'),10);
-                        date_params.date1.month = parseInt($('#month_combo').selectmenu('value').split('-')[1],10);          
-                        break;
-                    case 'anual':
-                        date_params.type = 'anual';
-                        date_params.date1.year = parseInt($('#year_combo').selectmenu('value'),10);
-                        break;
-                    case 'rango':
-                        date_params.type = 'rango';
-                        range_from = $('#from').datepicker('getDate');
-                        range_to = $('#to').datepicker('getDate');
-                        if (range_from == null) {
-                            $('#error_range_from').show();
-                            $('#report-container').unblock();
-                            return false;    
-                        }
-                        if (range_to == null) {
-                            $('#error_range_from').hide();
-                            $('#error_range_to').show();
-                            $('#report-container').unblock();
-                            return false;
-                        }
-                        $('#error_range_to,#error_range_from').hide();
-                        date_params.date1.year = range_from.getFullYear(); 
-                        date_params.date1.month = range_from.getMonth()+1;
-                        date_params.date1.day = range_from.getDate();
-                        date_params.date2.year = range_to.getFullYear();
-                        date_params.date2.month = range_to.getMonth()+1;
-                        date_params.date2.day = range_to.getDate();
-                        break;
-                }
-                
-                
-                var params_json = JSON.stringify({sensor_id:sensor_id,date_params:date_params});
-                AutoLib.report.Context.report_data[sensor_id] = {}
-                var returned = {error:false};
-                $.ajax({
-                    url: "/f/",
-                    context: document.body,
-                    async: false,
-                    cache: false,
-                    data: {method: 'buildSensorReport',params:params_json},
-                    error: function (data) {
-                        returned = {'error':true};
-                    },
-                    success: function (datajson) {
-                        if (datajson.hasOwnProperty('error')) {
-                            returned =  {'error':true};
-                        }else {
-                            AutoLib.report.Context.report_data[sensor_id] =  {profile:datajson.profile};
-                        }
-                    }
-                });
-                
-                if (returned.error) {
-                    var opt = {
-                        title:'Servidor ocupado',
-                        text:'Intente mas tarde', 
-                        type:'error'
-                    };
-                    AutoLib.notify(opt);
-                    $('#report-container').unblock();
-                    return false;
-                }
-                // check if chart existe an rebuild them
-                if (AutoLib.report.Context.chart_energy !== undefined) {
-                    AutoLib.report.Context.chart_energy.destroy();
-                    AutoLib.report.Context.chart_power.destroy();
-                    //AutoLib.report.Context.chart_ratios.destroy();
-                }
-                
-                // build energy chart
-                
-                AutoLib.report.Context.chartoption.series = [];
-                AutoLib.report.Context.chartoption.chart.renderTo = 'energy_profile';
-                AutoLib.report.Context.chartoption.chart.defaultSeriesType = 'column';
-            
-                var waveform_data = [];
-                var data_point;
-                var categories_date = [];
-                for (var g=0;g<AutoLib.report.Context.report_data[sensor_id].profile.energy.length;g++) {
-                    if (period_type == 'mensual') {
-                        categories_date.push(''+(g+1));
-                    }
-                    if (period_type == 'anual') {
-                        categories_date.push(AutoLib.report.Context.month_dict[g]);   
-                    }
-                    data_point = AutoLib.report.Context.report_data[sensor_id].profile.energy[g];
-                    waveform_data.push(data_point.energy);
-                }
-                AutoLib.report.Context.chartoption.xAxis.categories = categories_date;
-                
-                var serie_constructor   =   {
-                    name: 'Energía Consumida',
-                    data: waveform_data
-                }; 
-                         
-                //adjunt energy xaxis
-                
-                switch (period_type) {
-                    case 'mensual':
-                        // customize tooltip
-                        AutoLib.report.Context.chartoption.tooltip.formatter = function() {
-                            return '<b>'+ date_params.date1.year +'/'+date_params.date1.month+'/'+this.x +'</b><br/>'+
-                            'Energía Diaria: '+ Highcharts.numberFormat(this.y, 1) +' KWh';
-                        };
-                        // customize title
-                        AutoLib.report.Context.chartoption.title = {text : 'Perfil Energético Mensual <b>'+AutoLib.report.Context.month_dict[date_params.date1.month-1]+' de '+date_params.date1.year +'</b>',
-                            style: {
-                                font: 'normal 12px Verdana, sans-serif'
-                            }
-                        };
-                        // custumize yaxis label
-                        AutoLib.report.Context.chartoption.yAxis.title = {text: 'Energía (KWh)'};
-                        AutoLib.report.Context.chartoption.xAxis.title = {text: 'Dia del mes'};
-                        
-                        break;
-                    case 'anual':
-                        // customize tooltip
-                        AutoLib.report.Context.chartoption.tooltip.formatter = function() {
+            	if (!AutoLib.report.Context.nodata) {
+	                $('#report-container').block({ 
+	                        message: '<img src="/media/images/lv/ajax-loader.gif"> Generando Reportes ...', 
+	                        css: { 
+	                            border: 'none', 
+	                            padding: '15px', 
+	                            backgroundColor: '#000', 
+	                            '-webkit-border-radius': '10px', 
+	                            '-moz-border-radius': '10px',
+	                            color: '#fff' 
+	                        }
+	                });
+	                // colect data and build request packet for energy, power and ratios
+	                var date_params = {type:'',date1:{year:'', month:'',day:''},date2:{year:'', month:'',day:''}};
+	                var sensor_id = $('#sensor-combo').selectmenu('value');
+	                var range_from, range_to;
+	                var period_type = $('#period input[name=period]:checked').val();
+	                switch (period_type) {
+	                    case 'mensual':
+	                        date_params.type = 'mensual';
+	                        date_params.date1.year = parseInt($('#year_combo').selectmenu('value'),10);
+	                        date_params.date1.month = parseInt($('#month_combo').selectmenu('value').split('-')[1],10);          
+	                        break;
+	                    case 'anual':
+	                        date_params.type = 'anual';
+	                        date_params.date1.year = parseInt($('#year_combo').selectmenu('value'),10);
+	                        break;
+	                    case 'rango':
+	                        date_params.type = 'rango';
+	                        range_from = $('#from').datepicker('getDate');
+	                        range_to = $('#to').datepicker('getDate');
+	                        if (range_from === null) {
+	                            $('#error_range_from').show();
+	                            $('#report-container').unblock();
+	                            return false;    
+	                        }
+	                        if (range_to === null) {
+	                            $('#error_range_from').hide();
+	                            $('#error_range_to').show();
+	                            $('#report-container').unblock();
+	                            return false;
+	                        }
+	                        $('#error_range_to,#error_range_from').hide();
+	                        date_params.date1.year = range_from.getFullYear(); 
+	                        date_params.date1.month = range_from.getMonth()+1;
+	                        date_params.date1.day = range_from.getDate();
+	                        date_params.date2.year = range_to.getFullYear();
+	                        date_params.date2.month = range_to.getMonth()+1;
+	                        date_params.date2.day = range_to.getDate();
+	                        break;
+	                }
+	                
+	                
+	                var params_json = JSON.stringify({sensor_id:sensor_id,date_params:date_params});
+	                AutoLib.report.Context.report_data[sensor_id] = {};
+	                var returned = {error:false};
+	                $.ajax({
+	                    url: "/f/",
+	                    context: document.body,
+	                    async: false,
+	                    cache: false,
+	                    data: {method: 'buildSensorReport',params:params_json},
+	                    error: function (data) {
+	                        returned = {'error':true};
+	                    },
+	                    success: function (datajson) {
+	                        if (datajson.hasOwnProperty('error')) {
+	                            returned =  {'error':true};
+	                        }else {
+	                            AutoLib.report.Context.report_data[sensor_id] =  {profile:datajson.profile};
+	                        }
+	                    }
+	                });
+	                
+	                if (returned.error) {
+	                    var opt = {
+	                        title:'Servidor ocupado',
+	                        text:'Intente mas tarde', 
+	                        type:'error'
+	                    };
+	                    AutoLib.notify(opt);
+	                    $('#report-container').unblock();
+	                    return false;
+	                }
+	                // check if chart existe an rebuild them
+	                if (AutoLib.report.Context.chart_energy !== undefined) {
+	                    AutoLib.report.Context.chart_energy.destroy();
+	                    AutoLib.report.Context.chart_power.destroy();
+	                    //AutoLib.report.Context.chart_ratios.destroy();
+	                }
+	                
+	                // build energy chart
+	                
+	                AutoLib.report.Context.chartoption.series = [];
+	                AutoLib.report.Context.chartoption.chart.renderTo = 'energy_profile';
+	                AutoLib.report.Context.chartoption.chart.defaultSeriesType = 'column';
+	            
+	                var waveform_data = [];
+	                var data_point;
+	                var categories_date = [];
+	                for (var g=0;g<AutoLib.report.Context.report_data[sensor_id].profile.energy.length;g++) {
+	                    if (period_type === 'mensual') {
+	                        categories_date.push(''+(g+1));
+	                    }
+	                    if (period_type === 'anual') {
+	                        categories_date.push(AutoLib.report.Context.month_dict[g]);   
+	                    }
+	                    data_point = AutoLib.report.Context.report_data[sensor_id].profile.energy[g];
+	                    waveform_data.push(data_point.energy);
+	                }
+	                AutoLib.report.Context.chartoption.xAxis.categories = categories_date;
+	                
+	                var serie_constructor   =   {
+	                    name: 'Energía Consumida',
+	                    data: waveform_data
+	                }; 
+	                
+	               
+	                switch (period_type) {
+	                    case 'mensual':
+	                        // customize tooltip
+	                        AutoLib.report.Context.chartoption.tooltip.formatter = function() {
+	                            return '<b>'+ date_params.date1.year +'/'+date_params.date1.month+'/'+this.x +'</b><br/>'+
+	                            'Energía Diaria: '+ Highcharts.numberFormat(this.y, 1) +' KWh';
+	                        };
+	                        // customize title
+	                        AutoLib.report.Context.chartoption.title.text = 'Perfil Energético Mensual <b>'+AutoLib.report.Context.month_dict[date_params.date1.month-1]+' de '+date_params.date1.year +'</b>';
+	                        
+	                        // custumize yaxis label
+	                        AutoLib.report.Context.chartoption.yAxis.title = {text: 'Energía (KWh)'};
+	                        AutoLib.report.Context.chartoption.xAxis.title = {text: 'Dia del mes'};
+	                        AutoLib.report.Context.chartoption.xAxis.labels.x = 2;
+	                        AutoLib.report.Context.chartoption.xAxis.labels.y = 15;
+	                        
+	                        // add summary plotband
+	                        
+	                        AutoLib.report.Context.chartoption.xAxis.plotBands = [{
+	                            color: '#FCFFC5',
+	                            from: AutoLib.report.Context.report_data[sensor_id].profile.extras.energy.plotband.from,
+	                            to: AutoLib.report.Context.report_data[sensor_id].profile.extras.energy.plotband.to,
+	                            label: {
+	                            	text: ''+Highcharts.numberFormat(AutoLib.report.Context.report_data[sensor_id].profile.extras.energy.accum,1)+' kWh',
+	                            	verticalAlign: 'top',
+	                            	style: {
+	                                    fontWeight: 'bold'
+	                                }
+	                        	}    
+	                        }];
+	                        // add weekend plotbands
+	                        for (var p=0;p<AutoLib.report.Context.report_data[sensor_id].profile.extras.energy.plotband.weekend.length;p++) {
+	                        	AutoLib.report.Context.chartoption.xAxis.plotBands.push({
+	                        		color:'#E6E6FA',
+	                        			from:AutoLib.report.Context.report_data[sensor_id].profile.extras.energy.plotband.weekend[p].from,
+	                        			to:AutoLib.report.Context.report_data[sensor_id].profile.extras.energy.plotband.weekend[p].to
+	                        		});	
+	                        }
+	                        
+	                        break;
+	                    case 'anual':
+	                        // customize tooltip
+	                        AutoLib.report.Context.chartoption.tooltip.formatter = function() {
+	                            return '<b>'+ date_params.date1.year +'/'+this.x +'</b><br/>'+
+	                            'Energía Anual: '+ Highcharts.numberFormat(this.y, 1) +' KWh';
+	                        };
+	                        // customize title
+	                        AutoLib.report.Context.chartoption.title = {text : 'Perfil Energético Anual <b>'+date_params.date1.year +'</b>',
+	                            style: {
+	                                font: 'normal 12px Verdana, sans-serif'
+	                            }
+	                        };
+	                        // agregar bandas de trimestres
+	                        AutoLib.report.Context.chartoption.xAxis.plotBands = [];
+	                        for (var p=0;p<2;p++) {
+	                        	AutoLib.report.Context.chartoption.xAxis.plotBands.push({
+	                        		color:'#E6E6FA',
+	                        			from:p*6-0.5,
+	                        			to:p*6+3-0.5
+	                        		});	
+	                        }
+	                        // custumize yaxis label
+	                        AutoLib.report.Context.chartoption.yAxis.title = {text: 'Energía (KWh)'};
+	                        AutoLib.report.Context.chartoption.xAxis.title = {text: 'Mes'};
+	                        AutoLib.report.Context.chartoption.xAxis.labels.y = 30;
+	                        
+	                        break;
+	                    default:
+	                        break;
+	                }
+	                // render chart
+	                
+	                AutoLib.report.Context.chartoption.series.push(serie_constructor);
+	                AutoLib.report.Context.chart_energy = new Highcharts.Chart(AutoLib.report.Context.chartoption);
+	                
+	                //AutoLib.report.Context.chart_energy.xAxis[0].setExtremes(inf,sup);
+	                
+	                // build power chart
+	                
+	                AutoLib.report.Context.chartoption.series = [];
+	                AutoLib.report.Context.chartoption.chart.defaultSeriesType = 'column';
+	                AutoLib.report.Context.chartoption.chart.renderTo = 'power_profile';
+	                
+	                var waveform_data_ppp = [];
+	                var waveform_data_pp = [];
+	                
+	                for (var r=0;r<AutoLib.report.Context.report_data[sensor_id].profile.power.length;r++) {
+	                    data_point = AutoLib.report.Context.report_data[sensor_id].profile.power[r];
+	                    waveform_data_ppp.push(parseInt(data_point.PPP,10));
+	                    waveform_data_pp.push(parseInt(data_point.PP,10));
+	                }
+	                
+	                var serie_constructor_power_ppp   =   {};
+	                
+	                var serie_constructor_power_pp   =   {};
+	                
+	                serie_constructor_power_ppp.name = 'Máxima potencia fuera de punta';
+	                serie_constructor_power_ppp.data = waveform_data_ppp;
+	                
+	                AutoLib.report.Context.chartoption.series.push(serie_constructor_power_ppp);
+	                 
+	                serie_constructor_power_pp.name = 'Máxima potencia presente en punta';
+	                serie_constructor_power_pp.data = waveform_data_pp;
+	                 
+	                AutoLib.report.Context.chartoption.series.push(serie_constructor_power_pp);
+	                
+	                                        
+	                //adjunt power xaxis
+	                
+	                switch (period_type) {
+	                    case 'mensual':
+	                        // customize tooltip
+	                        AutoLib.report.Context.chartoption.tooltip.formatter = function() {
+	                            return '<b>'+ date_params.date1.year +'/'+date_params.date1.month+'/'+this.x +'</b><br/>'+
+	                            'Potencia: '+ Highcharts.numberFormat(this.y, 1) +' W';
+	                        };
+	                        // customize title
+	                        AutoLib.report.Context.chartoption.title.text = 'Perfil Potencia Mensual <b>'+AutoLib.report.Context.month_dict[date_params.date1.month-1]+' de '+date_params.date1.year +'</b>';
+	                            
+	                        // cutomize columns
+	                        AutoLib.report.Context.chartoption.plotOptions= {
+	                            column: {
+	                                pointPadding: 0,
+	                                borderWidth: 0
+	                            }
+	                        };
+	                        AutoLib.report.Context.chartoption.xAxis.plotBands[0].label.text = '';
+	                        AutoLib.report.Context.chartoption.yAxis.plotLines = [{ // PPP_max
+	                        	dashStyle :'Dash',
+	                        	width: 1,
+	                            value: AutoLib.report.Context.report_data[sensor_id].profile.extras.power.PP_max,
+	                            color: '#AA4643',
+	                            label: {
+	                               text: 'Máxima Potencia Mensual en Punta: : '+Highcharts.numberFormat(AutoLib.report.Context.report_data[sensor_id].profile.extras.power.PP_max/1000.0, 2)+' KW',
+	                               style: {
+	                        			fontWeight: 'bold',
+	                        			fontSize:'10px'
+	                               }
+	                            }
+	                         }, { // PP_max
+	                            width: 1,
+	                            dashStyle :'Dash',
+	                            value: AutoLib.report.Context.report_data[sensor_id].profile.extras.power.PPP_max,
+	                            color: '#AA4643',
+	                            label: {
+	                        	 	text: 'Máxima Potencia Mensual Fuera de Punta: '+Highcharts.numberFormat(AutoLib.report.Context.report_data[sensor_id].profile.extras.power.PPP_max/1000.0,2)+' KW',
+	                               style: {
+	                        	 		fontWeight: 'bold',
+	                        	 		fontSize:'10px'
+	                               }
+	                            }
+	                         }];
+	                        // cutomize yAxis label
+	                        AutoLib.report.Context.chartoption.yAxis.title = {text: 'Potencia (W)'};
+	                        break;
+	                case 'anual':
+	                	AutoLib.report.Context.chartoption.tooltip.formatter = function() {
                             return '<b>'+ date_params.date1.year +'/'+this.x +'</b><br/>'+
-                            'Energía Anual: '+ Highcharts.numberFormat(this.y, 1) +' KWh';
-                        };
-                        // customize title
-                        AutoLib.report.Context.chartoption.title = {text : 'Perfil Energético Anual <b>'+date_params.date1.year +'</b>',
-                            style: {
-                                font: 'normal 12px Verdana, sans-serif'
-                            }
-                        };
-                        // custumize yaxis label
-                        AutoLib.report.Context.chartoption.yAxis.title = {text: 'Energía (KWh)'};
-                        AutoLib.report.Context.chartoption.xAxis.title = {text: 'Mes'};
-                        
-                        break;
-                    default:
-                        break;
-                }
-                // render chart
-                
-                AutoLib.report.Context.chartoption.series.push(serie_constructor);
-                AutoLib.report.Context.chart_energy = new Highcharts.Chart(AutoLib.report.Context.chartoption);
-                
-                //AutoLib.report.Context.chart_energy.xAxis[0].setExtremes(inf,sup);
-                
-                // build power chart
-                
-                AutoLib.report.Context.chartoption.series = [];
-                AutoLib.report.Context.chartoption.chart.defaultSeriesType = 'column';
-                AutoLib.report.Context.chartoption.chart.renderTo = 'power_profile';
-                
-                var waveform_data_ppp = [];
-                var waveform_data_pp = [];
-                
-                for (var g=0;g<AutoLib.report.Context.report_data[sensor_id].profile.power.length;g++) {
-                    data_point = AutoLib.report.Context.report_data[sensor_id].profile.power[g];
-                    waveform_data_ppp.push(parseInt(data_point.PPP,10));
-                    waveform_data_pp.push(parseInt(data_point.PP,10));
-                }
-                
-                var serie_constructor_power_ppp   =   {};
-                
-                var serie_constructor_power_pp   =   {};
-                
-                serie_constructor_power_ppp.name = 'Máxima potencia parcialmente presente en punta'
-                serie_constructor_power_ppp.data = waveform_data_ppp;
-                
-                AutoLib.report.Context.chartoption.series.push(serie_constructor_power_ppp);
-                 
-                serie_constructor_power_pp.name = 'Máxima potencia presente en punta'
-                serie_constructor_power_pp.data = waveform_data_pp;
-                 
-                AutoLib.report.Context.chartoption.series.push(serie_constructor_power_pp);
-                
-                                        
-                //adjunt energy xaxis
-                
-                switch (period_type) {
-                    case 'mensual':
-                        // customize tooltip
-                        AutoLib.report.Context.chartoption.tooltip.formatter = function() {
-                            return '<b>'+ date_params.date1.year +'/'+date_params.date1.month+'/'+this.x +'</b><br/>'+
                             'Potencia: '+ Highcharts.numberFormat(this.y, 1) +' W';
                         };
                         // customize title
-                        AutoLib.report.Context.chartoption.title = {text : 'Perfil Potencia Mensual <b>'+AutoLib.report.Context.month_dict[date_params.date1.month-1]+' de '+date_params.date1.year +'</b>',
-                            style: {
-                                font: 'normal 12px Verdana, sans-serif'
-                            }
-                        };
+                        AutoLib.report.Context.chartoption.title.text = 'Perfil Potencia Anual <b> '+date_params.date1.year +'</b>';
+
                         // cutomize columns
                         AutoLib.report.Context.chartoption.plotOptions= {
                             column: {
@@ -5551,59 +5967,101 @@ AutoLib.report =  {
                             }
                         };
                         
+                        AutoLib.report.Context.chartoption.xAxis.plotBands = [{label : {text : ''}}];
+                        AutoLib.report.Context.chartoption.yAxis.plotLines = [{ // PPP_max
+                        	dashStyle :'Dash',
+                        	width: 1,
+                            value: AutoLib.report.Context.report_data[sensor_id].profile.extras.power.PP_max,
+                            color: '#AA4643',
+                            label: {
+                               text: 'Máxima Potencia Anual en Punta: : '+Highcharts.numberFormat(AutoLib.report.Context.report_data[sensor_id].profile.extras.power.PP_max/1000.0, 2)+' KW',
+                               style: {
+                        			fontWeight: 'bold',
+                        			fontSize:'10px'
+                               }
+                            }
+                         }, { // PP_max
+                            width: 1,
+                            dashStyle :'Dash',
+                            value: AutoLib.report.Context.report_data[sensor_id].profile.extras.power.PPP_max,
+                            color: '#AA4643',
+                            label: {
+                        	 	text: 'Máxima Potencia Anual Fuera de Punta: '+Highcharts.numberFormat(AutoLib.report.Context.report_data[sensor_id].profile.extras.power.PPP_max/1000.0,2)+' KW',
+                               style: {
+                        	 		fontWeight: 'bold',
+                        	 		fontSize:'10px'
+                               }
+                            }
+                         }];
                         // cutomize yAxis label
                         AutoLib.report.Context.chartoption.yAxis.title = {text: 'Potencia (W)'};
-                        break;
-                        
-                    default:
-                        break;
-                }
-                AutoLib.report.Context.chart_power = new Highcharts.Chart(AutoLib.report.Context.chartoption); 
-                
-                // hide menu slider
-                $('.button-slider-menu').click();
-                
-                
-                // unblock UI 
-                $('#report-container').unblock();
+                        	break;
+	                    default:
+	                        break;
+	                }
+	                AutoLib.report.Context.chart_power = new Highcharts.Chart(AutoLib.report.Context.chartoption); 
+	                
+	                // hide menu slider
+	                $('.button-slider-menu').click();
+	                
+	                
+	                // unblock UI 
+	                $('#report-container').unblock();
+	            }
+            	else {
+            		console.log('no data');
+            		AutoLib.report.Context.chartoption.series = [];
+            		AutoLib.report.Context.chartoption.yAxis.plotLines = [];
+            		AutoLib.report.Context.chartoption.chart.renderTo = 'power_profile';
+            		AutoLib.report.Context.chart_power = new Highcharts.Chart(AutoLib.report.Context.chartoption);
+            		AutoLib.report.Context.chartoption.chart.renderTo = 'energy_profile';
+            		AutoLib.report.Context.chart_power = new Highcharts.Chart(AutoLib.report.Context.chartoption);
+            	}
             });
             
+            // generate initial monthly chart
+            $('#generate_btn').click();
+            
         },
+        
         renderDateDropDownMenu : function () {
+        	
             var sensor_id = $('#sensor-combo').selectmenu('value');
             var datelimits = AutoLib.getSensorDateLimits(sensor_id);
-            var f_a = datelimits.first_date.split("-");
-            var l_a = datelimits.last_date.split("-");
-            fdate = new Date(f_a[1]+'/'+f_a[2]+'/'+f_a[0])
-            ldate = new Date(l_a[1]+'/'+l_a[2]+'/'+l_a[0])
-            
             if (!datelimits.hasOwnProperty('error')) {
-                console.log(fdate);
-                console.log(ldate);
+	            var f_a = datelimits.first_date.split("-");
+	            var l_a = datelimits.last_date.split("-");
+	            var fdate = new Date(f_a[1]+'/'+f_a[2]+'/'+f_a[0]);
+	            var ldate = new Date(l_a[1]+'/'+l_a[2]+'/'+l_a[0]);
+	            
+	            var months,diffmonths;
+	            diffmonths = (ldate.getFullYear() - fdate.getFullYear()) * 12;
+	            diffmonths -= fdate.getMonth();
+	            diffmonths += ldate.getMonth()+1;
+	            
+	            var month_str = '';
+	            var year_str = '<option value="'+fdate.getFullYear()+'">'+fdate.getFullYear()+'</option>';
+	            var year = fdate.getFullYear();
+	            var month = fdate.getMonth()+1;
+	            
+	            for (var j=0;j<diffmonths;j++){
+	                if (month > 12) {
+	                    month = 1;
+	                    year = year + 1;
+	                    year_str += '<option value="'+year+'">'+year+'</option>';
+	                }
+	                
+	                month_str += '<option year="'+year+'" month="'+month+'" value="'+year+'-'+month+'">'+AutoLib.report.Context.month_dict[month-1]+'</option>';
+	                month +=1;
+	            }
+	                
+	            $('#year_combo').html(year_str);
+	            $('#month_combo').html(month_str);
+	            AutoLib.report.Context.nodata = false;
             }
-            var months;
-            diffmonths = (ldate.getFullYear() - fdate.getFullYear()) * 12;
-            diffmonths -= fdate.getMonth();
-            diffmonths += ldate.getMonth()+1;
-            
-            var month_str = '';
-            var year_str = '<option value="'+fdate.getFullYear()+'">'+fdate.getFullYear()+'</option>';
-            var year = fdate.getFullYear();
-            var month = fdate.getMonth()+1;
-            
-            for (var j=0;j<diffmonths;j++){
-                if (month > 12) {
-                    month = 1;
-                    year = year + 1;
-                    year_str += '<option value="'+year+'">'+year+'</option>';
-                }
-                
-                month_str += '<option year="'+year+'" month="'+month+'" value="'+year+'-'+month+'">'+AutoLib.report.Context.month_dict[month-1]+'</option>';
-                month +=1;
+            else {
+            	AutoLib.report.Context.nodata = true;
             }
-                
-            $('#year_combo').html(year_str);
-            $('#month_combo').html(month_str);
             
             $('#year_combo').selectmenu({
                 menuWidth: 70,
@@ -5615,6 +6073,7 @@ AutoLib.report =  {
                     
                 }
             });
+            
             $('#year_combo').selectmenu('index',0);
             
             $('#month_combo').selectmenu({
@@ -5627,9 +6086,11 @@ AutoLib.report =  {
                     
                 }
             });
+            
             $('#year_combo').selectmenu('index',0);
             
             $('.year_dropdown a').css('width','60px');
+            
             $('.month_dropdown a').css('width','60px');
             
         },
@@ -5650,7 +6111,7 @@ AutoLib.report =  {
                                 continue;
                             }
                             for (var dev in AutoLib.Context.deviceTree[b][s][ss][sss]) {
-                                if (dev==='meta' | AutoLib.Context.deviceTree[b][s][ss][sss][dev].typeofdevice != 1) {
+                                if (dev==='meta' | AutoLib.Context.deviceTree[b][s][ss][sss][dev].typeofdevice !== 1) {
                                     continue;
                                 }
                                 options += '<option value="'+AutoLib.Context.deviceTree[b][s][ss][sss][dev].id+'">'+AutoLib.Context.deviceTree[b][s][ss][sss][dev].name+'</option>';                                             

@@ -468,8 +468,32 @@ def f(request):
                 
                 
                 return HttpResponse(json.dumps(data_to_send),mimetype="application/json")
-             
-            elif method == 'buildSensorReport':
+            
+            elif method == 'getBuildingDateLimits':
+                """ return the first and last measurements date of the whole set of sensor which belongs to a certain building"""
+                params_json = request.GET.get('params')
+                params  = json.loads(params_json)
+                building_id = params['building_id']
+                main_sensors_id = [item['main_sensor'] for item in Sections.objects.filter(building__id=int(building_id)).values('main_sensor')]
+                try:
+                    first_date = Measurements.objects.filter(sensor__id__in = main_sensors_id).order_by('datetimestamp')[0].datetimestamp
+                    end_date = Measurements.objects.filter(sensor__id__in = main_sensors_id).order_by('datetimestamp').reverse()[0].datetimestamp
+                    data_to_send = {'date_limits':{'first_date':[first_date.year,first_date.month,first_date.day],'end_date':[end_date.year,end_date.month,end_date.day]}}
+                    data_to_send.update({'devices':main_sensors_id})
+                except:
+                    data_to_send = {'error':True}
+                    
+                return HttpResponse(json.dumps(data_to_send),mimetype="application/json")
+                
+            elif method == 'buildGroupReport':
+                """ build a monthly energy report associated to all main sensors which belong to each building """
+                pass
+                
+                
+            
+            elif method == 'buildSensorReport': 
+                """ build energy and power report associated to one sensor"""
+                
                 import calendar
                 
                 params_json = request.GET.get('params')
@@ -479,6 +503,26 @@ def f(request):
                 device = Devices.objects.filter(id=int(sensor_id))
                 if device:
                     sensor = device[0]
+                    profile = {'energy':[],'power':[],'ratios':[],'extras':{
+                                                                          'energy':{
+                                                                                    'accum':0,
+                                                                                    'plotband': {
+                                                                                                 'from':[0],
+                                                                                                 'to':[0],
+                                                                                                 'weekend':[]
+                                                                                                 }
+                                                                                    },
+                                                                            'power':{
+                                                                                     'PPP_max':0,
+                                                                                     'PP_max':0
+                                                                                     },
+                                                                            'area':0
+                                                                          }
+                        }
+                    print 'id:%s, registers: %s' % (Sections.objects.filter(main_sensor=sensor)[0].id, Sections.objects.filter(main_sensor=sensor)[0].registers)
+                    profile['extras']['area'] = ast.literal_eval(Sections.objects.filter(main_sensor=sensor)[0].registers)['area']
+                    energyoverflow = Devices.objects.get(pk=int(sensor_id)).board.overflow
+                    
                     if date_params['type'] == 'mensual':
                     
                         from_date = datetime.datetime(date_params['date1']['year'],date_params['date1']['month'],1,0,0,0);
@@ -492,69 +536,93 @@ def f(request):
                         data = Measurements.objects.filter(sensor=sensor,datetimestamp__range = (from_date,to_date)).order_by('datetimestamp')
                         data_length = len(data)
                         
+                        
                         #build energy cummulative per day
-                        daily_profile = {'energy':[],'power':[],'ratios':[]}
+
+                        
+                        
                         
                         #extract energy overflow value from board model
-                        energyoverflow = Devices.objects.get(pk=int(sensor_id)).board.overflow
-                        data_index = 0
-                        data_date =  data[data_index].datetimestamp
-                        month = date_params['date1']['month']
-                        year = date_params['date1']['year'] 
-                        for day in range(1,days+1):
-                            date = from_date.replace(day=from_date.day+day-1)
-                            energy_accum = 0
-                            saved_starting_energy = False
-                            processing_day = False
+                        if (data_length > 0):
+                            data_index = 0
+                            data_date =  data[data_index].datetimestamp
+                            profile['extras']['energy']['plotband']['from'][0] = data_date.day-1.5
+                            month = date_params['date1']['month']
+                            year = date_params['date1']['year']
+                            onaweekendband = False
+                            currentband_index  = 0
                             
-                            while day == data_date.day:
-                                processing_day = True
-                                if not saved_starting_energy:
-                                    starting_energy = data[data_index].AEOVER + data[data_index].BEOVER + data[data_index].CEOVER
-                                    saved_starting_energy = True
                             
+                            for day in range(1,days+1):
+                                date = from_date.replace(day=from_date.day+day-1)
+                                if ((date.weekday() == 5 or date.weekday() == 6) and (not onaweekendband)): #start of band Saturday
+                                    onaweekendband = True
+                                    profile['extras']['energy']['plotband']['weekend'].append({'from':date.day-1.5,'to':date.day})
+                                    
+                                elif (date.weekday() == 0 and onaweekendband): #end of band Monday
+                                    onaweekendband = False
+                                    profile['extras']['energy']['plotband']['weekend'][currentband_index]['to'] = date.day-1.5
+                                    currentband_index = currentband_index + 1
+                                     
+                                energy_accum = 0
+                                saved_starting_energy = False
+                                processing_day = False
                                 
-                                data_index = data_index + 1
-                                if data_index < data_length:
-                                    data_date = data[data_index].datetimestamp
-                                else:
-                                    break
+                                while day == data_date.day:
+                                    processing_day = True
+                                    profile['extras']['energy']['plotband']['to'][0] = data_date.day-0.5
+                                    
+                                    if not saved_starting_energy:
+                                        starting_energy = data[data_index].AEOVER + data[data_index].BEOVER + data[data_index].CEOVER
+                                        saved_starting_energy = True
+                                    
+                                    data_index = data_index + 1
+                                    if data_index < data_length:
+                                        data_date = data[data_index].datetimestamp
+                                    else:
+                                        break
+                                    
+                                if processing_day:
+                                    data_index = data_index - 1
+                                    energy_accum = data[data_index].AEOVER + data[data_index].BEOVER + data[data_index].CEOVER - starting_energy
+                                    
+                                      
+                                profile['energy'].append({'energy':float(energy_accum*energyoverflow)/1000.0})
                                 
-                            if processing_day:
-                                data_index = data_index - 1
-                                energy_accum = data[data_index].AEOVER + data[data_index].BEOVER + data[data_index].CEOVER - starting_energy
-                            
-                            
-                            daily_profile['energy'].append({'energy':float(energy_accum*energyoverflow)/1000.0})
-                            
-                            ########################
-                            #daily power analysis
-                            ########################
-                            type = 'day'
-                            day_power_analisis = {'PP':0,'PPP':0}
-                                        
-                            period = {'t1':date.replace(hour=0,minute=0,second=0,microsecond=0),\
-                                      't2':date.replace(hour=18,minute=00,second=00),\
-                                      't3':date.replace(hour=23,minute=00,second=00),\
-                                      't4':date.replace(hour=23,minute=59,second=59)} 
-                            
-                            
-                            PPP =   Measurements.objects.filter(Q(sensor=sensor_id),Q(datetimestamp__range = (period['t1'],period['t2'])) | Q(datetimestamp__range = (period['t3'],period['t4']))).extra(select={'TotalKW' : 'PWRP_A+PWRP_B+PWRP_C'}).order_by('TotalKW').reverse()
-                            #valor maximo parcialmente presente en punta diario (consumo)
-                            PP  =   Measurements.objects.filter(Q(sensor=sensor_id),Q(datetimestamp__range = (period['t2'],period['t3']))).extra(select={'TotalKW' : 'PWRP_A+PWRP_B+PWRP_C'}).order_by('TotalKW').reverse()
-                            
-                            print PPP.query
-                            #exit if there are no data available
-                            if len(PP) > 0:
-                                day_power_analisis['PP'] = int(PP[0].TotalKW)
+                                profile['extras']['energy']['accum'] = profile['extras']['energy']['accum'] + float(energy_accum*energyoverflow)/1000.0  
+                                ########################
+                                #daily power analysis
+                                ########################
+                                type = 'day'
+                                day_power_analisis = {'PP':0,'PPP':0}
+                                            
+                                period = {'t1':date.replace(hour=0,minute=0,second=0,microsecond=0),\
+                                          't2':date.replace(hour=18,minute=00,second=00),\
+                                          't3':date.replace(hour=23,minute=00,second=00),\
+                                          't4':date.replace(hour=23,minute=59,second=59)} 
                                 
-                            
-                            if len(PPP) > 0:
-                                day_power_analisis['PPP'] = int(PPP[0].TotalKW)    
-                            
-                            daily_profile['power'].append(day_power_analisis)
+                                
+                                PPP =   Measurements.objects.filter(Q(sensor=sensor_id),Q(datetimestamp__range = (period['t1'],period['t2'])) | Q(datetimestamp__range = (period['t3'],period['t4']))).extra(select={'TotalKW' : 'PWRP_A+PWRP_B+PWRP_C'}).order_by('TotalKW').reverse()
+                                #valor maximo parcialmente presente en punta diario (consumo)
+                                PP  =   Measurements.objects.filter(Q(sensor=sensor_id),Q(datetimestamp__range = (period['t2'],period['t3']))).extra(select={'TotalKW' : 'PWRP_A+PWRP_B+PWRP_C'}).order_by('TotalKW').reverse()
+                                
+                                #exit if there are no data available
+                                if len(PP) > 0:
+                                    day_power_analisis['PP'] = int(PP[0].TotalKW)
+                                    if day_power_analisis['PP'] > profile['extras']['power']['PP_max']: 
+                                        profile['extras']['power']['PP_max'] = day_power_analisis['PP']
+                                    
+                                if len(PPP) > 0:
+                                    day_power_analisis['PPP'] = int(PPP[0].TotalKW)
+                                    if day_power_analisis['PPP'] > profile['extras']['power']['PPP_max']: 
+                                        profile['extras']['power']['PPP_max'] = day_power_analisis['PPP']    
+                                
+                                
+                                profile['power'].append(day_power_analisis)
+                        else:
+                            pass
                         
-                        data_to_send = {'profile':daily_profile}            
+                        data_to_send = {'profile':profile}            
                         return HttpResponse(json.dumps(data_to_send),mimetype="application/json")
                     #end daily processing for report 
                     
@@ -571,11 +639,6 @@ def f(request):
                         data = Measurements.objects.filter(sensor=sensor,datetimestamp__range = (from_date,to_date)).order_by('datetimestamp')
                         data_length = len(data)
                         
-                        #build energy cummulative per day
-                        daily_profile = {'energy':[],'power':[],'ratios':[]}
-                        
-                        #extract energy overflow value from board model
-                        energyoverflow = Devices.objects.get(pk=int(sensor_id)).board.overflow
                         
                         #iterate over each day
                         data_index = 0
@@ -583,8 +646,10 @@ def f(request):
                         month = 1
                         year = date_params['date1']['year'] 
                         
+                        
                         for month in range(1,12+1):
                             date = from_date.replace(month=from_date.month+month-1)
+                                
                             energy_accum = 0
                             saved_starting_energy = False
                             processing_month = False
@@ -606,37 +671,57 @@ def f(request):
                                 energy_accum = data[data_index].AEOVER + data[data_index].BEOVER + data[data_index].CEOVER - starting_energy
                             
                             
-                            daily_profile['energy'].append({'energy':float(energy_accum*energyoverflow)/1000.0})
-                            
+                            profile['energy'].append({'energy':float(energy_accum*energyoverflow)/1000.0})
+
                             ########################
                             #daily power analysis
                             ########################
-
+                            
+                            datafilter_ppp = Q()
+                            datafilter_pp = Q()
                             month_power_analisis = {'PP':0,'PPP':0}
+                            
+                            
+                            start_month = datetime.datetime(date_params['date1']['year'],month,1)
+                            
+                            for yh in range(1,calendar.monthrange(date_params['date1']['year'],month)[1]+1):
+                            
+                                date_day = start_month + datetime.timedelta(days=yh-1) 
+                            
+                                period = {'t1':date_day.replace(hour=0,minute=0,second=0,microsecond=0),\
+                                          't2':date_day.replace(hour=18,minute=00,second=00),\
+                                          't3':date_day.replace(hour=23,minute=00,second=00),\
+                                          't4':date_day.replace(hour=23,minute=59,second=59)}
+                                
+                                datafilter_ppp = datafilter_ppp | Q(datetimestamp__range = (period['t1'],period['t2'])) | Q(datetimestamp__range = (period['t3'],period['t4']))
+                                datafilter_pp  = datafilter_pp | Q(datetimestamp__range = (period['t2'],period['t3']))
                                         
-                            period = {'t1':date.replace(hour=0,minute=0,second=0,microsecond=0),\
-                                      't2':date.replace(hour=18,minute=00,second=00),\
-                                      't3':date.replace(hour=23,minute=00,second=00),\
-                                      't4':date.replace(hour=23,minute=59,second=59)} 
+                                
                             
-                            start_month = from_date.replace(month=from_date.month+month-1)
-                            end_month = datetime.datetime()
+                            PPP =   data.filter(datafilter_ppp).extra(select={'TotalKW' : 'PWRP_A+PWRP_B+PWRP_C'}).order_by('TotalKW').reverse()
+                            PP =   data.filter(datafilter_pp).extra(select={'TotalKW' : 'PWRP_A+PWRP_B+PWRP_C'}).order_by('TotalKW').reverse()
                             
-                            PPP =   Measurements.objects.filter(Q(sensor=sensor_id),Q(datetimestamp__range=(start_month,end_month)),Q(datetimestamp__range = (period['t1'],period['t2'])) | Q(datetimestamp__range = (period['t3'],period['t4']))).extra(select={'TotalKW' : 'PWRP_A+PWRP_B+PWRP_C'}).order_by('TotalKW').reverse()
                             
                             #valor maximo parcialmente presente en punta diario (consumo)
-                            PP  =   Measurements.objects.filter(Q(sensor=sensor_id),Q(datetimestamp__range = (period['t2'],period['t3']))).extra(select={'TotalKW' : 'PWRP_A+PWRP_B+PWRP_C'}).order_by('TotalKW').reverse()
+                            
+                            
                             
                             #exit if there are no data available
                             if len(PP) > 0:
-                                day_power_analisis['PP'] = int(PP[0].TotalKW)
-                                
-                            if len(PPP)> 0:
-                                day_power_analisis['PPP'] = int(PPP[0].TotalKW)  
+                                month_power_analisis['PP'] = int(PP[0].TotalKW)
+                                if month_power_analisis['PP'] > profile['extras']['power']['PP_max']: 
+                                    profile['extras']['power']['PP_max'] = month_power_analisis['PP']
                             
-                            daily_profile['power'].append(day_power_analisis)
+                            if len(PPP)> 0:
+                                month_power_analisis['PPP'] = int(PPP[0].TotalKW)  
+                                if month_power_analisis['PPP'] > profile['extras']['power']['PPP_max']: 
+                                    profile['extras']['power']['PPP_max'] = month_power_analisis['PPP']
+                            
+                                    
+                            
+                            profile['power'].append(month_power_analisis)
                         
-                        data_to_send = {'profile':daily_profile}            
+                        data_to_send = {'profile':profile}            
                         return HttpResponse(json.dumps(data_to_send),mimetype="application/json")
                     
                     #end daily processing for report    

@@ -327,6 +327,16 @@ body {
 	border-bottom: 1px solid #9FC54E;
 }
 
+.grp_row_table {
+	float:left;
+	width:50px;
+	font-size:8px;
+}
+.row_grp_ener_comp {
+	display:block;
+	width:100%;
+}
+
 #chartoptions-panel a.link:hover, 
 #chartoptions-panel a.link:visited:hover, 
 #controloptions-panel a.link:hover, 
@@ -456,14 +466,16 @@ body {
 
 #tab-energy #report-energy-charts,
 #tab-power #report-power-charts,
-#tab-ratios #report-ratios-charts
+#tab-ratios #report-ratios-charts,
+#report_group
 {
     width:700px;
 }
 
 #tab-energy .panel-sidebar,
 #tab-power .panel-sidebar,
-#tab-ratios .panel-sidebar {
+#tab-ratios .panel-sidebar,
+#report_group .panel-sidebar {
     position: absolute;
     padding: 5px;
 	top:50px;
