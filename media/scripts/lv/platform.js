@@ -402,12 +402,43 @@ AutoLib = {
 				
 	        },
 	        update_relays : function (params) {
-	        	//easy way
+	        	//easy way, update states and refresh fp
 	        	console.log(params);
+	        	
+	        	
+	        	var act_id = params.event_details[3].act_id;
+	        	var act_data= AutoLib.finddevice({byid:true,id:''+act_id});
+	        	var path = act_data[act_id].path.split('-');
+	        	var reload_btn_pth = path[0]+'-'+path[1];
+	        	var new_state, new_state_str;
+	        	for (var f in params.event_details[3].IOs) {
+	        		if (params.event_details[3].IOs.hasOwnProperty(f)) {
+	        			for (var g in params.event_details[3].IOs[f]) {
+	        				if (params.event_details[3].IOs[f].hasOwnProperty(g)) {
+	        					new_state =  params.event_details[3].IOs[f][g].state;
+	        					if (new_state) {
+	    	        				new_state_str = 'Encendido'; 
+	    	        			}
+	    	        			else {
+	    	        				new_state_str = 'Apagado';
+	    	        			}
+	    	        			AutoLib.Context.deviceTree[parseInt(path[0],10)][parseInt(path[1],10)][parseInt(path[2],10)][parseInt(path[3],10)].meta.actuators[parseInt(path[4],10)].registers.signals_connected[g].state = new_state;
+	    	        			opt = {
+	    	                			title:'Actividad en ' + params.event_details[1],
+	    	                			text: params.event_details[2] + '/' + params.event_details[3].IOs[f][g].Title + '('+new_state_str+')', 
+	    	                			type:'normal'
+	    	                		};
+	    	                	AutoLib.notify(opt);
+	    	                	$('li','#left-menu').find('a[path='+reload_btn_pth+']').each(function() {
+	    	                		$(this).click();
+	    	                	});
+	        				}
+	        			}
+	        		}
+	        	}
+	        	
+	        	
 	        	/*
-	        	var path = params.path.split('-');
-	        	AutoLib.Context.deviceTree[parseInt(path[0],10)][parseInt(path[1],10)][parseInt(path[2],10)][parseInt(path[3],10)].meta.actuators[parseInt(path[4],10)].registers.signals_connected[path[5]].state == params.state;
-
 	        	
 	        	//console.time('Rele update - Local Way');
 	        	//search section and change state in deviceTree
@@ -2625,11 +2656,13 @@ AutoLib.Control = {
 
         createEventHandlers : function () {
             
-            $('#left-menu ul a').live('click',function () {
+            $('#left-menu ul a').live('click',function (f) {
                     //update signal sensor table depending of selected level
-                if (AutoLib.Control.Context.locationPathToGetHere === $(this).attr('path')) {
-                    return;
-                }
+            	if (f == undefined) {
+            		if (AutoLib.Control.Context.locationPathToGetHere === $(this).attr('path')) {
+                        return;
+                    }
+            	}
                 
                 $(this).parent().parent().find('a[bt]').css({'background-color':'#8e8e8e','color':'#FFFFFF'}).removeClass('selected');
                 $(this).parent().parent().find('a[st]').css({'background-color':'#a7ddf2'}).removeClass('selected');
@@ -3137,7 +3170,7 @@ AutoLib.Control = {
             		lighting: {
             		  refrange : {
             		  	min:0,
-            		  	max:100
+            		  	max:255
             		  	},
             		  tolrange : {
             		  	min:5,
@@ -4578,6 +4611,7 @@ AutoLib.Control = {
                 	    html_message += '</div>';
                 	    html_message += '<div id="time2_str" style="float:left;width: 40px; padding: 8px 0 0 10px;"></div>';
                 	    html_message += '<div style="float:left;width:450px;margin-top:12px;height:50px;">';
+                	    html_message += '<div id="time-to"></div>';
                 	    html_message += '</div>';
                 	    html_message += '</fieldset>';
                 	    html_message += '</form>';
@@ -5031,7 +5065,7 @@ AutoLib.report =  {
                     y: 20
                 },
                 yAxis: {
-                    min: 0,
+                    //min: 0,
                     plotLines : []
                 },
                 tooltip: {},
@@ -5071,7 +5105,7 @@ AutoLib.report =  {
                     align: 'center',
                     verticalAlign: 'top',
                     x: 0,
-                    y: 20
+                    y: 40
                 },
                 yAxis: {
                     min: 0,
@@ -5776,7 +5810,7 @@ AutoLib.report =  {
 	                AutoLib.report.Context.chartoption.chart.defaultSeriesType = 'column';
 	            
 	                var waveform_data = [];
-	                var data_point;
+	                var data_point,color;
 	                var categories_date = [];
 	                for (var g=0;g<AutoLib.report.Context.report_data[sensor_id].profile.energy.length;g++) {
 	                    if (period_type === 'mensual') {
@@ -5786,7 +5820,13 @@ AutoLib.report =  {
 	                        categories_date.push(AutoLib.report.Context.month_dict[g]);   
 	                    }
 	                    data_point = AutoLib.report.Context.report_data[sensor_id].profile.energy[g];
-	                    waveform_data.push(data_point.energy);
+	                    if (data_point.energy >= 0) {
+	                    	color = 'blue';
+	                    }else {
+	                    	color = 'red';
+	                    }
+	                    
+	                    waveform_data.push({y:data_point.energy,color:color});
 	                }
 	                AutoLib.report.Context.chartoption.xAxis.categories = categories_date;
 	                
@@ -5817,15 +5857,15 @@ AutoLib.report =  {
 	                        AutoLib.report.Context.chartoption.xAxis.plotBands = [{
 	                            color: '#FCFFC5',
 	                            from: AutoLib.report.Context.report_data[sensor_id].profile.extras.energy.plotband.from,
-	                            to: AutoLib.report.Context.report_data[sensor_id].profile.extras.energy.plotband.to,
-	                            label: {
-	                            	text: ''+Highcharts.numberFormat(AutoLib.report.Context.report_data[sensor_id].profile.extras.energy.accum,1)+' kWh',
-	                            	verticalAlign: 'top',
-	                            	style: {
-	                                    fontWeight: 'bold'
-	                                }
-	                        	}    
+	                            to: AutoLib.report.Context.report_data[sensor_id].profile.extras.energy.plotband.to
 	                        }];
+	                        
+	                        AutoLib.report.Context.chartoption.subtitle = {
+	                        	text: 'Energía demandada mensual: '+Highcharts.numberFormat(AutoLib.report.Context.report_data[sensor_id].profile.extras.energy.accum,1)+' kWh',
+	                            align: 'center'
+	                        };
+	                        
+	                        
 	                        // add weekend plotbands
 	                        for (var p=0;p<AutoLib.report.Context.report_data[sensor_id].profile.extras.energy.plotband.weekend.length;p++) {
 	                        	AutoLib.report.Context.chartoption.xAxis.plotBands.push({
@@ -5922,7 +5962,7 @@ AutoLib.report =  {
 	                                borderWidth: 0
 	                            }
 	                        };
-	                        AutoLib.report.Context.chartoption.xAxis.plotBands[0].label.text = '';
+	                        
 	                        AutoLib.report.Context.chartoption.yAxis.plotLines = [{ // PPP_max
 	                        	dashStyle :'Dash',
 	                        	width: 1,

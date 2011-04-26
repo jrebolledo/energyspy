@@ -457,10 +457,18 @@ def f(request):
                         notify_to_webclient_clean({'method':'pending_rule_cancelled','params':{'status':5,'webopID':webopID},'id':1})
                     if AsyncResult(task_id=rule.task_id).state == 'SUCCESS':
                         #send fake expired manual control
+                        now = datetime.datetime.now()
                         if rule.ismanual:
                             status = 5
+                            if rule.date_from < now and rule.date_to > now: # limpia solo si la regla a borra esta operando
+                                clear_manual_operation_on_relay(rule.device.coordinator.id,rule.device_id,rule.tag)
+                            
                         else:
                             status = 7
+                            # debug, limpia la regla de control en el rele solo si la regla esta operando ahora, enviando regla de apagado 
+                            if rule.date_from < now and rule.date_to > now: # limpia solo si la regla a borra esta operando 
+                                clear_rule_on_relay(rule.device.coordinator.id,rule.device_id,rule.tag)
+                        
                         notify_to_webclient_clean({'method':'operating_rule_cancelled','params':{'status':status,'webopID':webopID},'id':1})
                         
                     rule.delete()
@@ -575,6 +583,7 @@ def f(request):
                                     if not saved_starting_energy:
                                         starting_energy = data[data_index].AEOVER + data[data_index].BEOVER + data[data_index].CEOVER
                                         saved_starting_energy = True
+                                        
                                     
                                     data_index = data_index + 1
                                     if data_index < data_length:
@@ -585,11 +594,11 @@ def f(request):
                                 if processing_day:
                                     data_index = data_index - 1
                                     energy_accum = data[data_index].AEOVER + data[data_index].BEOVER + data[data_index].CEOVER - starting_energy
-                                    
-                                      
+
                                 profile['energy'].append({'energy':float(energy_accum*energyoverflow)/1000.0})
                                 
-                                profile['extras']['energy']['accum'] = profile['extras']['energy']['accum'] + float(energy_accum*energyoverflow)/1000.0  
+                                profile['extras']['energy']['accum'] = profile['extras']['energy']['accum'] + float(energy_accum*energyoverflow)/1000.0
+  
                                 ########################
                                 #daily power analysis
                                 ########################
@@ -746,6 +755,27 @@ def f(request):
 #####################
 # FUNCTIONS 
 #####################
+def clear_manual_operation_on_relay(coo_id,dev,tag):
+    print coo_id, dev, tag
+    call  =   PushService(coordinator =   Coordinators.objects.get(pk=coo_id), 
+                          data   =   {'dev':dev,'tags':{tag:True},'clear_IO_manual':True},
+                          is_manual_control = True,
+                          opID    =   1)
+    
+    call.save()
+    
+    a=tasks.sendManualControlNow.delay(call.id)
+
+def clear_rule_on_relay(coo_id,dev,tag):
+    print coo_id, dev, tag
+    call  =   PushService(coordinator =   Coordinators.objects.get(pk=coo_id), 
+                          data   =   {'dev':dev,'tags':{tag:True},'clear_IO_rule':True},
+                          is_manual_control = False,
+                          opID    =   1)
+    
+    call.save()
+    a=tasks.sendControlRuleNow.delay(call.id)
+    
 def _parseEvtDetails(evt_details):
     try:
         evt_details_dict = ast.literal_eval(evt_details)

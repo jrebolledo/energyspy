@@ -200,7 +200,7 @@ class Boards(models.Model):
 
 class Coordinators(models.Model):
     def __unicode__(self):
-        return '%s - %s:%s' % (self.mac,self.vpn_ip,self.vpn_port)
+        return '%s - %s' % (self.mac,self.section)
     STATUS_CHOICES = (
                       ('0', 'OFFLINE'),
                       ('1', 'ONLINE'),
@@ -217,6 +217,7 @@ class Coordinators(models.Model):
     modem_number    = models.CharField(max_length=20, default='')
     modem_user      = models.CharField(max_length=20, default='')
     modem_pass      = models.CharField(max_length=20, default='')
+    section         = models.ForeignKey('Sections',null=True,blank=True)
     class Admin:
         pass
 
@@ -285,10 +286,11 @@ class Sections(models.Model):
     floor_plan   = models.ImageField(upload_to="photo", null=True, blank=True, help_text="Should be 490x490 max wide")
     main_sensor  = models.ForeignKey('Devices')
     registers    = models.TextField(null=True,blank=True)
+    
     def save(self):
         for field in self._meta.fields:
             if field.name == 'floor_plan':
-                field.upload_to = 'media/images/simpla/icons/b/%d/fp' % self.building.id
+                field.upload_to = 'media/images/fp/%d' % self.building.id
                 print field.upload_to
         super(Sections, self).save()
 

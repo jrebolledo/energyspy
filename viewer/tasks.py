@@ -26,13 +26,21 @@ def _sendManualControl(call_id,logger):
     
     #control rule to send
     print "Procesando... %s"%call.opID
-    control_id = tags[tags.keys()[0]]
-    control = Control.objects.get(pk=control_id) 
-    date_from = control.date_from
-    date_to = control.date_to
-    forcing_state_to = control.forcedstate
+    
+    if control_data.has_key('clear_IO_manual'):
+        now = datetime.datetime.now()
+        date_from = now
+        date_to = now
+        forcing_state_to = False
+    else:
+        control_id = tags[tags.keys()[0]]
+        control = Control.objects.get(pk=control_id) 
+        date_from = control.date_from
+        date_to = control.date_to
+        forcing_state_to = control.forcedstate
     #build packet 
     #opID = random.randint(0,255)
+    print control_data
     IOindexs = control_data['tags'].keys()
     numIO = len(IOindexs)
     #from_str = date_from.strftime('%y,%m,%d,%H,%M')
@@ -157,34 +165,41 @@ def _sendControlRule(call_id,logger):
     tags = control_data['tags']
     
     #control rule to send
-    
-    control_id = tags[tags.keys()[0]]
-    control = Control.objects.get(pk=control_id)
-    rule_definition=ast.literal_eval(control.control_data)
-    #print rule_definition
-    if rule_definition.has_key('meas'):
-        dev_meas = rule_definition['meas']['dev']
-        io_meas = int(rule_definition['meas']['io']) + 1
-        delta_histeresis = rule_definition['control_params']['tolvalue']
-        pol_histeresis = {'true':0,'false':1}[rule_definition['control_params']['action']]
-        # if pol:0 -> si medicion < ref -> action true, (luces)
-        # if pol:1 -> si medicion > ref -> action false, (aire acondicionado)
-    else:
+    if control_data.has_key('clear_IO_rule'):
         dev_meas = 0
         io_meas = 0
         delta_histeresis = 0
         pol_histeresis = 0
-    
-    #step parsing
-    
-    steps_array = []
-    for index, step in enumerate(rule_definition['steps']):
-        to = rule_definition['steps']['step%s'%(index+1)]['range'][1]
-        ref =  rule_definition['steps']['step%s'%(index+1)]['ref']
-        print ref
-        #steps_array.append('%s,%s'%(to,ref))
-        steps_array.append(to)
-        steps_array.append(ref)
+        steps_array = [144,0]
+        steps_num = 1
+    else:
+        control_id = tags[tags.keys()[0]]
+        control = Control.objects.get(pk=control_id)
+        rule_definition=ast.literal_eval(control.control_data)
+        #print rule_definition
+        if rule_definition.has_key('meas'):
+            dev_meas = rule_definition['meas']['dev']
+            io_meas = int(rule_definition['meas']['io']) + 1
+            delta_histeresis = rule_definition['control_params']['tolvalue']
+            pol_histeresis = {'true':0,'false':1}[rule_definition['control_params']['action']]
+            # if pol:0 -> si medicion < ref -> action true, (luces)
+            # if pol:1 -> si medicion > ref -> action false, (aire acondicionado)
+        else:
+            dev_meas = 0
+            io_meas = 0
+            delta_histeresis = 0
+            pol_histeresis = 0
+        
+        #step parsing
+        
+        steps_array = []
+        for index, step in enumerate(rule_definition['steps']):
+            to = rule_definition['steps']['step%s'%(index+1)]['range'][1]
+            ref =  rule_definition['steps']['step%s'%(index+1)]['ref']
+            #steps_array.append('%s,%s'%(to,ref))
+            steps_array.append(to)
+            steps_array.append(ref)
+            steps_num = len(rule_definition['steps'])
     
     #steps = ','.join(steps_array)
     #[RELE_CONTROL_RULE_METHOD]+[dev]+[numIO,steps_num]+[IOs]+[dev_meas,io_meas,delta_histeresis,pol_histeresis]+[steps_array:end_step1, ref1, ...end_stepN, refN]     
@@ -192,7 +207,7 @@ def _sendControlRule(call_id,logger):
     opID = random.randint(0,255)
     IOindexs = control_data['tags'].keys()
     numIO = len(IOindexs)
-    steps_num = len(rule_definition['steps'])
+    
     #IOs = ','.join([item.encode('ascii').replace('IO','') for item in IOindexs])
     IOs = [int(item.encode('ascii').replace('IO',''))-1 for item in IOindexs]
     #packet_pream = '34:%s:%s'%(opID,dev)
@@ -518,7 +533,82 @@ def resetTXSLAVES(coordinator_id):
         a.section = Sections.objects.filter(main_sensor__coordinator = coordinator)[0]
         a.details = 'Servidor de gateways no responde'
         a.save()
+
+@task()
+def resetRELES(rele_id):
+    logger = resetTXSLAVES.get_logger()
+    print 'Send Reset packet to RELE ...'
+    import json
+    import socket
+    import ast
+    import datetime
+    import random
+
+    
+    HOST = '127.0.0.1'
+    PORT = 6969                 
+    coordinator = Devices.objects.get(pk=rele_id).coordinator
+    
+    packet = [28,0]
+    packet.insert(1,len(packet)-1)
+    print 'packet: %s'%packet
+    sentToTwister = {'method':28,'webopID':77,'params':{'data':packet,'gw_id':coordinator.id}}
+    c  =   json.dumps(sentToTwister)
+    #open socket and send data
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    
+    
+    #wait for ack response, if timeout break and mark as error and 
+    #send notification to browser
+    
+    try:
+        sock.connect((HOST,PORT))
+        #logger.info('Paquete: %s'%c)
+        sock.send(c)
+        data_received = sock.recv(1024)
+        Timeout = False
+    except:
+        #logger.info('Timeout')
+        call_error = True
+        Timeout = True
+    
+    while True and not Timeout:
+        if not data_received or data_received == None:
+            #close connection and send confirmation to browser
+            #logger.info('No data from gateway or connection reset by peer')
+            sock.close()
+            call_error = True
+            break
+        else:
+            r=json.loads(data_received)
+            method = r['method']
+            
+            if method == 'ack':
+                print 'Packet send: OK'
+                call_error = False
+                break
+                
+    
+    if not call_error:
+                              
+        #CREATE EVENT OF TWISTED RECEPTION AND SEND NOTIFICATION TO DJANGO, DJANGO WILL NOTIFY TO BROWSER LATER
+        a=Events()
+        a.is_coordinator = True
+        a.coordinator = coordinator
+        a.time = datetime.datetime.now()
+        a.section = Sections.objects.filter(main_sensor__coordinator = coordinator)[0]
+        a.details = 'Relay reset packet enviado correctamente'
+        a.save()
         
+    else:
+        #CREATE EVENT OF TWISTED RECEPTION AND SEND NOTIFICATION TO DJANGO, DJANGO WILL NOTIFY TO BROWSER LATER
+        a=Events()
+        a.is_coordinator = True
+        a.coordinator = coordinator
+        a.time = datetime.datetime.now()
+        a.section = Sections.objects.filter(main_sensor__coordinator = coordinator)[0]
+        a.details = 'Servidor de gateways no responde'
+        a.save()
 def main():
     sendControlRuleNow(16)
 
