@@ -78,13 +78,15 @@ div.dataTables_wrapper .ui-widget-header {
 /*
  * Sort arrow icon positioning
  */
-table.eventstable thead th div.DataTables_sort_wrapper {
+table.eventstable thead th div.DataTables_sort_wrapper,
+table.grouptable thead th div.DataTables_sort_wrapper {
     position: relative;
     padding-right: 20px;
     padding-right: 20px;
 }
 
-table.eventstable thead th div.DataTables_sort_wrapper span {
+table.eventstable thead th div.DataTables_sort_wrapper span,
+table.grouptable thead th div.DataTables_sort_wrapper span {
     position: absolute;
     top: 50%;
     margin-top: -8px;
@@ -177,31 +179,37 @@ table.eventstable thead th div.DataTables_sort_wrapper span {
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * DataTables eventstable
  */
-table.eventstable {
+table.eventstable,
+table.grouptable {
     margin: 0 auto;
     width: 100%;
     clear: both;
     border-collapse: collapse;
 }
 
-table.eventstable tfoot th {
+table.eventstable tfoot th,
+table.grouptable tfoot th {
     padding: 3px 0px 3px 10px;
     font-weight: bold;
     font-weight: normal;
 }
 
-table.eventstable tr.heading2 td {
+table.eventstable tr.heading2 td,
+table.grouptable tr.heading2 td {
     border-bottom: 1px solid #aaa;
 }
 
-table.eventstable td.rightalign {
+table.eventstable td.rightalign,
+table.grouptable td.rightalign {
 	text-align:right;
 }
-table.eventstable td {
+table.eventstable td,
+table.grouptable td {
     padding: 3px 10px;
 }
 
-table.eventstable td.center {
+table.eventstable td.center,
+table.grouptable td.center {
     text-align: center;
 }
 
@@ -229,46 +237,56 @@ table.eventstable td.center {
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * DataTables row classes
  */
-table.eventstable tr.odd.gradeA {
+table.eventstable tr.odd.gradeA,
+table.grouptable tr.odd.gradeA {
     background-color: #ddffdd;
 }
 
-table.eventstable tr.even.gradeA {
+table.eventstable tr.even.gradeA,
+table.grouptable tr.even.gradeA {
     background-color: #eeffee;
 }
 
 
 
 
-table.eventstable tr.odd.gradeA {
+table.eventstable tr.odd.gradeA,
+table.grouptable tr.odd.gradeA {
     background-color: #ddffdd;
 }
 
-table.eventstable tr.even.gradeA {
+table.eventstable tr.even.gradeA,
+table.grouptable tr.even.gradeA {
     background-color: #eeffee;
 }
 
-table.eventstable tr.odd.gradeC {
+table.eventstable tr.odd.gradeC,
+table.grouptable tr.odd.gradeC {
     background-color: #ddddff;
 }
 
-table.eventstable tr.even.gradeC {
+table.eventstable tr.even.gradeC,
+table.grouptable tr.even.gradeC {
     background-color: #eeeeff;
 }
 
-table.eventstable tr.odd.gradeX {
+table.eventstable tr.odd.gradeX,
+table.grouptable tr.odd.gradeX {
     background-color: #ffdddd;
 }
 
-table.eventstable tr.even.gradeX {
+table.eventstable tr.even.gradeX,
+table.grouptable tr.even.gradeX {
     background-color: #ffeeee;
 }
 
-table.eventstable tr.odd.gradeU {
+table.eventstable tr.odd.gradeU,
+table.grouptable tr.odd.gradeU {
     background-color: #ddd;
 }
 
-table.eventstable tr.even.gradeU {
+table.eventstable tr.even.gradeU,
+table.grouptable tr.even.gradeU {
     background-color: #eee;
 }
 

@@ -141,10 +141,14 @@ class PushService(models.Model):
 ######## REPORT BUFFER
 
 class Report_Buffer(models.Model):
-    sensor = models.ForeignKey('Devices')
-    range = models.CharField(max_length=10)
+    sensor = models.ForeignKey('Devices',blank=True,null=True)
+    building = models.ForeignKey('Buildings',blank=True,null=True)
+    group = models.BooleanField()
+    range = models.CharField(max_length=10) 
     from_date = models.DateTimeField()
-    to_date = models.DateTimeField()
+    to_date = models.DateTimeField(blank=True,null=True)
+    generated = models.DateTimeField()
+    data = models.TextField()
 
 ########DEVICES AND BOARDS
 class Devices(models.Model):

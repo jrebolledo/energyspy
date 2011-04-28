@@ -410,7 +410,7 @@ AutoLib = {
 	        	var act_data= AutoLib.finddevice({byid:true,id:''+act_id});
 	        	var path = act_data[act_id].path.split('-');
 	        	var reload_btn_pth = path[0]+'-'+path[1];
-	        	var new_state, new_state_str;
+	        	var new_state, new_state_str, opt;
 	        	for (var f in params.event_details[3].IOs) {
 	        		if (params.event_details[3].IOs.hasOwnProperty(f)) {
 	        			for (var g in params.event_details[3].IOs[f]) {
@@ -2658,7 +2658,7 @@ AutoLib.Control = {
             
             $('#left-menu ul a').live('click',function (f) {
                     //update signal sensor table depending of selected level
-            	if (f == undefined) {
+            	if (f === undefined) {
             		if (AutoLib.Control.Context.locationPathToGetHere === $(this).attr('path')) {
                         return;
                     }
@@ -2766,8 +2766,8 @@ AutoLib.Control = {
                 //console.log('Solicitando todas las reglas del circuito seleccionado')
                 var circuits = {};
                 var a,tag,dev;
-                for (var f=0;f<AutoLib.Control.editRules.Context.circuits.length;f++) {
-                    a = AutoLib.Control.editRules.Context.circuits[f].pathToGetHere.split('-');
+                for (var m=0;m<AutoLib.Control.editRules.Context.circuits.length;m++) {
+                    a = AutoLib.Control.editRules.Context.circuits[m].pathToGetHere.split('-');
                     tag = a[a.length-1];
                     dev = parseInt(a[a.length-2],10);
                     if (circuits.hasOwnProperty(dev) === false) {
@@ -5026,22 +5026,181 @@ AutoLib.report =  {
             group_report_data : {},
             building_devices : {},
             building_meas_range : {},
+            groupmonthreport:{},
             nodata : true,
             chart_energy:undefined,
             chart_power:undefined,
             chart_ratios:undefined,
             chart_area_group : undefined,
+            theme_black : {
+     		   colors: ["#DDDF0D", "#7798BF", "#55BF3B", "#DF5353", "#aaeeee", "#ff0066", "#eeaaee", 
+          		      "#55BF3B", "#DF5353", "#7798BF", "#aaeeee"],
+          		   chart: {
+          		      backgroundColor: {
+          		         linearGradient: [0, 0, 0, 400],
+          		         stops: [
+          		            [0, 'rgb(96, 96, 96)'],
+          		            [1, 'rgb(16, 16, 16)']
+          		         ]
+          		      },
+          		      borderWidth: 0,
+          		      borderRadius: 15,
+          		      plotBackgroundColor: null,
+          		      plotShadow: false,
+          		      plotBorderWidth: 0
+          		   },
+          		   title: {
+          		      style: { 
+          		         color: '#FFF',
+          		         font: '16px Lucida Grande, Lucida Sans Unicode, Verdana, Arial, Helvetica, sans-serif'
+          		      }
+          		   },
+          		   subtitle: {
+          		      style: { 
+          		         color: '#DDD',
+          		         font: '12px Lucida Grande, Lucida Sans Unicode, Verdana, Arial, Helvetica, sans-serif'
+          		      }
+          		   },
+          		   xAxis: {
+          		      gridLineWidth: 0,
+          		      lineColor: '#999',
+          		      tickColor: '#999',
+          		      labels: {
+          		         style: {
+          		            color: '#999',
+          		            fontWeight: 'bold'
+          		         }
+          		      },
+          		      title: {
+          		         style: {
+          		            color: '#AAA',
+          		            font: 'bold 12px Lucida Grande, Lucida Sans Unicode, Verdana, Arial, Helvetica, sans-serif'
+          		         }            
+          		      }
+          		   },
+          		   yAxis: {
+          		      alternateGridColor: null,
+          		      minorTickInterval: null,
+          		      gridLineColor: 'rgba(255, 255, 255, .1)',
+          		      lineWidth: 0,
+          		      tickWidth: 0,
+          		      labels: {
+          		         style: {
+          		            color: '#999',
+          		            fontWeight: 'bold'
+          		         }
+          		      },
+          		      title: {
+          		         style: {
+          		            color: '#AAA',
+          		            font: 'bold 12px Lucida Grande, Lucida Sans Unicode, Verdana, Arial, Helvetica, sans-serif'
+          		         }            
+          		      }
+          		   },
+          		   legend: {
+          		      itemStyle: {
+          		         color: '#CCC'
+          		      },
+          		      itemHoverStyle: {
+          		         color: '#FFF'
+          		      },
+          		      itemHiddenStyle: {
+          		         color: '#333'
+          		      }
+          		   },
+          		   labels: {
+          		      style: {
+          		         color: '#CCC'
+          		      }
+          		   },
+          		   tooltip: {
+          		      backgroundColor: {
+          		         linearGradient: [0, 0, 0, 50],
+          		         stops: [
+          		            [0, 'rgba(96, 96, 96, .8)'],
+          		            [1, 'rgba(16, 16, 16, .8)']
+          		         ]
+          		      },
+          		      borderWidth: 0,
+          		      style: {
+          		         color: '#FFF'
+          		      }
+          		   },
+          		   
+          		   
+          		   plotOptions: {
+          		      line: {
+          		         dataLabels: {
+          		            color: '#CCC'
+          		         },
+          		         marker: {
+          		            lineColor: '#333'
+          		         }
+          		      },
+          		      spline: {
+          		         marker: {
+          		            lineColor: '#333'
+          		         }
+          		      },
+          		      scatter: {
+          		         marker: {
+          		            lineColor: '#333'
+          		         }
+          		      }
+          		   },
+          		   
+          		   toolbar: {
+          		      itemStyle: {
+          		         color: '#CCC'
+          		      }
+          		   },
+          		   
+          		   navigation: {
+          		      buttonOptions: {
+          		         backgroundColor: {
+          		            linearGradient: [0, 0, 0, 20],
+          		            stops: [
+          		               [0.4, '#606060'],
+          		               [0.6, '#333333']
+          		            ]
+          		         },
+          		         borderColor: '#000000',
+          		         symbolStroke: '#C0C0C0',
+          		         hoverSymbolStroke: '#FFFFFF'
+          		      }
+          		   },
+          		   
+          		   exporting: {
+          		      buttons: {
+          		         exportButton: {
+          		            symbolFill: '#55BE3B'
+          		         },
+          		         printButton: {
+          		            symbolFill: '#7797BE'
+          		         }
+          		      }
+          		   },   
+          		   
+      		   // special colors for some of the demo examples
+      		   legendBackgroundColor: 'rgba(48, 48, 48, 0.8)',
+      		   legendBackgroundColorSolid: 'rgb(70, 70, 70)',
+      		   dataLabelsColor: '#444',
+      		   textColor: '#E0E0E0',
+      		   maskColor: 'rgba(255,255,255,0.3)'
+            },
             chartoption : ({
                 chart: {
                     renderTo: '',
                     width: 700,
+                    marginTop: 90
+                    /*
                     backgroundColor: {
                         "linearGradient": ["0%", "0%", "0%", "100%"],
                         "stops": [
                             [0, "rgb(242,242,242)"],
                             [1, "rgb(242,242,242)"]
                         ]
-                    }
+                    }*/
                 },
                 title: {
                     text: '',
@@ -5062,7 +5221,7 @@ AutoLib.report =  {
                     align: 'center',
                     verticalAlign: 'top',
                     x: 0,
-                    y: 20
+                    y: 40
                 },
                 yAxis: {
                     //min: 0,
@@ -5076,15 +5235,10 @@ AutoLib.report =  {
             areachartoptions : ({
                 chart: {
                     renderTo: 'report_per_area_chart',
-                    width: 700,
-                    defaultSeriesType : 'column',
-                    backgroundColor: {
-                        "linearGradient": ["0%", "0%", "0%", "100%"],
-                        "stops": [
-                            [0, "rgb(242,242,242)"],
-                            [1, "rgb(242,242,242)"]
-                        ]
-                    }
+                    width: 350,
+                    defaultSeriesType : 'bar',
+                    marginTop: 60
+
                 },
                 title: {
                     text: 'Factor de desempeño energético por metro cuadrado',
@@ -5093,28 +5247,45 @@ AutoLib.report =  {
                     }
                 },
                 xAxis: {
-                    labels: {
-                        rotation: -45,
-                        style: {
-                            font: 'normal 10px Verdana, sans-serif'
-                        },
-                		x:2
-                    }
+                	categories :[],
+                	title: {
+                    	text: null
+                 	}
                 },
                 legend : {
-                    align: 'center',
+                	align: 'center',
+                	layout: 'vertical',
                     verticalAlign: 'top',
                     x: 0,
-                    y: 40
+                    y: 40,
+                    floating: true,
+                    borderWidth: 1,
+                    shadow: true
                 },
                 yAxis: {
-                    min: 0,
-                    plotLines : []
+                	min: 0,
+                    title: {
+                       text: 'Energía por metro cuadrado (kwh/m2)',
+                       align: 'high'
+                    }
                 },
-                tooltip: {},
+                tooltip: {
+                	formatter: function() {
+                    return ''+
+                        this.series.name +': '+ this.y +' (kwh/m2)';
+                 	}
+                },
+                series :[],
                 credits : {
                     enabled : false
-                }
+                },
+                plotOptions : {
+	                bar: {
+	                    dataLabels: {
+	                       enabled: true
+	                    }
+	                }
+            	}
             })
         },
         start : function () {
@@ -5145,12 +5316,15 @@ AutoLib.report =  {
                             weekdays: [gettext("Domingo"), gettext("Lunes"), gettext("Martes"), gettext("Miércoles"), gettext("Jueves"), gettext("Viernes"), gettext("Sábado")]
                         }
                     });
-                    
+                    $.getScript('/media/scripts/lv/jquery.dataTables.min.js',function () {
+                        //console.log('Datatables and CSS Loaded');
+                        AutoLib.loadCSS('/media/css/lv/datatable.css','normal');
                     
                     
                    
-                    // start app
-                    AutoLib.report[cb]();                  
+                        // start app
+                        AutoLib.report[cb]();
+                    });
 
                 });
                 
@@ -5206,22 +5380,24 @@ AutoLib.report =  {
         },
         renderBenchGenerator : function () {
         	var html = '<div id="report_group">';
-        	html += 		'<div id="report_month_comp_table" class="ui-widget ui-widget-content ui-corner-all" style="float:left;width: 300px;">';
+        	html += 		'<div class="ui-widget ui-widget-content ui-corner-all" style="margin-top: 10px;margin-bottom: 10px;margin-left: 10px;float:left;width: 300px;">';
+        	html +=				'<table class="grouptable" id="report_month_comp_table" width="100%"></table>';
         	html += 		'</div>';
-        	html += 		'<div id="report_per_area_chart" class="ui-widget ui-widget-content ui-corner-all" style="float:left;width: 300px;">';
+        	html += 		'<div id="report_per_area_chart" class="ui-widget ui-widget-content ui-corner-all" style="margin-top: 10px;float:left;width: 370px; margin-left: 10px;">';
         	html += 		'</div>';
-        	html +=         '<div class="panel-sidebar ui-widget ui-widget-content ui-corner-all" style="width: 200px;">';
+        	html +=         '<div class="panel-sidebar ui-widget ui-widget-content ui-corner-all" style="margin-top: 25px;width: 200px;">';
             html +=             '<div class="button-slider-menu button-slide-menu-expanded" style="right: 0;"><span class="ui-icon ui-icon-triangle-1-e" style="margin-top: 120px; "></span></div>';
-            html +=             '<label class="info">Periodo de análisis</label>';
+            html +=             '<label style="margin-top:10px;" class="info">Opciones</label>';
+            html +=             '<label style="margin-top:20px;" class="info">Periodo de Análisis</label>';
             html +=				'<div id="year_container" style="width:90px;float:left;">';
             html +=             	'<div class="year_dropdown ligth"></div>';
             html +=                 '<label for="year_combo">Año</label>';
-            html +=                 '<select id="year_combo" width="70px;"></select>';
+            html +=                 '<select id="year_combo" width="85px;"></select>';
             html +=             '</div>';
             html +=             '<div id="month_container" style="width:90px;float:left;">';
             html +=             	'<div class="month_dropdown ligth"></div>';
             html +=                 '<label for="month_combo">Mes</label>';
-            html +=                 '<select id="month_combo" width="70px;"></select>';                    
+            html +=                 '<select id="month_combo" width="85px;"></select>';                    
             html +=             '</div>';
             html +=             '<button type="button" style="position: absolute;bottom: 0;left: 30px;" id="generate_btn">Generar Reporte</button>';
             html += 		'</div>';
@@ -5304,7 +5480,7 @@ AutoLib.report =  {
                         AutoLib.report.Context.nodata = true;
                     }else {
                         AutoLib.report.Context.building_meas_range =  datajson.date_limits;
-                        AutoLib.report.Context.building_devices =  datajson.devices;
+                        //AutoLib.report.Context.building_devices =  datajson.devices;
                         AutoLib.report.Context.nodata = false;
                     }
                 }
@@ -5350,7 +5526,7 @@ AutoLib.report =  {
             $('#month_combo').html(month_str);
             
         	$('#year_combo').selectmenu({
-                menuWidth: 70,
+                menuWidth: 85,
                 maxHeight: 200,
                 style:'dropown',
                 //format: addressFormatting,
@@ -5363,7 +5539,7 @@ AutoLib.report =  {
             $('#year_combo').selectmenu('index',0);
             
             $('#month_combo').selectmenu({
-                menuWidth: 70,
+                menuWidth: 85,
                 maxHeight: 200,
                 style:'dropown',
                 //format: addressFormatting,
@@ -5380,7 +5556,7 @@ AutoLib.report =  {
             $('#generate_btn').click(function () {
                 // block UI
             	if (!AutoLib.report.Context.nodata) {
-	                $('#report-container').block({ 
+	                $('#main-content-interior').block({ 
                         message: '<img src="/media/images/lv/ajax-loader.gif"> Generando Reportes ...', 
                         css: { 
                             border: 'none', 
@@ -5396,95 +5572,105 @@ AutoLib.report =  {
 	                var building_id = 1;
 	                var range_from, range_to;
 	                
-                    date_params.type = 'mensual';
+                    date_params.type = 'anual';
                     date_params.date1.year = parseInt($('#year_combo').selectmenu('value'),10);
                     date_params.date1.month = parseInt($('#month_combo').selectmenu('value').split('-')[1],10);          
                     
-                    var params_json,returned,sensor_id; 
+                    var params_json,returned; 
                     var row = '';
-                    for (var f=0;f<AutoLib.report.Context.building_devices.length;f++) {
-                    	sensor_id = AutoLib.report.Context.building_devices[f];
-                    	params_json = JSON.stringify({sensor_id:sensor_id,date_params:date_params});
-                    	
-                    	AutoLib.report.Context.group_report_data[sensor_id] = {current_period:{},past_period:{}};
-                    	
-                    	returned = {error:false};
-                    	
-                    	$.ajax({
-    	                    url: "/f/",
-    	                    context: document.body,
-    	                    async: false,
-    	                    cache: false,
-    	                    data: {method: 'buildSensorReport',params:params_json},
-    	                    error: function (data) {
-    	                        returned = {'error':true};
-    	                    },
-    	                    success: function (datajson) {
-    	                        if (datajson.hasOwnProperty('error')) {
-    	                            returned =  {'error':true};
-    	                        }else {
-    	                        	AutoLib.report.Context.group_report_data[sensor_id].current_period = datajson.profile;   
-    	                        }
-    	                    }
-    	                });
-                    	
-                    	if (date_params.date1.month === 1) {
-                    		date_params.date1.month = 12;
-                    		date_params.date1.year = date_params.date1.year - 1;
-                    	}
-                    	else {
-                    		date_params.date1.month = date_params.date1.month - 1;
-                    	}
-                    	params_json = JSON.stringify({sensor_id:AutoLib.report.Context.building_devices[f],date_params:date_params});
-                    	$.ajax({
-    	                    url: "/f/",
-    	                    context: document.body,
-    	                    async: false,
-    	                    cache: false,
-    	                    data: {method: 'buildSensorReport',params:params_json},
-    	                    error: function (data) {
-    	                        returned = {'error':true};
-    	                    },
-    	                    success: function (datajson) {
-    	                        if (datajson.hasOwnProperty('error')) {
-    	                            returned =  {'error':true};
-    	                        }else {
-    	                        	AutoLib.report.Context.group_report_data[sensor_id].past_period = datajson.profile;   
-    	                        }
-    	                    }
-    	                });
-                    	
-    	                if (returned.error) {
-    	                    var opt = {
-    	                        title:'Servidor ocupado',
-    	                        text:'Intente mas tarde', 
-    	                        type:'error'
-    	                    };
-    	                    AutoLib.notify(opt);
-    	                    $('#report-container').unblock();
-    	                    return false;
-    	                }
-    	                
-    	                // append it to table
-    	                
-    	                row = '<div class="row_grp_ener_comp">';
-    	                row += 		'<div class="grp_row_table">'+sensor_id+'</div>';
-    	                row += 		'<div class="grp_row_table">Energia mes anterior</div>';
-    	                row += 		'<div class="grp_row_table">Energia mes actual</div>';
-    	                row += 		'<div class="grp_row_table">Mejor o peor</div>';
-    	                row += '</div>';
-    	                
-    	                $('#report_month_comp_table').append($(row));
-                    }
-	                
                     
+                    params_json = JSON.stringify({building_id:building_id,date_params:date_params});
+                    	
+                    returned = {error:false};
+                    	
+                	$.ajax({
+	                    url: "/f/",
+	                    context: document.body,
+	                    async: false,
+	                    cache: false,
+	                    data: {method: 'buildBuildingReport',params:params_json},
+	                    error: function (data) {
+	                        returned = {'error':true};
+	                    },
+	                    success: function (datajson) {
+	                        if (datajson.hasOwnProperty('error')) {
+	                            returned =  {'error':true};
+	                        }else {
+	                        	AutoLib.report.Context.group_report_data = datajson.profiles;   
+	                        }
+	                    }
+	                });
+                    	
+                    	    	                
+	                // append it to table
+                	var m_ant,m_cur,year_ant;
+                	m_cur = date_params.date1.month;
+                	if (m_cur == 1) {
+                		m_ant = 12;
+                		year_ant = date_params.date1.year-1;
+                	}else {
+                		year_ant = date_params.date1.year;
+                		m_ant = m_cur-1;
+                	}
+                	
+                	var columns_info = [{"sTitle": "Edificio" },{"sTitle": AutoLib.report.Context.month_dict[m_ant-1]+' '+year_ant },{"sTitle": AutoLib.report.Context.month_dict[m_cur-1]+' '+date_params.date1.year}];
+                	
+                	// add rows
+                	var data = [];
+	                for (var hy in AutoLib.report.Context.group_report_data) {
+	                	if (AutoLib.report.Context.group_report_data.hasOwnProperty(hy)) {
+	                		fr = AutoLib.report.Context.group_report_data[hy];
+	                		data.push([fr.extras.name,Highcharts.numberFormat(fr.energy[m_ant-1].energy, 1) +' KWh',Highcharts.numberFormat(fr.energy[m_cur-1].energy, 1) +' KWh']);
+	                	}
+	                }
+	                
+                    AutoLib.report.Context.groupmonthreport= $('#report_month_comp_table').dataTable({
+                    	"aaData": data,
+                    	"aoColumns": columns_info,
+                    	"aaSorting": [ [2,'desc']],
+                        "sScrollY": 300,
+                        "bJQueryUI": true,
+                        "bStateSave": true,
+                        "bPaginate": false,
+                        "oLanguage": {
+                            "sLengthMenu": "Mostrar _MENU_ eventos",
+                            "sZeroRecords": "Nada encontrado",
+                            "sInfo": "Desde el _START_ hasta _END_ de _TOTAL_ edificios",
+                            "sInfoEmpty": "Mostrando 0 de 0",
+                            "sInfoFiltered": "<br>(Filtrados de _MAX_ edificios)"
+                        }
+                    });
+                    
+                    // report per area chart
+                    
+                    AutoLib.report.Context.areachartoptions.series = [];
+                    var serie_cur_year = {name:'Año '+'',data:[]};
+                    var serie_ant_year = {name:'Año '+'',data:[]};
+                    var categories = [];
+                    
+                    for (var ho in AutoLib.report.Context.group_report_data) {
+	                	if (AutoLib.report.Context.group_report_data.hasOwnProperty(ho)) {
+	                		fa = AutoLib.report.Context.group_report_data[ho];
+	                		categories.push(fa.extras.name);
+	                		serie_cur_year.data.push(fa.energy[m_cur-1].energy/fa.extras.registers.area);
+	                		serie_ant_year.data.push(fa.energy[m_ant-1].energy/fa.extras.registers.area);
+	                	}
+	                }
+                    AutoLib.report.Context.areachartoptions.xAxis.categories = categories;
+                    AutoLib.report.Context.areachartoptions.series.push(serie_cur_year);
+                    AutoLib.report.Context.areachartoptions.series.push(serie_ant_year);
+                    
+                    
+                    AutoLib.report.Context.areachartoptions.legend.backgroundColor = AutoLib.report.Context.theme_dark.legendBackgroundColor;
+                    var highchartsOptions = Highcharts.setOptions(AutoLib.report.Context.theme_black);
+                    AutoLib.report.Context.area_energy = new Highcharts.Chart(AutoLib.report.Context.areachartoptions);
 	                
 	                // hide menu slider
 	                $('.button-slider-menu').click();
 	                
 	                
 	                // unblock UI 
-	                $('#report-container').unblock();
+	                $('#main-content-interior').unblock();
 	            }
             	else {
             		console.log('no data');
@@ -5890,11 +6076,11 @@ AutoLib.report =  {
 	                        };
 	                        // agregar bandas de trimestres
 	                        AutoLib.report.Context.chartoption.xAxis.plotBands = [];
-	                        for (var p=0;p<2;p++) {
+	                        for (var k=0;k<2;k++) {
 	                        	AutoLib.report.Context.chartoption.xAxis.plotBands.push({
 	                        		color:'#E6E6FA',
-	                        			from:p*6-0.5,
-	                        			to:p*6+3-0.5
+	                        			from:k*6-0.5,
+	                        			to:k*6+3-0.5
 	                        		});	
 	                        }
 	                        // custumize yaxis label
