@@ -1,6 +1,8 @@
 from energyspy.viewer.models import *
 from django.contrib import admin
 
+
+
 admin.site.register(Clients)
 admin.site.register(Typeofdevices)
 
@@ -14,7 +16,19 @@ admin.site.register(Devices, DevicesAdmin)
 admin.site.register(Coordinators)
 admin.site.register(Events)
 admin.site.register(Categories)
-admin.site.register(Measurements)
+
+class MeasAdmin(admin.ModelAdmin):
+    def section(obj):
+        return obj.sensor.subsubsection.subsection.section.name
+    
+    def typeofdevice(obj):
+        return obj.sensor.typeofdevice.name
+     
+    list_display = ('sensor',section,typeofdevice)
+
+admin.site.register(Measurements,MeasAdmin)
+
+
 admin.site.register(Control)
 admin.site.register(Alarms)
 admin.site.register(Boards)

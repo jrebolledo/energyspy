@@ -20,7 +20,163 @@ AutoLib = {
 		deviceTree:{},
 		currentLevel: undefined,
 		serverPoll : {},
-		actions_available : ['chartviewer','lighting','hvac','report']
+		actions_available : ['chartviewer','lighting','hvac','report'],
+		theme_black : {
+  		   colors: ["#DDDF0D", "#7798BF", "#55BF3B", "#DF5353", "#aaeeee", "#ff0066", "#eeaaee", 
+       		      "#55BF3B", "#DF5353", "#7798BF", "#aaeeee"],
+       		   chart: {
+       		      backgroundColor: {
+       		         linearGradient: [0, 0, 0, 400],
+       		         stops: [
+       		            [0, 'rgb(96, 96, 96)'],
+       		            [1, 'rgb(16, 16, 16)']
+       		         ]
+       		      },
+       		      borderWidth: 0,
+       		      borderRadius: 15,
+       		      plotBackgroundColor: null,
+       		      plotShadow: false,
+       		      plotBorderWidth: 0
+       		   },
+       		   title: {
+       		      style: { 
+       		         color: '#FFF',
+       		         font: '16px Lucida Grande, Lucida Sans Unicode, Verdana, Arial, Helvetica, sans-serif'
+       		      }
+       		   },
+       		   subtitle: {
+       		      style: { 
+       		         color: '#DDD',
+       		         font: '12px Lucida Grande, Lucida Sans Unicode, Verdana, Arial, Helvetica, sans-serif'
+       		      }
+       		   },
+       		   xAxis: {
+       		      gridLineWidth: 0,
+       		      lineColor: '#999',
+       		      tickColor: '#999',
+       		      labels: {
+       		         style: {
+       		            color: '#999',
+       		            fontWeight: 'bold'
+       		         }
+       		      },
+       		      title: {
+       		         style: {
+       		            color: '#AAA',
+       		            font: 'bold 12px Lucida Grande, Lucida Sans Unicode, Verdana, Arial, Helvetica, sans-serif'
+       		         }            
+       		      }
+       		   },
+       		   yAxis: {
+       		      alternateGridColor: null,
+       		      minorTickInterval: null,
+       		      gridLineColor: 'rgba(255, 255, 255, .1)',
+       		      lineWidth: 0,
+       		      tickWidth: 0,
+       		      labels: {
+       		         style: {
+       		            color: '#999',
+       		            fontWeight: 'bold'
+       		         }
+       		      },
+       		      title: {
+       		         style: {
+       		            color: '#AAA',
+       		            font: 'bold 12px Lucida Grande, Lucida Sans Unicode, Verdana, Arial, Helvetica, sans-serif'
+       		         }            
+       		      }
+       		   },
+       		   legend: {
+       		      itemStyle: {
+       		         color: '#CCC'
+       		      },
+       		      itemHoverStyle: {
+       		         color: '#FFF'
+       		      },
+       		      itemHiddenStyle: {
+       		         color: '#333'
+       		      }
+       		   },
+       		   labels: {
+       		      style: {
+       		         color: '#CCC'
+       		      }
+       		   },
+       		   tooltip: {
+       		      backgroundColor: {
+       		         linearGradient: [0, 0, 0, 50],
+       		         stops: [
+       		            [0, 'rgba(96, 96, 96, .8)'],
+       		            [1, 'rgba(16, 16, 16, .8)']
+       		         ]
+       		      },
+       		      borderWidth: 0,
+       		      style: {
+       		         color: '#FFF'
+       		      }
+       		   },
+       		   
+       		   
+       		   plotOptions: {
+       		      line: {
+       		         dataLabels: {
+       		            color: '#CCC'
+       		         },
+       		         marker: {
+       		            lineColor: '#333'
+       		         }
+       		      },
+       		      spline: {
+       		         marker: {
+       		            lineColor: '#333'
+       		         }
+       		      },
+       		      scatter: {
+       		         marker: {
+       		            lineColor: '#333'
+       		         }
+       		      }
+       		   },
+       		   
+       		   toolbar: {
+       		      itemStyle: {
+       		         color: '#CCC'
+       		      }
+       		   },
+       		   
+       		   navigation: {
+       		      buttonOptions: {
+       		         backgroundColor: {
+       		            linearGradient: [0, 0, 0, 20],
+       		            stops: [
+       		               [0.4, '#606060'],
+       		               [0.6, '#333333']
+       		            ]
+       		         },
+       		         borderColor: '#000000',
+       		         symbolStroke: '#C0C0C0',
+       		         hoverSymbolStroke: '#FFFFFF'
+       		      }
+       		   },
+       		   
+       		   exporting: {
+       		      buttons: {
+       		         exportButton: {
+       		            symbolFill: '#55BE3B'
+       		         },
+       		         printButton: {
+       		            symbolFill: '#7797BE'
+       		         }
+       		      }
+       		   },   
+       		   
+   		   // special colors for some of the demo examples
+   		   legendBackgroundColor: 'rgba(48, 48, 48, 0.8)',
+   		   legendBackgroundColorSolid: 'rgb(70, 70, 70)',
+   		   dataLabelsColor: '#444',
+   		   textColor: '#E0E0E0',
+   		   maskColor: 'rgba(255,255,255,0.3)'
+         }
 	},
 	getSensorDateLimits : function () {
             
@@ -1141,14 +1297,7 @@ AutoLib.chartviewer =  {
 			    chart: {
 					zoomType: 'x',
 			        renderTo: 'chartcontainer',
-			        width: 710,
-			        backgroundColor: {
-			            "linearGradient": ["0%", "0%", "0%", "100%"],
-			            "stops": [
-			                [0, "rgb(242,242,242)"],
-			                [1, "rgb(242,242,242)"]
-			            ]
-			        },
+			        width: 690,
 			        marginLeft: 0,
 			        marginTop:10,
 			        marginRight: 0,
@@ -1175,24 +1324,28 @@ AutoLib.chartviewer =  {
 			            	fontSize:'9px'
 			            }
 			        },
-			        tickInterval: 6 * 3600 * 1000,
-			        minorTickInterval: 1 * 3600 * 1000
+			        tickInterval: 12 * 3600 * 1000,
+			        minorTickInterval: 12 * 3600 * 1000
 			    },
 			    legend: {
 			        borderWidth: 1,
-			        enabled:false,
+			        enabled:true,
 			        labelFormatter: function () {
 			            return this.name.split(':')[0];
-			        }
+			        },
+				    align: 'center',
+	                borderWidth: 1,
+	                shadow: true,
+	                backgroundColor : AutoLib.Context.theme_black.legendBackgroundColor
 			    },
 			    yAxis: [{ // Voltage yAxis
 			        labels: {
 			            formatter: function () {
 			                if (this.value > 1000) {
-			                    return this.value / 1000 + ' [kV]';
+			                    return Highcharts.numberFormat(this.value / 1000,0) + ' [kV]';
 			                }
 			                else {
-			                    return this.value + ' [V]';
+			                    return Highcharts.numberFormat(this.value,0) + ' [V]';
 			                }
 			            },
 			            style: {
@@ -1201,7 +1354,7 @@ AutoLib.chartviewer =  {
 			        },
 			        title: {
 			            text: '',
-			            margin: 120
+			            margin:10
 			        },
 			        offset: 0,
 			        lineWidth: 1,
@@ -1212,10 +1365,10 @@ AutoLib.chartviewer =  {
 			        labels: {
 			            formatter: function () {
 			                if (this.value > 1000) {
-			                    return this.value / 1000 + ' [kA]';
+			                    return Highcharts.numberFormat(this.value / 1000, 1) + ' [kA]';
 			                }
 			                else {
-			                    return this.value + ' [A]';
+			                    return Highcharts.numberFormat(this.value,1) + ' [A]';
 			                }
 			            },
 			            style: {
@@ -1224,8 +1377,7 @@ AutoLib.chartviewer =  {
 			        },
 			        enabled: true,
 			        title: {
-			            text: '',
-			            margin: 115
+			            text: ''
 			        },
 			        lineWidth: 1,
 			        tickWidth: 1,
@@ -1260,8 +1412,7 @@ AutoLib.chartviewer =  {
 			    },
 			    { // Energy yAxis
 			        title: {
-			            text: '',
-			            margin: 60
+			            text: ''
 			        },
 			        labels: {
 			            formatter: function () {
@@ -1292,8 +1443,7 @@ AutoLib.chartviewer =  {
 			            }
 			        },
 			        title: {
-			            text: '',
-			            margin: 0
+			            text: ''
 			        },
 			        lineWidth: 1,
 			        tickWidth: 1,
@@ -1310,8 +1460,7 @@ AutoLib.chartviewer =  {
 			            }
 			        },
 			        title: {
-			            text: '',
-			            margin: 0
+			            text: ''
 			        },
 			        lineWidth: 1,
 			        tickWidth: 1,
@@ -1329,8 +1478,7 @@ AutoLib.chartviewer =  {
 			            }
 			        },
 			        title: {
-			            text: '',
-			            margin: 0
+			            text: ''
 			        },
 			        lineWidth: 1,
 			        tickWidth: 1,
@@ -1348,8 +1496,7 @@ AutoLib.chartviewer =  {
 			            }
 			        },
 			        title: {
-			            text: '',
-			            margin: 0
+			            text: ''
 			        },
 			        lineWidth: 1,
 			        tickWidth: 1,
@@ -1361,8 +1508,9 @@ AutoLib.chartviewer =  {
 			        formatter: function () {
 	                var unit = '['+this.series.name.split(':')[1] +']';
 	                var scaled;
-			            if (this.y > 1000) {
+			            if (this.y > 1000 || this.y < -1000) {
 			                scaled = this.y / 1000;
+			                unit = '[k'+this.series.name.split(':')[1] +']';
 			                return '<b>' + this.series.name.split(':')[0] + '</b><br/><br/>' + Highcharts.dateFormat('%a %d %b %H:%M', this.x) + '<br/>' + Highcharts.numberFormat(scaled, 1) + unit;
 			            }
 			            else {
@@ -1381,7 +1529,6 @@ AutoLib.chartviewer =  {
 			            animation: true,
 			            showCheckbox: false,
 			            borderWidth: 2,
-			            borderColor: 'black',
 			            marker: {
 			                enabled: false,
 			                states: {
@@ -1396,11 +1543,6 @@ AutoLib.chartviewer =  {
 			    },
 			    credits : {
 			    	enabled : false
-			    },
-			    navigation: {
-			        menuItemStyle: {
-			            borderLeft: '20px solid #E0E0E0'
-			        }
 			    }
 		})
 		},
@@ -1436,7 +1578,7 @@ AutoLib.chartviewer =  {
 					    }
 					});
 					
-					
+					Highcharts.setOptions(AutoLib.Context.theme_black);
                     
 					// start app
 					AutoLib.chartviewer[cb]();					
@@ -1453,13 +1595,14 @@ AutoLib.chartviewer =  {
 		},
 		renderLayout : function () {
 			//chartviewer layout
-			var html = '<div id="breadcrum">Here es the breadcrum</div><div id="chart-title-container"><div id="chart-title-content">Titulo</div></div><div id="chart-buttons" class="ligth"><button class="show-chart-options">Mostrar Opciones de Gráfico</button></div><div id="chartcontainer"></div><div id="menu_actions"></div>';
+			var html = '<div id="breadcrum">Here es the breadcrum</div><div id="chart-title-container"><div id="chart-title-content">Titulo</div></div><div id="chart-buttons" class="ligth"><button class="show-chart-options">Mostrar Opciones de Gráfico</button></div><div id="chartcontainer" style="margin: 10px;"></div><div id="menu_actions"></div>';
 			$('#main-content-interior').html(html);
 			//create chart object and insert it in layout
 		
 			if (AutoLib.chartviewer.Context.chart !== undefined) {
 				AutoLib.chartviewer.Context.chart.destroy();
 			}
+			Highcharts.setOptions(AutoLib.Context.theme_black);
 			AutoLib.chartviewer.Context.chart = new Highcharts.Chart(AutoLib.chartviewer.Context.chartoption);
 		},
 
@@ -2004,8 +2147,8 @@ AutoLib.chartviewer =  {
 				}
 				else {
 				    $('.ui-widget-overlay').wrap('<div class="dark modal"></div>');
-				    $('.dark.modal').append($('.ui-dialog'));
 				}
+				$('.dark.modal').append($('.ui-dialog'));
                 $('.ui-dialog').css('position','absolute'); 
                 $('.ui-dialog').css('left',$(window).width()/2-$('.ui-dialog').width()/2);
                 $('.ui-dialog').css('top',$(window).height()/2-$('.ui-dialog').height()/2);
@@ -2101,7 +2244,7 @@ AutoLib.chartviewer =  {
 		                return Highcharts.dateFormat('%H:%M', this.value) + '<br/>' + Highcharts.dateFormat('%a %d %b', this.value);
 		            };
 					AutoLib.chartviewer.Context.chartoption.xAxis.tickInterval = 6*3600*1000;
-					AutoLib.chartviewer.Context.chartoption.xAxis.minorTickInterval = 1*3600*1000;
+					AutoLib.chartviewer.Context.chartoption.xAxis.minorTickInterval = 6*3600*1000;
 					break;
 				case 'w':
 					var weekday = cd.getDay(); 
@@ -2328,7 +2471,7 @@ AutoLib.chartviewer =  {
 			var serie_constructor, datetimestamp, date_array, time_array, date_obj, signal_tag, data_signals; 
 			var waveform_data =[];
 			var signals = AutoLib.chartviewer.Context.datafrom[AutoLib.chartviewer.Context.sensor_active].signals;
-			var margin_left = 5;
+			var margin_left = 0;
 			var margin_right = 40;
 			// clean yaxis mask
 			var yaxisMask = {'V':{state:false,index:0},'A':{state:false,index:1},'Hz':{state:false, index:4},'W':{state:false,index:2},'VA':{state:false,index:2},'VAR':{state:false,index:2},'pu':{state:false,index:5},'C°':{state:false,index:6},'Lum/m2':{state:false,index:7}};
@@ -2387,19 +2530,19 @@ AutoLib.chartviewer =  {
 						AutoLib.chartviewer.Context.chartoption.yAxis[yaxisMask[o].index].labels.style.display = null;
 						//increase left margin
 						if ((o === 'V')|(o === 'A')|(o === 'Hz')){
-							margin_left = margin_left + 40;
+							margin_left = margin_left + 45;
 						}
 						//increase right margin
-						if (margin_right === 80) { // saturate it margin
+						if (margin_right === 90) { // saturate it margin
 							//console.log('limiting right margin');
 						} 
 						else {
 							if (o === 'pu'){
-								margin_right = margin_right + 40;
+								margin_right = margin_right + 45;
 							}
 							else {
 								if ((o === 'W')|(o === 'VA')|(o === 'VAR')) {
-									margin_right = margin_right + 40;
+									//margin_right = margin_right + 45;
 									showpoweraxis = true;
 								}
 							}
@@ -2516,7 +2659,7 @@ AutoLib.chartviewer =  {
 			$('#left-menu ul a').die();
 			$('.close-icon').die();
 			$('.show-chart-options').die();
-			
+			$('.select-sensor-signal','#chartoptions-panel').die();
 
 			$('button').button('destroy');
 			$("#select-sensor-signal").dialog('destroy');
@@ -5032,175 +5175,12 @@ AutoLib.report =  {
             chart_power:undefined,
             chart_ratios:undefined,
             chart_area_group : undefined,
-            theme_black : {
-     		   colors: ["#DDDF0D", "#7798BF", "#55BF3B", "#DF5353", "#aaeeee", "#ff0066", "#eeaaee", 
-          		      "#55BF3B", "#DF5353", "#7798BF", "#aaeeee"],
-          		   chart: {
-          		      backgroundColor: {
-          		         linearGradient: [0, 0, 0, 400],
-          		         stops: [
-          		            [0, 'rgb(96, 96, 96)'],
-          		            [1, 'rgb(16, 16, 16)']
-          		         ]
-          		      },
-          		      borderWidth: 0,
-          		      borderRadius: 15,
-          		      plotBackgroundColor: null,
-          		      plotShadow: false,
-          		      plotBorderWidth: 0
-          		   },
-          		   title: {
-          		      style: { 
-          		         color: '#FFF',
-          		         font: '16px Lucida Grande, Lucida Sans Unicode, Verdana, Arial, Helvetica, sans-serif'
-          		      }
-          		   },
-          		   subtitle: {
-          		      style: { 
-          		         color: '#DDD',
-          		         font: '12px Lucida Grande, Lucida Sans Unicode, Verdana, Arial, Helvetica, sans-serif'
-          		      }
-          		   },
-          		   xAxis: {
-          		      gridLineWidth: 0,
-          		      lineColor: '#999',
-          		      tickColor: '#999',
-          		      labels: {
-          		         style: {
-          		            color: '#999',
-          		            fontWeight: 'bold'
-          		         }
-          		      },
-          		      title: {
-          		         style: {
-          		            color: '#AAA',
-          		            font: 'bold 12px Lucida Grande, Lucida Sans Unicode, Verdana, Arial, Helvetica, sans-serif'
-          		         }            
-          		      }
-          		   },
-          		   yAxis: {
-          		      alternateGridColor: null,
-          		      minorTickInterval: null,
-          		      gridLineColor: 'rgba(255, 255, 255, .1)',
-          		      lineWidth: 0,
-          		      tickWidth: 0,
-          		      labels: {
-          		         style: {
-          		            color: '#999',
-          		            fontWeight: 'bold'
-          		         }
-          		      },
-          		      title: {
-          		         style: {
-          		            color: '#AAA',
-          		            font: 'bold 12px Lucida Grande, Lucida Sans Unicode, Verdana, Arial, Helvetica, sans-serif'
-          		         }            
-          		      }
-          		   },
-          		   legend: {
-          		      itemStyle: {
-          		         color: '#CCC'
-          		      },
-          		      itemHoverStyle: {
-          		         color: '#FFF'
-          		      },
-          		      itemHiddenStyle: {
-          		         color: '#333'
-          		      }
-          		   },
-          		   labels: {
-          		      style: {
-          		         color: '#CCC'
-          		      }
-          		   },
-          		   tooltip: {
-          		      backgroundColor: {
-          		         linearGradient: [0, 0, 0, 50],
-          		         stops: [
-          		            [0, 'rgba(96, 96, 96, .8)'],
-          		            [1, 'rgba(16, 16, 16, .8)']
-          		         ]
-          		      },
-          		      borderWidth: 0,
-          		      style: {
-          		         color: '#FFF'
-          		      }
-          		   },
-          		   
-          		   
-          		   plotOptions: {
-          		      line: {
-          		         dataLabels: {
-          		            color: '#CCC'
-          		         },
-          		         marker: {
-          		            lineColor: '#333'
-          		         }
-          		      },
-          		      spline: {
-          		         marker: {
-          		            lineColor: '#333'
-          		         }
-          		      },
-          		      scatter: {
-          		         marker: {
-          		            lineColor: '#333'
-          		         }
-          		      }
-          		   },
-          		   
-          		   toolbar: {
-          		      itemStyle: {
-          		         color: '#CCC'
-          		      }
-          		   },
-          		   
-          		   navigation: {
-          		      buttonOptions: {
-          		         backgroundColor: {
-          		            linearGradient: [0, 0, 0, 20],
-          		            stops: [
-          		               [0.4, '#606060'],
-          		               [0.6, '#333333']
-          		            ]
-          		         },
-          		         borderColor: '#000000',
-          		         symbolStroke: '#C0C0C0',
-          		         hoverSymbolStroke: '#FFFFFF'
-          		      }
-          		   },
-          		   
-          		   exporting: {
-          		      buttons: {
-          		         exportButton: {
-          		            symbolFill: '#55BE3B'
-          		         },
-          		         printButton: {
-          		            symbolFill: '#7797BE'
-          		         }
-          		      }
-          		   },   
-          		   
-      		   // special colors for some of the demo examples
-      		   legendBackgroundColor: 'rgba(48, 48, 48, 0.8)',
-      		   legendBackgroundColorSolid: 'rgb(70, 70, 70)',
-      		   dataLabelsColor: '#444',
-      		   textColor: '#E0E0E0',
-      		   maskColor: 'rgba(255,255,255,0.3)'
-            },
+            chart_energy_group : undefined,
             chartoption : ({
                 chart: {
                     renderTo: '',
-                    width: 700,
+                    width: 670,
                     marginTop: 90
-                    /*
-                    backgroundColor: {
-                        "linearGradient": ["0%", "0%", "0%", "100%"],
-                        "stops": [
-                            [0, "rgb(242,242,242)"],
-                            [1, "rgb(242,242,242)"]
-                        ]
-                    }*/
                 },
                 title: {
                     text: '',
@@ -5221,10 +5201,13 @@ AutoLib.report =  {
                     align: 'center',
                     verticalAlign: 'top',
                     x: 0,
-                    y: 40
+                    y: 40,
+                    floating: true,
+                    borderWidth: 1,
+                    shadow: true,
+                    backgroundColor : AutoLib.Context.theme_black.legendBackgroundColor
                 },
                 yAxis: {
-                    //min: 0,
                     plotLines : []
                 },
                 tooltip: {},
@@ -5235,13 +5218,12 @@ AutoLib.report =  {
             areachartoptions : ({
                 chart: {
                     renderTo: 'report_per_area_chart',
-                    width: 350,
+                    width: 325,
                     defaultSeriesType : 'bar',
                     marginTop: 60
-
                 },
                 title: {
-                    text: 'Factor de desempeño energético por metro cuadrado',
+                    text: '',
                     style: {
                         font: 'normal 12px Verdana, sans-serif'
                     }
@@ -5254,27 +5236,21 @@ AutoLib.report =  {
                 },
                 legend : {
                 	align: 'center',
-                	layout: 'vertical',
                     verticalAlign: 'top',
                     x: 0,
-                    y: 40,
+                    y: 22,
                     floating: true,
                     borderWidth: 1,
-                    shadow: true
+                    shadow: true,
+                    backgroundColor : AutoLib.Context.theme_black.legendBackgroundColor
                 },
                 yAxis: {
                 	min: 0,
                     title: {
-                       text: 'Energía por metro cuadrado (kwh/m2)',
                        align: 'high'
                     }
                 },
-                tooltip: {
-                	formatter: function() {
-                    return ''+
-                        this.series.name +': '+ this.y +' (kwh/m2)';
-                 	}
-                },
+                tooltip: {},
                 series :[],
                 credits : {
                     enabled : false
@@ -5282,7 +5258,13 @@ AutoLib.report =  {
                 plotOptions : {
 	                bar: {
 	                    dataLabels: {
-	                       enabled: true
+	                       enabled: true,
+	                       formatter: function() {
+	                           return Highcharts.numberFormat(this.y, 1);
+	                       },
+	                       style: {
+	                           fontWeight:'bold'
+	                       }
 	                    }
 	                }
             	}
@@ -5316,6 +5298,7 @@ AutoLib.report =  {
                             weekdays: [gettext("Domingo"), gettext("Lunes"), gettext("Martes"), gettext("Miércoles"), gettext("Jueves"), gettext("Viernes"), gettext("Sábado")]
                         }
                     });
+                    Highcharts.setOptions(AutoLib.Context.theme_black);
                     $.getScript('/media/scripts/lv/jquery.dataTables.min.js',function () {
                         //console.log('Datatables and CSS Loaded');
                         AutoLib.loadCSS('/media/css/lv/datatable.css','normal');
@@ -5380,10 +5363,10 @@ AutoLib.report =  {
         },
         renderBenchGenerator : function () {
         	var html = '<div id="report_group">';
-        	html += 		'<div class="ui-widget ui-widget-content ui-corner-all" style="margin-top: 10px;margin-bottom: 10px;margin-left: 10px;float:left;width: 300px;">';
-        	html +=				'<table class="grouptable" id="report_month_comp_table" width="100%"></table>';
+        	html += 		'<div id="report_per_area_chart" style="margin:10px;float:left;width: 330px;">';
         	html += 		'</div>';
-        	html += 		'<div id="report_per_area_chart" class="ui-widget ui-widget-content ui-corner-all" style="margin-top: 10px;float:left;width: 370px; margin-left: 10px;">';
+        	html += 		'<div id="report_energy_monthly_chart" style="margin: 10px;float:left;width: 330px;">';
+        	//html +=				'<table class="grouptable" id="report_month_comp_table" width="100%"></table>';
         	html += 		'</div>';
         	html +=         '<div class="panel-sidebar ui-widget ui-widget-content ui-corner-all" style="margin-top: 25px;width: 200px;">';
             html +=             '<div class="button-slider-menu button-slide-menu-expanded" style="right: 0;"><span class="ui-icon ui-icon-triangle-1-e" style="margin-top: 120px; "></span></div>';
@@ -5613,39 +5596,19 @@ AutoLib.report =  {
                 		m_ant = m_cur-1;
                 	}
                 	
-                	var columns_info = [{"sTitle": "Edificio" },{"sTitle": AutoLib.report.Context.month_dict[m_ant-1]+' '+year_ant },{"sTitle": AutoLib.report.Context.month_dict[m_cur-1]+' '+date_params.date1.year}];
                 	
-                	// add rows
-                	var data = [];
-	                for (var hy in AutoLib.report.Context.group_report_data) {
-	                	if (AutoLib.report.Context.group_report_data.hasOwnProperty(hy)) {
-	                		fr = AutoLib.report.Context.group_report_data[hy];
-	                		data.push([fr.extras.name,Highcharts.numberFormat(fr.energy[m_ant-1].energy, 1) +' KWh',Highcharts.numberFormat(fr.energy[m_cur-1].energy, 1) +' KWh']);
-	                	}
-	                }
-	                
-                    AutoLib.report.Context.groupmonthreport= $('#report_month_comp_table').dataTable({
-                    	"aaData": data,
-                    	"aoColumns": columns_info,
-                    	"aaSorting": [ [2,'desc']],
-                        "sScrollY": 300,
-                        "bJQueryUI": true,
-                        "bStateSave": true,
-                        "bPaginate": false,
-                        "oLanguage": {
-                            "sLengthMenu": "Mostrar _MENU_ eventos",
-                            "sZeroRecords": "Nada encontrado",
-                            "sInfo": "Desde el _START_ hasta _END_ de _TOTAL_ edificios",
-                            "sInfoEmpty": "Mostrando 0 de 0",
-                            "sInfoFiltered": "<br>(Filtrados de _MAX_ edificios)"
-                        }
-                    });
-                    
                     // report per area chart
                     
                     AutoLib.report.Context.areachartoptions.series = [];
-                    var serie_cur_year = {name:'Año '+'',data:[]};
-                    var serie_ant_year = {name:'Año '+'',data:[]};
+                    AutoLib.report.Context.areachartoptions.title.text = 'Factor de Desempeño kwh/m2';
+                    AutoLib.report.Context.areachartoptions.yAxis.title.text= 'kwh/m2';
+                    AutoLib.report.Context.areachartoptions.tooltip.formatter = function() {
+                        return ''+
+                            this.series.name +': '+ Highcharts.numberFormat(this.y, 1) +' (kwh/m2)';
+                    };
+                    AutoLib.report.Context.areachartoptions.chart.renderTo = 'report_per_area_chart';
+                    var serie_cur_year = {name:AutoLib.report.Context.month_dict[m_cur-1],data:[]};
+                    var serie_ant_year = {name:AutoLib.report.Context.month_dict[m_ant-1],data:[]};
                     var categories = [];
                     
                     for (var ho in AutoLib.report.Context.group_report_data) {
@@ -5661,10 +5624,35 @@ AutoLib.report =  {
                     AutoLib.report.Context.areachartoptions.series.push(serie_ant_year);
                     
                     
-                    AutoLib.report.Context.areachartoptions.legend.backgroundColor = AutoLib.report.Context.theme_dark.legendBackgroundColor;
-                    var highchartsOptions = Highcharts.setOptions(AutoLib.report.Context.theme_black);
+                    Highcharts.setOptions(AutoLib.Context.theme_black);
                     AutoLib.report.Context.area_energy = new Highcharts.Chart(AutoLib.report.Context.areachartoptions);
 	                
+                    // energy chart monthly summary
+                    
+                    AutoLib.report.Context.areachartoptions.series = [];
+                    AutoLib.report.Context.areachartoptions.title.text = 'Energy Mensual';
+                    AutoLib.report.Context.areachartoptions.yAxis.title.text = 'kWh';
+                    AutoLib.report.Context.areachartoptions.tooltip.formatter = function() {
+                        return ''+ this.series.name +': '+ Highcharts.numberFormat(this.y, 1) +' (kwh)';
+                    };
+                    AutoLib.report.Context.areachartoptions.chart.renderTo = 'report_energy_monthly_chart';
+                    serie_cur_year = {name:AutoLib.report.Context.month_dict[m_cur-1],data:[]};
+                    serie_ant_year = {name:AutoLib.report.Context.month_dict[m_ant-1],data:[]};
+                    
+                    
+                    for (var ha in AutoLib.report.Context.group_report_data) {
+	                	if (AutoLib.report.Context.group_report_data.hasOwnProperty(ha)) {
+	                		fa = AutoLib.report.Context.group_report_data[ha];
+	                		serie_cur_year.data.push(fa.energy[m_cur-1].energy);
+	                		serie_ant_year.data.push(fa.energy[m_ant-1].energy);
+	                	}
+	                }
+                    AutoLib.report.Context.areachartoptions.series.push(serie_cur_year);
+                    AutoLib.report.Context.areachartoptions.series.push(serie_ant_year);
+                    
+                    Highcharts.setOptions(AutoLib.Context.theme_black);
+                    AutoLib.report.Context.chart_energy_group = new Highcharts.Chart(AutoLib.report.Context.areachartoptions);
+                    
 	                // hide menu slider
 	                $('.button-slider-menu').click();
 	                
@@ -6012,7 +6000,7 @@ AutoLib.report =  {
 	                    	color = 'red';
 	                    }
 	                    
-	                    waveform_data.push({y:data_point.energy,color:color});
+	                    waveform_data.push({y:data_point.energy});
 	                }
 	                AutoLib.report.Context.chartoption.xAxis.categories = categories_date;
 	                
@@ -6035,16 +6023,23 @@ AutoLib.report =  {
 	                        // custumize yaxis label
 	                        AutoLib.report.Context.chartoption.yAxis.title = {text: 'Energía (KWh)'};
 	                        AutoLib.report.Context.chartoption.xAxis.title = {text: 'Dia del mes'};
-	                        AutoLib.report.Context.chartoption.xAxis.labels.x = 2;
-	                        AutoLib.report.Context.chartoption.xAxis.labels.y = 15;
+	                        AutoLib.report.Context.chartoption.xAxis.labels = {
+	                            rotation: -45,
+	                            style: {
+	                                font: 'normal 10px Verdana, sans-serif'
+	                            },
+	                    		x:2,
+	                    		y:15
+	                        };
 	                        
 	                        // add summary plotband
 	                        
-	                        AutoLib.report.Context.chartoption.xAxis.plotBands = [{
-	                            color: '#FCFFC5',
+	                        AutoLib.report.Context.chartoption.xAxis = {plotBands:[]};
+	                        /*AutoLib.report.Context.chartoption.xAxis.plotBands = [{
 	                            from: AutoLib.report.Context.report_data[sensor_id].profile.extras.energy.plotband.from,
 	                            to: AutoLib.report.Context.report_data[sensor_id].profile.extras.energy.plotband.to
-	                        }];
+	                        }];*/
+	                        
 	                        
 	                        AutoLib.report.Context.chartoption.subtitle = {
 	                        	text: 'Energía demandada mensual: '+Highcharts.numberFormat(AutoLib.report.Context.report_data[sensor_id].profile.extras.energy.accum,1)+' kWh',
@@ -6055,7 +6050,7 @@ AutoLib.report =  {
 	                        // add weekend plotbands
 	                        for (var p=0;p<AutoLib.report.Context.report_data[sensor_id].profile.extras.energy.plotband.weekend.length;p++) {
 	                        	AutoLib.report.Context.chartoption.xAxis.plotBands.push({
-	                        		color:'#E6E6FA',
+	                        			color: 'rgba(68, 170, 213, 0.1)',
 	                        			from:AutoLib.report.Context.report_data[sensor_id].profile.extras.energy.plotband.weekend[p].from,
 	                        			to:AutoLib.report.Context.report_data[sensor_id].profile.extras.energy.plotband.weekend[p].to
 	                        		});	
@@ -6078,7 +6073,6 @@ AutoLib.report =  {
 	                        AutoLib.report.Context.chartoption.xAxis.plotBands = [];
 	                        for (var k=0;k<2;k++) {
 	                        	AutoLib.report.Context.chartoption.xAxis.plotBands.push({
-	                        		color:'#E6E6FA',
 	                        			from:k*6-0.5,
 	                        			to:k*6+3-0.5
 	                        		});	
@@ -6086,12 +6080,21 @@ AutoLib.report =  {
 	                        // custumize yaxis label
 	                        AutoLib.report.Context.chartoption.yAxis.title = {text: 'Energía (KWh)'};
 	                        AutoLib.report.Context.chartoption.xAxis.title = {text: 'Mes'};
-	                        AutoLib.report.Context.chartoption.xAxis.labels.y = 30;
+	                        
+	                        AutoLib.report.Context.chartoption.xAxis.labels = {
+	                            rotation: -45,
+	                            style: {
+	                                font: 'normal 10px Verdana, sans-serif'
+	                            },
+	                    		x:2,
+	                    		y:30
+		                    };
 	                        
 	                        break;
 	                    default:
 	                        break;
 	                }
+	                AutoLib.report.Context.chartoption.legend.backgroundColor = AutoLib.Context.theme_black.legendBackgroundColor;
 	                // render chart
 	                
 	                AutoLib.report.Context.chartoption.series.push(serie_constructor);
@@ -6142,10 +6145,12 @@ AutoLib.report =  {
 	                        AutoLib.report.Context.chartoption.title.text = 'Perfil Potencia Mensual <b>'+AutoLib.report.Context.month_dict[date_params.date1.month-1]+' de '+date_params.date1.year +'</b>';
 	                            
 	                        // cutomize columns
+	                        
+	                       
 	                        AutoLib.report.Context.chartoption.plotOptions= {
 	                            column: {
 	                                pointPadding: 0,
-	                                borderWidth: 0
+	                                borderWidth: 1
 	                            }
 	                        };
 	                        
@@ -6158,7 +6163,9 @@ AutoLib.report =  {
 	                               text: 'Máxima Potencia Mensual en Punta: : '+Highcharts.numberFormat(AutoLib.report.Context.report_data[sensor_id].profile.extras.power.PP_max/1000.0, 2)+' KW',
 	                               style: {
 	                        			fontWeight: 'bold',
-	                        			fontSize:'10px'
+	                        			fontSize:'10px',
+	                        			color: AutoLib.Context.theme_black.textColor
+
 	                               }
 	                            }
 	                         }, { // PP_max
@@ -6168,9 +6175,10 @@ AutoLib.report =  {
 	                            color: '#AA4643',
 	                            label: {
 	                        	 	text: 'Máxima Potencia Mensual Fuera de Punta: '+Highcharts.numberFormat(AutoLib.report.Context.report_data[sensor_id].profile.extras.power.PPP_max/1000.0,2)+' KW',
-	                               style: {
+	                        	 	style: {
 	                        	 		fontWeight: 'bold',
-	                        	 		fontSize:'10px'
+	                        	 		fontSize:'10px',
+	                        	 		color: AutoLib.Context.theme_black.textColor
 	                               }
 	                            }
 	                         }];
@@ -6203,7 +6211,8 @@ AutoLib.report =  {
                                text: 'Máxima Potencia Anual en Punta: : '+Highcharts.numberFormat(AutoLib.report.Context.report_data[sensor_id].profile.extras.power.PP_max/1000.0, 2)+' KW',
                                style: {
                         			fontWeight: 'bold',
-                        			fontSize:'10px'
+                        			fontSize:'10px',
+                        			color: AutoLib.Context.theme_black.textColor
                                }
                             }
                          }, { // PP_max
@@ -6215,7 +6224,8 @@ AutoLib.report =  {
                         	 	text: 'Máxima Potencia Anual Fuera de Punta: '+Highcharts.numberFormat(AutoLib.report.Context.report_data[sensor_id].profile.extras.power.PPP_max/1000.0,2)+' KW',
                                style: {
                         	 		fontWeight: 'bold',
-                        	 		fontSize:'10px'
+                        	 		fontSize:'10px',
+                        	 		color: AutoLib.Context.theme_black.textColor
                                }
                             }
                          }];
@@ -6451,9 +6461,12 @@ AutoLib.report =  {
         },
         cleanInsertedHtml : function () {
             $('#left-menu ul a').die();
-
             $('#left-menu').html('');
-            
+            $('#sensor-combo').selectmenu('destroy');
+            $('#year_combo').selectmenu('destroy');
+            $('#month_combo').selectmenu('destroy');
+            $('#report-main-tabs').tabs('destroy');
+            $('div.sensorcombo,div.year_dropdown,div.month_dropdown').remove();
             AutoLib.report.cleanVars();
             // clean all html, used to change between context
             $('#main-content-interior').html('');
