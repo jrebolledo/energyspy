@@ -1814,7 +1814,7 @@ AutoLib.chartviewer =  {
 				
 				
 				//update chartoption signal table with default signals
-				AutoLib.chartviewer.updateSensorSignalSelectedwithDefault({path:$(this).attr('path'),default_sensor:$(this).attr('default_sensor'),default_signals:$(this).attr('default_signals')});
+				AutoLib.chartviewer.updateSensorSignalSelectedwithDefault({path:$(this).attr('path'),default_sensor:$(this).attr('default_sensor'),default_signals:'6-7-8'});
 				
 				// update breadcrum
 				AutoLib.updateBreadcrum();
@@ -2359,7 +2359,7 @@ AutoLib.chartviewer =  {
 								var c;
 								if ((AutoLib.chartviewer.Context.datestart === undefined)||(AutoLib.chartviewer.Context.datestart === false)) {
 									var io = new Date();
-									var month = io.getMonth() + 1;
+									var month = io.getMonth()+1;
 									c = [''+io.getFullYear(),''+month,''+io.getDate()];
 									
 									
@@ -2371,9 +2371,9 @@ AutoLib.chartviewer =  {
 								var l = datajson[b].last_date.split('-');
 								var f = datajson[b].first_date.split('-');
 								
-								var cd = Date.UTC(c[0],c[1],c[2],0,0,0,0);
-								var fd = Date.UTC(f[0],f[1],f[2],0,0,0,0);
-								var ld = Date.UTC(l[0],l[1],l[2],0,0,0,0);
+								var cd = Date.UTC(c[0],c[1]-1,c[2],0,0,0,0);
+								var fd = Date.UTC(f[0],f[1]-1,f[2],0,0,0,0);
+								var ld = Date.UTC(l[0],l[1]-1,l[2],0,0,0,0);
 								
 								if (cd > ld) {
 									$("#Date").datepicker("setDate",ld);
@@ -2471,7 +2471,7 @@ AutoLib.chartviewer =  {
 			var serie_constructor, datetimestamp, date_array, time_array, date_obj, signal_tag, data_signals; 
 			var waveform_data =[];
 			var signals = AutoLib.chartviewer.Context.datafrom[AutoLib.chartviewer.Context.sensor_active].signals;
-			var margin_left = 0;
+			var margin_left = 20;
 			var margin_right = 40;
 			// clean yaxis mask
 			var yaxisMask = {'V':{state:false,index:0},'A':{state:false,index:1},'Hz':{state:false, index:4},'W':{state:false,index:2},'VA':{state:false,index:2},'VAR':{state:false,index:2},'pu':{state:false,index:5},'C°':{state:false,index:6},'Lum/m2':{state:false,index:7}};
@@ -2487,7 +2487,7 @@ AutoLib.chartviewer =  {
 					AutoLib.chartviewer.Context.chart.showLoading();
 				}
 				else {
-					AutoLib.chartviewer.Context.chart.hideLoading();
+					//AutoLib.chartviewer.Context.chart.hideLoading();
 					for (var g=0;g<data_signals.length;g++) {
 						datetimestamp = data_signals[g].fields.datetimestamp.split(" ");
 						date_array = datetimestamp[0].split("-");
@@ -2533,7 +2533,7 @@ AutoLib.chartviewer =  {
 							margin_left = margin_left + 45;
 						}
 						//increase right margin
-						if (margin_right === 90) { // saturate it margin
+						if (margin_right === 110) { // saturate it margin
 							//console.log('limiting right margin');
 						} 
 						else {
@@ -4420,7 +4420,7 @@ AutoLib.Control = {
                 var plan_url    =  section_item.meta.floor_plan;
                 
                 AutoLib.Control.Context.paperFloorPlan = new Raphael('plane', 470, 500);
-                AutoLib.Control.Context.paperFloorPlan.image('/'+plan_url, 0, 0, 470, 493);
+                AutoLib.Control.Context.paperFloorPlan.image('/'+plan_url, 0, 0, 470, 500);
                 //render each zone which belong to the 'typeofcontrol' specified (lighting or hvac)
                 for (var ss in section_item) {
                     if (section_item.hasOwnProperty(ss)) {
@@ -4582,6 +4582,9 @@ AutoLib.Control = {
                 else {
                     leyenda = '<span class="legend-color-cyan"></span><span class="legend-title">Aire Encendido</span><span class="legend-color-red"></span><span class="legend-title">Aire Apagado</span><span class="legend-color-hvac-selected"></span><span class="legend-title">Circuito Seleccionado</span>';
                 }
+                
+                leyenda += '<span style="float:left;"><img style="float:left;width:15px;" src="/media/images/lv/l.png"><span class="legend-title">Sensor de iluminación</span></span>';
+                leyenda += '<span style="float:left;"><img style="float:left;width:15px;" src="/media/images/lv/t.png"><span class="legend-title">Sensor de temperatura</span></span>';
                 
                 //$('#rules-info-selected').after($('<label class="info">Leyenda</label><span id="legend">'+leyenda+'</span>'));
                     $('#circuit-state-selected').after($('<label class="info">Leyenda</label><span id="legend">'+leyenda+'</span>'));
@@ -5146,6 +5149,7 @@ AutoLib.Control = {
         cleanVars : function () {
         	  if (typeof AutoLib.Control.Context.eventtable.fnDestroy === 'function') {
                 AutoLib.Control.Context.eventtable.fnDestroy();
+                AutoLib.Control.Context.eventtable = {};
         	  }
         	  AutoLib.Control.Context.paperFloorPlan = {};
               AutoLib.Control.Context.clicked_tag = {pathToGetHere:[]};
@@ -5313,6 +5317,7 @@ AutoLib.report =  {
                 
             }
             else {
+            	Highcharts.setOptions(AutoLib.Context.theme_black);
                 AutoLib.report[cb]();
             }
         },
@@ -5669,6 +5674,8 @@ AutoLib.report =  {
             	}
             });
             
+            $('#month_combo').selectmenu('index',$('#month_combo option').length-1);
+            $('#year_combo').selectmenu('index',$('#year_combo option').length-1);
             // generate initial monthly chart
             $('#generate_btn').click();
             
@@ -6035,6 +6042,7 @@ AutoLib.report =  {
 	                        // add summary plotband
 	                        
 	                        AutoLib.report.Context.chartoption.xAxis = {plotBands:[]};
+	                        AutoLib.report.Context.chartoption.yAxis.plotLines = [];
 	                        /*AutoLib.report.Context.chartoption.xAxis.plotBands = [{
 	                            from: AutoLib.report.Context.report_data[sensor_id].profile.extras.energy.plotband.from,
 	                            to: AutoLib.report.Context.report_data[sensor_id].profile.extras.energy.plotband.to
@@ -6174,6 +6182,7 @@ AutoLib.report =  {
 	                            value: AutoLib.report.Context.report_data[sensor_id].profile.extras.power.PPP_max,
 	                            color: '#AA4643',
 	                            label: {
+	                        	 	align: 'right',
 	                        	 	text: 'Máxima Potencia Mensual Fuera de Punta: '+Highcharts.numberFormat(AutoLib.report.Context.report_data[sensor_id].profile.extras.power.PPP_max/1000.0,2)+' KW',
 	                        	 	style: {
 	                        	 		fontWeight: 'bold',
@@ -6221,6 +6230,7 @@ AutoLib.report =  {
                             value: AutoLib.report.Context.report_data[sensor_id].profile.extras.power.PPP_max,
                             color: '#AA4643',
                             label: {
+                        	 	align: 'right',
                         	 	text: 'Máxima Potencia Anual Fuera de Punta: '+Highcharts.numberFormat(AutoLib.report.Context.report_data[sensor_id].profile.extras.power.PPP_max/1000.0,2)+' KW',
                                style: {
                         	 		fontWeight: 'bold',
@@ -6256,6 +6266,11 @@ AutoLib.report =  {
             });
             
             // generate initial monthly chart
+            
+            $('#month_combo').selectmenu('index',$('#month_combo option').length-1);
+            $('#year_combo').selectmenu('index',$('#year_combo option').length-1);
+            
+            
             $('#generate_btn').click();
             
         },

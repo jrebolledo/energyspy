@@ -618,18 +618,20 @@ def f(request):
                                               't4':date.replace(hour=23,minute=59,second=59)} 
                                     
                                     
-                                    PPP =   Measurements.objects.filter(Q(sensor=sensor),Q(datetimestamp__range = (period['t1'],period['t2'])) | Q(datetimestamp__range = (period['t3'],period['t4']))).extra(select={'TotalKW' : 'PWRP_A+PWRP_B+PWRP_C'}).order_by('TotalKW').reverse()
+                                    PPP =   Measurements.objects.filter(Q(sensor=sensor),Q(datetimestamp__range = (period['t1'],period['t2'])) | Q(datetimestamp__range = (period['t3'],period['t4']))).extra(select={'TotalW' : 'PWRP_A+PWRP_B+PWRP_C'}).order_by('TotalW').reverse()
                                     #valor maximo parcialmente presente en punta diario (consumo)
-                                    PP  =   Measurements.objects.filter(Q(sensor=sensor),Q(datetimestamp__range = (period['t2'],period['t3']))).extra(select={'TotalKW' : 'PWRP_A+PWRP_B+PWRP_C'}).order_by('TotalKW').reverse()
+                                    PP  =   Measurements.objects.filter(Q(sensor=sensor),Q(datetimestamp__range = (period['t2'],period['t3']))).extra(select={'TotalW' : 'PWRP_A+PWRP_B+PWRP_C'}).order_by('TotalW').reverse()
                                     
                                     #exit if there are no data available
                                     if len(PP) > 0:
-                                        day_power_analisis['PP'] = int(PP[0].TotalKW)
+                                        day_power_analisis['PP'] = int(PP[0].TotalW)
+                                        print 'PP: %s'%PP
                                         if day_power_analisis['PP'] > profile['extras']['power']['PP_max']: 
                                             profile['extras']['power']['PP_max'] = day_power_analisis['PP']
                                         
                                     if len(PPP) > 0:
-                                        day_power_analisis['PPP'] = int(PPP[0].TotalKW)
+                                        print 'PPP: %s'%PPP
+                                        day_power_analisis['PPP'] = int(PPP[0].TotalW)
                                         if day_power_analisis['PPP'] > profile['extras']['power']['PPP_max']: 
                                             profile['extras']['power']['PPP_max'] = day_power_analisis['PPP']    
                                     
@@ -885,18 +887,22 @@ def f(request):
                                           't4':date.replace(hour=23,minute=59,second=59)} 
                                 
                                 
-                                PPP =   Measurements.objects.filter(Q(sensor=sensor_id),Q(datetimestamp__range = (period['t1'],period['t2'])) | Q(datetimestamp__range = (period['t3'],period['t4']))).extra(select={'TotalKW' : 'PWRP_A+PWRP_B+PWRP_C'}).order_by('TotalKW').reverse()
+                                PPP =   Measurements.objects.filter(Q(sensor=sensor_id),Q(datetimestamp__range = (period['t1'],period['t2'])) | Q(datetimestamp__range = (period['t3'],period['t4']))).extra(select={'TotalW' : 'PWRP_A+PWRP_B+PWRP_C'}).order_by('TotalW').reverse()
                                 #valor maximo parcialmente presente en punta diario (consumo)
-                                PP  =   Measurements.objects.filter(Q(sensor=sensor_id),Q(datetimestamp__range = (period['t2'],period['t3']))).extra(select={'TotalKW' : 'PWRP_A+PWRP_B+PWRP_C'}).order_by('TotalKW').reverse()
+                                PP  =   Measurements.objects.filter(Q(sensor=sensor_id),Q(datetimestamp__range = (period['t2'],period['t3']))).extra(select={'TotalW' : 'PWRP_A+PWRP_B+PWRP_C'}).order_by('TotalW').reverse()
                                 
                                 #exit if there are no data available
                                 if len(PP) > 0:
-                                    day_power_analisis['PP'] = int(PP[0].TotalKW)
+                                    print 'PP[0] %s'%PP[0].TotalW
+                                    print 'PP[1] %s'%PP[1].TotalW
+                                    day_power_analisis['PP'] = int(PP[0].TotalW)
                                     if day_power_analisis['PP'] > profile['extras']['power']['PP_max']: 
                                         profile['extras']['power']['PP_max'] = day_power_analisis['PP']
                                     
                                 if len(PPP) > 0:
-                                    day_power_analisis['PPP'] = int(PPP[0].TotalKW)
+                                    print 'PPP[0] %s'%PPP[0].TotalW
+                                    print 'PPP[1] %s'%PPP[1].TotalW
+                                    day_power_analisis['PPP'] = int(PPP[0].TotalW)
                                     if day_power_analisis['PPP'] > profile['extras']['power']['PPP_max']: 
                                         profile['extras']['power']['PPP_max'] = day_power_analisis['PPP']    
                                 
